@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Inmobiliaria Mendoza - Detalles de la Propiedad</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#D10023",
+              "background-light": "#FFFFFF",
+              "background-dark": "#111827",
+              "surface-light": "#F4F4F7",
+              "surface-dark": "#1F2937",
+              "text-primary-light": "#2D2D2D",
+              "text-primary-dark": "#F9FAFB",
+              "text-secondary-light": "#6B7280",
+              "text-secondary-dark": "#9CA3AF",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+            maxWidth: {
+              container: "1280px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark"
+  >
+    <div
+      class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <!-- Navbar -->
+        <nav
+          id="navbar"
+          class="fixed w-full top-0 z-50 transition-all duration-300"
+        >
+          <div class="max-w-container mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
+              <!-- <div class="flex justify-between items-center h-16"> -->
+              <!-- <div class="text-xl font-semibold text-gray-900">
+            <img src="./imagenes/logo.png" alt="Nazar Propiedades Logo" class="h-6 inline-block mr-2" />
+            Nazar Propiedades
+          </div> -->
+              <div class="text-xl font-semibold text-gray-900">
+                <img
+                  src="./imagenes/brand.png"
+                  alt="Nazar Propiedades Logo"
+                  class="h-14 inline-block mr-2"
+                />
+              </div>
+
+              <div class="hidden md:flex items-center space-x-8">
+                <!-- Dropdown Inicio -->
+                <div class="relative group">
+                  <button
+                    class="text-gray-900 font-medium flex items-center hover:text-gray-700 transition-colors"
+                  >
+                    Inicio
+                    <svg
+                      class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </button>
+                  <!-- Dropdown menu -->
+                  <div
+                    class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+                  >
+                    <div class="py-2">
+                      <a
+                        href="./index.html"
+                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >Inicio</a
+                      >
+                      <a
+                        href="./index2.html"
+                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >Inicio 2</a
+                      >
+                      <a
+                        href="./index3.html"
+                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >Inicio 3</a
+                      >
+                      <a
+                        href="./index4.html"
+                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >Inicio 4</a
+                      >
+                      <a
+                        href="./index5.html"
+                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >Inicio 5</a
+                      >
+                      <a
+                        href="./index6.html"
+                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >Inicio 6</a
+                      >
+                      <a
+                        href="./index7.html"
+                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >Inicio 7</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <a
+                  href="./propiedades.html"
+                  class="text-gray-600 hover:text-gray-900 transition-colors"
+                  >Propiedades</a
+                >
+                <a
+                  href="#servicios"
+                  class="text-gray-600 hover:text-gray-900 transition-colors"
+                  >Servicios</a
+                >
+                <a
+                  href="#contacto"
+                  class="text-gray-600 hover:text-gray-900 transition-colors"
+                  >Contacto</a
+                >
+              </div>
+
+              <button
+                class="hidden md:block bg-accent-red hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors"
+              >
+                Publicar mi propiedad
+              </button>
+
+              <!-- Mobile menu button -->
+              <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile menu -->
+          <div
+            id="mobile-menu"
+            class="md:hidden hidden bg-white border-t border-gray-border"
+          >
+            <div class="px-6 py-4 space-y-3">
+              <!-- Dropdown Inicio Mobile -->
+              <div>
+                <button
+                  id="mobile-inicio-btn"
+                  class="w-full text-left text-gray-900 font-medium flex items-center justify-between"
+                >
+                  Inicio
+                  <svg
+                    id="mobile-inicio-icon"
+                    class="w-4 h-4 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </button>
+                <div
+                  id="mobile-inicio-submenu"
+                  class="hidden pl-4 mt-2 space-y-2"
+                >
+                  <a href="./index.html" class="block text-gray-600 py-1"
+                    >Inicio</a
+                  >
+                  <a href="./index2.html" class="block text-gray-600 py-1"
+                    >Inicio 2</a
+                  >
+                  <a href="./index3.html" class="block text-gray-600 py-1"
+                    >Inicio 3</a
+                  >
+                </div>
+              </div>
+              <a href="./propiedades.html" class="block text-gray-600"
+                >Propiedades</a
+              >
+              <a href="#servicios" class="block text-gray-600">Servicios</a>
+              <a href="#contacto" class="block text-gray-600">Contacto</a>
+              <button
+                class="w-full bg-accent-red text-white px-4 py-2 text-sm font-medium rounded-lg mt-4"
+              >
+                Publicar mi propiedad
+              </button>
+            </div>
+          </div>
+        </nav>
+        <main class="flex flex-1 justify-center py-5 lg:py-10 mt-20">
+          <div
+            class="layout-content-container flex flex-col w-full max-w-7xl px-4 md:px-6"
+          >
+            <div
+              class="relative w-full h-[300px] md:h-[400px] lg:h-[550px] overflow-hidden rounded-xl bg-surface-light dark:bg-surface-dark group"
+            >
+              <div class="flex h-full w-full">
+                <div
+                  class="w-full h-full bg-center bg-no-repeat bg-cover"
+                  data-alt="Exterior view of a modern villa with a swimming pool at dusk (1/3)"
+                  style="
+                    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAdbXcRw4GA6HTalz0WfWiwUpxltGC0MrrWAOXSa6y536anAbTRxLgaga2dnuxyCsFWkvBMkSR23e-LW56s-kwwzz_LOSJ1VcA9xjq3y8zRQSU1q_hWcWaSb1DGH6RPery3trFJkkfgtfQmW--WnX01NyabAtnIDy4RDqgIntODYNS3DjJG09OeXdxhGLNVzkTroGyJ7ggtkZe0fCEYxsTVWQGqoZvWuR5Vhs87xLFs4ihYehiPkObF5S2vqCWmnv-r6j_cuZUMCJs');
+                  "
+                ></div>
+              </div>
+              <button
+                class="absolute top-1/2 left-4 -translate-y-1/2 size-10 rounded-full bg-background-light/70 dark:bg-background-dark/70 text-text-primary-light dark:text-text-primary-dark flex items-center justify-center shadow-md"
+              >
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+              </button>
+              <button
+                class="absolute top-1/2 right-4 -translate-y-1/2 size-10 rounded-full bg-background-light/70 dark:bg-background-dark/70 text-text-primary-light dark:text-text-primary-dark flex items-center justify-center shadow-md"
+              >
+                <span class="material-symbols-outlined">arrow_forward_ios</span>
+              </button>
+              <div
+                class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"
+              >
+                <div class="size-2 rounded-full bg-white opacity-100"></div>
+                <div class="size-2 rounded-full bg-white opacity-50"></div>
+                <div class="size-2 rounded-full bg-white opacity-50"></div>
+              </div>
+            </div>
+            <div class="mt-8 lg:mt-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
+              <div class="lg:col-span-2">
+                <div
+                  class="flex flex-wrap justify-between gap-4 items-start border-b border-surface-light dark:border-surface-dark/20 pb-6"
+                >
+                  <div class="flex flex-col gap-2">
+                    <h1 class="text-4xl font-black tracking-tighter">
+                      Villa Moderna en Chacras de Coria
+                    </h1>
+                  </div>
+                  <div class="flex flex-col gap-1 text-left lg:text-right">
+                    <p class="text-primary text-3xl font-bold">$450,000</p>
+                    <p
+                      class="text-text-secondary-light dark:text-text-secondary-dark text-base font-normal"
+                    >
+                      En Venta
+                    </p>
+                  </div>
+                </div>
+                <div class="py-6 space-y-4">
+                  <div
+                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
+                  >
+                    <div
+                      class="flex items-center justify-between p-3 text-lg font-bold"
+                    >
+                      <div class="flex items-center gap-2">
+                        <span
+                          class="material-symbols-outlined text-primary text-xl"
+                          >location_on</span
+                        >
+                        <span>Ubicación</span>
+                      </div>
+                    </div>
+                    <div
+                      class="p-3 border-t border-surface-light dark:border-surface-dark/20 text-text-secondary-light dark:text-text-secondary-dark space-y-2"
+                    >
+                      <p
+                        class="text-base font-normal text-text-primary-light dark:text-text-primary-dark"
+                      >
+                        Viamonte 5678, Chacras de Coria, Mendoza
+                      </p>
+                      <p class="text-sm">
+                        Esta propiedad está situada en el exclusivo barrio de
+                        Chacras de Coria, conocido por sus calles tranquilas,
+                        paisajes exuberantes y proximidad a las mejores bodegas
+                        y restaurantes gourmet de Mendoza. Disfrute de fácil
+                        acceso a rutas principales y un ambiente comunitario
+                        vibrante.
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
+                  >
+                    <div
+                      class="flex items-center justify-between p-3 text-lg font-bold"
+                    >
+                      <div class="flex items-center gap-2">
+                        <span
+                          class="material-symbols-outlined text-primary text-xl"
+                          >home</span
+                        >
+                        <span>Características</span>
+                      </div>
+                    </div>
+                    <div
+                      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-3 gap-x-4 py-3 px-3 border-t border-surface-light dark:border-surface-dark/20"
+                    >
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >bed</span
+                        >
+                        <h2 class="text-xs font-bold text-center">
+                          3 Dormitorios
+                        </h2>
+                      </div>
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >shower</span
+                        >
+                        <h2 class="text-xs font-bold text-center">2 Baños</h2>
+                      </div>
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >aspect_ratio</span
+                        >
+                        <h2 class="text-xs font-bold text-center">
+                          250 m² Construidos
+                        </h2>
+                      </div>
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >landscape</span
+                        >
+                        <h2 class="text-xs font-bold text-center">
+                          500 m² Terreno
+                        </h2>
+                      </div>
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >garage</span
+                        >
+                        <h2 class="text-xs font-bold text-center">
+                          2 Cocheras
+                        </h2>
+                      </div>
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >balcony</span
+                        >
+                        <h2 class="text-xs font-bold text-center">
+                          Balcón Privado
+                        </h2>
+                      </div>
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >pool</span
+                        >
+                        <h2 class="text-xs font-bold text-center">
+                          Piscina Privada
+                        </h2>
+                      </div>
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >grass</span
+                        >
+                        <h2 class="text-xs font-bold text-center">
+                          Jardín Paisajista
+                        </h2>
+                      </div>
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >construction</span
+                        >
+                        <h2 class="text-xs font-bold text-center">Año 2021</h2>
+                      </div>
+                      <div
+                        class="flex flex-col gap-0.5 items-center justify-center"
+                      >
+                        <span
+                          class="material-symbols-outlined text-primary text-lg"
+                          >thermostat</span
+                        >
+                        <h2 class="text-xs font-bold text-center">
+                          Clima Central
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
+                  >
+                    <div
+                      class="flex items-center justify-between p-3 text-lg font-bold"
+                    >
+                      <div class="flex items-center gap-2">
+                        <span
+                          class="material-symbols-outlined text-primary text-xl"
+                          >map</span
+                        >
+                        <span>Zonas Cercanas</span>
+                      </div>
+                    </div>
+                    <div
+                      class="p-3 border-t border-surface-light dark:border-surface-dark/20 text-text-secondary-light dark:text-text-secondary-dark space-y-2 text-sm"
+                    >
+                      <p>
+                        <strong
+                          class="text-text-primary-light dark:text-text-primary-dark"
+                          >Colegios:</strong
+                        >
+                        Colegio San Jorge (2km), Liceo Agrícola (3km)
+                      </p>
+                      <p>
+                        <strong
+                          class="text-text-primary-light dark:text-text-primary-dark"
+                          >Hospitales:</strong
+                        >
+                        Hospital Español (5km), Clínica de Cuyo (6km)
+                      </p>
+                      <p>
+                        <strong
+                          class="text-text-primary-light dark:text-text-primary-dark"
+                          >Compras:</strong
+                        >
+                        Palmares Open Mall (3km), Jumbo (4km)
+                      </p>
+                      <p>
+                        <strong
+                          class="text-text-primary-light dark:text-text-primary-dark"
+                          >Parques:</strong
+                        >
+                        Parque General San Martín (8km), Parque Luján (2km)
+                      </p>
+                      <p>
+                        <strong
+                          class="text-text-primary-light dark:text-text-primary-dark"
+                          >Transporte Público:</strong
+                        >
+                        Parada de autobús a 2 cuadras
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
+                  >
+                    <div
+                      class="flex items-center justify-between p-3 text-lg font-bold"
+                    >
+                      <div class="flex items-center gap-2">
+                        <span
+                          class="material-symbols-outlined text-primary text-xl"
+                          >info</span
+                        >
+                        <span>Especificaciones Detalladas y Finanzas</span>
+                      </div>
+                    </div>
+                    <div
+                      class="p-3 border-t border-surface-light dark:border-surface-dark/20"
+                    >
+                      <div
+                        class="grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-text-secondary-light dark:text-text-secondary-dark"
+                      >
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Precio/m²
+                          </p>
+                          <p>$1,800</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Impuesto Inmobiliario (Anual)
+                          </p>
+                          <p>$1,500</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Tamaño del Terreno
+                          </p>
+                          <p>500 m²</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Sistema de Calefacción
+                          </p>
+                          <p>Clima Central</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Sistema de Refrigeración
+                          </p>
+                          <p>Aire Acondicionado Central</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Techo
+                          </p>
+                          <p>Hormigón Plano</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Pisos
+                          </p>
+                          <p>Porcelanato</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Ventanas
+                          </p>
+                          <p>Doble Vidriado</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Servicios
+                          </p>
+                          <p>Agua, Electricidad, Gas</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Expensas (Mensuales)
+                          </p>
+                          <p>$100</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Última Renovación
+                          </p>
+                          <p>N/A</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Eficiencia Energética
+                          </p>
+                          <p>B</p>
+                        </div>
+                        <div class="flex flex-col">
+                          <p
+                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
+                          >
+                            Orientación
+                          </p>
+                          <p>Noreste</p>
+                        </div>
+                      </div>
+                      <h4
+                        class="text-base font-bold mt-4 mb-2 text-text-primary-light dark:text-text-primary-dark"
+                      >
+                        Comodidades
+                      </h4>
+                      <ul
+                        class="list-disc list-inside text-sm text-text-secondary-light dark:text-text-secondary-dark space-y-1"
+                      >
+                        <li>Piscina</li>
+                        <li>Jardín Privado</li>
+                        <li>Sistema de Seguridad</li>
+                        <li>Casa Inteligente Integrada</li>
+                        <li>Área de Parrilla al Aire Libre</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="py-6 space-y-4 leading-relaxed rounded-xl border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark p-6 mt-6"
+                >
+                  <h3 class="text-2xl font-bold mb-3">Descripción</h3>
+                  <p
+                    class="text-text-secondary-light dark:text-text-secondary-dark"
+                  >
+                    Descubra el lujo sin igual en esta impresionante villa
+                    moderna ubicada en el corazón de Chacras de Coria. Esta
+                    residencia ofrece una combinación perfecta de comodidad,
+                    estilo y sofisticación. El área de estar de planta abierta
+                    está bañada en luz natural, creando una atmósfera acogedora
+                    tanto para relajarse como para entretener. La propiedad
+                    cuenta con una cocina gourmet, amplios dormitorios
+                    incluyendo una suite principal con balcón privado, y un
+                    hermoso jardín paisajista con una piscina privada.
+                  </p>
+                  <details
+                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-4 cursor-pointer text-lg font-bold"
+                    >
+                      <span>Descripción Detallada</span>
+                      <span class="material-symbols-outlined">expand_more</span>
+                    </summary>
+                    <div
+                      class="p-4 border-t border-surface-light dark:border-surface-dark/20 text-text-secondary-light dark:text-text-secondary-dark space-y-3"
+                    >
+                      <p>
+                        Esta exquisita villa moderna, situada en el prestigioso
+                        Chacras de Coria, representa la cúspide del lujo
+                        habitacional. Cada detalle ha sido meticulosamente
+                        elaborado para brindar una experiencia de comodidad,
+                        elegancia y diseño moderno. Las amplias áreas de estar y
+                        comedor de planta abierta están diseñadas para maximizar
+                        la luz natural y ofrecer una transición fluida entre
+                        espacios, ideal tanto para grandes entretenimientos como
+                        para reuniones familiares íntimas.
+                      </p>
+                      <p>
+                        La cocina gourmet de última generación es el sueño de
+                        cualquier entusiasta culinario, con electrodomésticos de
+                        alta gama, gabinetes personalizados y una gran isla
+                        perfecta para la preparación de comidas y cenas
+                        informales. Los tres dormitorios de generosas
+                        dimensiones sirven como serenos retiros privados. La
+                        suite principal es particularmente notable, ofreciendo
+                        un balcón privado con vistas impresionantes y un baño
+                        privado inspirado en spa equipado con accesorios y
+                        acabados premium.
+                      </p>
+                      <p>
+                        El exterior es igualmente impresionante, con un jardín
+                        cuidadosamente diseñado que proporciona un oasis
+                        tranquilo. Una piscina privada ofrece un escape
+                        refrescante durante el clima cálido de Mendoza, mientras
+                        que varias áreas de estar al aire libre proporcionan
+                        amplio espacio para cenas al aire libre y relajación.
+                        Esta propiedad no es solo un hogar; es una declaración
+                        de estilo de vida, ofreciendo una experiencia de vida
+                        incomparable en una de las ubicaciones más codiciadas de
+                        Mendoza.
+                      </p>
+                    </div>
+                  </details>
+                  <details
+                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-4 cursor-pointer text-lg font-bold"
+                    >
+                      <span>Información Legal</span>
+                      <span class="material-symbols-outlined">expand_more</span>
+                    </summary>
+                    <div
+                      class="p-4 border-t border-surface-light dark:border-surface-dark/20 text-text-secondary-light dark:text-text-secondary-dark space-y-3"
+                    >
+                      <p>
+                        <strong>Título de Propiedad:</strong> Libre y sin
+                        gravámenes.
+                      </p>
+                      <p>
+                        <strong>Zonificación:</strong> Residencial, vivienda
+                        unifamiliar. Los usos permitidos incluyen residencial,
+                        con posibilidad de oficina en casa (sujeto a
+                        regulaciones locales).
+                      </p>
+                      <p>
+                        <strong>Información Catastral:</strong> Disponible bajo
+                        solicitud. Incluye número de parcela, área del terreno y
+                        área construida. Todos los documentos están actualizados
+                        y registrados en la Dirección Provincial de Catastro.
+                      </p>
+                      <p>
+                        <strong>Impuestos y Tasas:</strong> Impuestos
+                        inmobiliarios (ARBA), tasas municipales, y cuotas de
+                        consorcio (si corresponde) están al día. Desglose
+                        detallado disponible en el resumen financiero en la
+                        barra lateral.
+                      </p>
+                      <p>
+                        <strong>Permisos de Construcción:</strong> Toda la
+                        construcción se ha llevado a cabo con permisos válidos e
+                        inspecciones por las autoridades pertinentes. Los
+                        certificados de habilitación están disponibles.
+                      </p>
+                      <p>
+                        <strong>Gravámenes e Hipotecas:</strong> No hay
+                        hipotecas registradas, gravámenes u otros impedimentos
+                        que afecten a la propiedad al momento de la publicación.
+                        Un informe completo de búsqueda de título puede
+                        proporcionarse a compradores serios.
+                      </p>
+                      <p>
+                        <strong>Servidumbres:</strong> No hay servidumbres
+                        conocidas que impacten en el uso o disfrute de la
+                        propiedad.
+                      </p>
+                      <p>
+                        Para una revisión legal completa, se recomienda
+                        consultar con un profesional legal.
+                      </p>
+                    </div>
+                  </details>
+                </div>
+                <div
+                  class="mt-8 rounded-xl border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark p-6"
+                >
+                  <h3 class="text-2xl font-bold mb-4">Mapa de Ubicación</h3>
+                  <div
+                    class="aspect-video w-full rounded-xl bg-surface-light dark:bg-surface-dark overflow-hidden border border-surface-light dark:border-surface-dark/20"
+                  >
+                    <div
+                      class="w-full h-full bg-cover bg-center"
+                      data-alt="Map showing the location of the property in Mendoza"
+                      data-location="Mendoza"
+                      style="
+                        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGEbaRk3YX7HcToYKc_gxTH7gAK0kq085jUdShQK0YBHNf9s6hVYcSSqnNnexbAsaiRoqcmbcoX0qWGoLB96JHvKGw_tJY6i27hmWxdyBA-3JAGLBbHGlwqxIxitrz0LLOgO4TROISlmD5Lekpg1K6Ri1qZLnJkILPtobJpb023PFcVjMPrF6uWHYKJJ0afOI1LDlTEGJ2nfSY9sN6-zDz7TYM6k6FrflHkz1aCYRw0AjQv7iwNqUkf5JpMeX1D0P8htfpzMRgb6s');
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div
+                  class="mt-8 rounded-xl border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark p-6"
+                >
+                  <h3 class="text-2xl font-bold mb-4">Video Tour</h3>
+                  <div
+                    class="aspect-video w-full rounded-xl bg-surface-light dark:bg-surface-dark overflow-hidden border border-surface-light dark:border-surface-dark/20"
+                  >
+                    <div
+                      class="w-full h-full bg-cover bg-center"
+                      data-alt="Video player placeholder for the property tour"
+                      style="
+                        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBz2vQd5IXs8l6y4l-mEbdgfKLO9Ne9JLbgYGMf72FnLGv6imubH_masIWbyrSGjNpQa7vJApTfjySmHeg08dudXGttOLelQ5zV2Sw8vfqQ5oS5mGyFLA0wEHlOFbb8Sv1JvL5xF4ezny4PNjQrI7480n4Z7aIOD7hFeOG8-UN1rdXalqItJCD_7C4Q6sCmYYnhYSmGJ37vqlhdO1P0Ve7mI0Pi_WK8NNV5QCX8O68bP4xBkWbDNeQJe7KONTT2mtrlRq-P7wOno8E');
+                      "
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <aside class="lg:col-span-1">
+                <div
+                  class="sticky top-28 space-y-6 max-h-[calc(100vh-theme(space.28)*2)] overflow-y-auto pr-2 -mr-2"
+                >
+                  <div
+                    class="p-6 rounded-xl border border-surface-light dark:border-surface-dark/20 bg-surface-light dark:bg-surface-dark"
+                  >
+                    <h3 class="text-xl font-bold mb-4">Contactar Agente</h3>
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="size-16 rounded-full bg-cover bg-center"
+                        data-alt="Foto del agente inmobiliario, Maria Gomez"
+                        style="
+                          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCuul1rQCtg5_ROilc6Gdd9KF8HbsSFfvJNkqRPq56CjtYhv6edg2kKTOlWtIqxsy7zljMWklm4B-QimIplrMJtWSARd0oY0zTgnfh3phF2w8XkDPhjmG6yT-NWFbMu-HCTwzqu2a9Gf4YQ4agXohEF9fvrtjwEqVYZSf2Nmslw5u8H60zQcHfZ8XW4DA8aQ9fgWy1TeZiJZnjkH6SmtFYJZJzX6serqzw5wVXR05L-fHEQGv0Tnflp4D3q7Dqy_wb8iF7Ai2fGhy0');
+                        "
+                      ></div>
+                      <div>
+                        <p class="font-bold">María Gómez</p>
+                        <p
+                          class="text-sm text-text-secondary-light dark:text-text-secondary-dark"
+                        >
+                          Agente Inmobiliario
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-6 space-y-4">
+                      <button
+                        class="w-full flex items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold tracking-wide"
+                      >
+                        Contactar Agente
+                      </button>
+                      <div class="flex gap-4">
+                        <button
+                          class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-4 bg-background-light dark:bg-background-dark text-sm font-bold border border-surface-light dark:border-surface-dark/20"
+                        >
+                          <span class="material-symbols-outlined text-lg"
+                            >favorite_border</span
+                          >
+                          Guardar
+                        </button>
+                        <button
+                          class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-4 bg-background-light dark:bg-background-dark text-sm font-bold border border-surface-light dark:border-surface-dark/20"
+                        >
+                          <span class="material-symbols-outlined text-lg"
+                            >share</span
+                          >
+                          Compartir
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+            <div class="mt-16 lg:mt-24">
+              <h3 class="text-3xl font-bold mb-6">Propiedades Relacionadas</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div
+                  class="flex flex-col rounded-xl overflow-hidden border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark"
+                >
+                  <div
+                    class="h-56 w-full bg-cover bg-center"
+                    data-alt="Casa moderna con jardín"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD5u1iGfjEWVUd7nkWcKIxAbpCva5hmtOTaNakTtoGu-OLxFHWa_lMcqAJy6VjImZ6Geoxy0WbDfz61J0EspDualaINAV4Yh7M9Hv2fdFE4249ZISER6li7uZMjhsoCnBfG1lumvBJ3apMCHEFv7eGzCPpVu7YFVNcA5goJDh6rjAKzoZcVlndDYDwsWlRsuzYQdasMdxrUJXjWAL_RYcGPc7vxSwQmdyrHGeTkq1sKZR2mF3MuAyGbaLRy0BMzFEY_SjSiCxcWN8c');
+                    "
+                  ></div>
+                  <div class="p-4 flex flex-col gap-2 flex-grow">
+                    <h4 class="font-bold text-lg">Villa en Godoy Cruz</h4>
+                    <p
+                      class="text-text-secondary-light dark:text-text-secondary-dark text-sm"
+                    >
+                      Godoy Cruz, Mendoza
+                    </p>
+                    <p class="text-primary font-bold text-lg mt-auto">
+                      $380,000
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col rounded-xl overflow-hidden border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark"
+                >
+                  <div
+                    class="h-56 w-full bg-cover bg-center"
+                    data-alt="Exterior de edificio de apartamentos"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdXww-9sebWTtpRKm6r5eQ7AscGw2vIAre1npWWo7GnW58ryI5fdXFRFPCLrIbh-XA7vEEy1DGxSfyysoUg6EmWSzRk4ellkU8UfaCDJb1jELRskAFvLmwCnfxOKUz2ZOltiH0VIM0o_uNJWhDCd-dUbm3VvsDZK-FWka2krMELiq5tdKsUGRBMbQjqrH4XE605_mvRrlEIF17ls0DNh7lsvxRyz8qH1DgCZFz_nW1sbc8YI7QSJkxHB9wj_kliiFYIybBTMIeo6Q');
+                    "
+                  ></div>
+                  <div class="p-4 flex flex-col gap-2 flex-grow">
+                    <h4 class="font-bold text-lg">Apartamento en el Centro</h4>
+                    <p
+                      class="text-text-secondary-light dark:text-text-secondary-dark text-sm"
+                    >
+                      Ciudad de Mendoza
+                    </p>
+                    <p class="text-primary font-bold text-lg mt-auto">
+                      $210,000
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col rounded-xl overflow-hidden border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark"
+                >
+                  <div
+                    class="h-56 w-full bg-cover bg-center"
+                    data-alt="Casa de campo con vistas a viñedos"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA5IHGC2wl_eeAUgsf1qD8eaDaIl0UxpRiogxekHJ9oamQzFL_QQ6Cr9ld4YlG1o8DMizRYCAHx3AmLcgHy_3omyW789hZzxpxH6CKHc714xCFHRBvW4M9BxJ5fWBmAr0YZd0G9E3cOfP_yA3xaXeiY2Tv0ttmmhdr4yy19Vpe51uSNesRKMduy8VJUcM0JrkDx6Tr10ypuAcitvtRXhRStI2A4E1D-b7ZMV5pGsdwYlScAxjpt3HgPgBmXHFiOH7myTCG2zlCZK8g');
+                    "
+                  ></div>
+                  <div class="p-4 flex flex-col gap-2 flex-grow">
+                    <h4 class="font-bold text-lg">Casa de Campo en Luján</h4>
+                    <p
+                      class="text-text-secondary-light dark:text-text-secondary-dark text-sm"
+                    >
+                      Luján de Cuyo, Mendoza
+                    </p>
+                    <p class="text-primary font-bold text-lg mt-auto">
+                      $520,000
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener("scroll", function () {
+      const navbar = document.getElementById("navbar");
+      if (window.scrollY > 50) {
+        navbar.classList.add("navbar-scroll", "bg-white", "shadow-lg");
+      } else {
+        navbar.classList.remove("navbar-scroll", "bg-white", "shadow-lg");
+      }
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    mobileMenuBtn.addEventListener("click", function () {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+          // Close mobile menu if open
+          mobileMenu.classList.add("hidden");
+        }
+      });
+    });
+
+    // Form submission
+    document.querySelector("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("¡Gracias por tu mensaje! Te responderemos a la brevedad.");
+      this.reset();
+    });
+
+    // WhatsApp button functionality
+    document
+      .querySelector("button:has(svg)")
+      .addEventListener("click", function () {
+        if (this.textContent.includes("WhatsApp")) {
+          window.open(
+            "https://wa.me/5492611234567?text=Hola, me interesa obtener más información sobre sus propiedades.",
+            "_blank"
+          );
+        }
+      });
+
+    // Property buttons functionality
+    document.querySelectorAll("button").forEach((button) => {
+      if (button.textContent.includes("Ver propiedad")) {
+        button.addEventListener("click", function () {
+          alert("Redirigiendo a la página de la propiedad...");
+        });
+      }
+    });
+
+    // CTA buttons functionality
+    document.querySelectorAll("button").forEach((button) => {
+      if (button.textContent.includes("Ver propiedades")) {
+        button.addEventListener("click", function () {
+          alert("Redirigiendo a la página de propiedades...");
+        });
+      }
+      if (button.textContent.includes("Tasación gratuita")) {
+        button.addEventListener("click", function () {
+          alert("Redirigiendo al formulario de tasación...");
+        });
+      }
+      if (button.textContent.includes("Publicar mi propiedad")) {
+        button.addEventListener("click", function () {
+          alert("Redirigiendo al formulario de publicación...");
+        });
+      }
+    });
+  </script>
+  <script>
+    (function () {
+      function c() {
+        var b = a.contentDocument || a.contentWindow.document;
+        if (b) {
+          var d = b.createElement("script");
+          d.innerHTML =
+            "window.__CF$cv$params={r:'9814c99476fba77a',t:'MTc1ODIzOTg2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+          b.getElementsByTagName("head")[0].appendChild(d);
+        }
+      }
+      if (document.body) {
+        var a = document.createElement("iframe");
+        a.height = 1;
+        a.width = 1;
+        a.style.position = "absolute";
+        a.style.top = 0;
+        a.style.left = 0;
+        a.style.border = "none";
+        a.style.visibility = "hidden";
+        document.body.appendChild(a);
+        if ("loading" !== document.readyState) c();
+        else if (window.addEventListener)
+          document.addEventListener("DOMContentLoaded", c);
+        else {
+          var e = document.onreadystatechange || function () {};
+          document.onreadystatechange = function (b) {
+            e(b);
+            "loading" !== document.readyState &&
+              ((document.onreadystatechange = e), c());
+          };
+        }
+      }
+    })();
+  </script>
+  <script>
+    // Base de datos extendida de propiedades
+    const allProperties = [
+      {
+        id: 1,
+        title: "Casa Moderna Chapinero",
+        location: "chapinero",
+        locationName: "Chapinero, Bogotá",
+        fullAddress: "Calle 85 #15-23, Chapinero, Bogotá",
+        price: 450000000,
+        priceText: "$450.000.000",
+        condition: "venta",
+        type: "casa",
+        bedrooms: 3,
+        bathrooms: 2,
+        area: 120,
+        parking: 2,
+        stratum: 5,
+        age: "recent",
+        status: "excellent",
+        features: ["balcony", "garden", "security"],
+        description:
+          "Hermosa casa moderna ubicada en el corazón de Chapinero, una de las zonas más exclusivas y valorizada de Bogotá.",
+        featured: true,
+        dateAdded: new Date("2024-01-15"),
+      },
+      {
+        id: 2,
+        title: "Apartamento Zona Rosa",
+        location: "zona-rosa",
+        locationName: "Zona Rosa, Bogotá",
+        fullAddress: "Carrera 13 #85-32, Zona Rosa, Bogotá",
+        price: 320000000,
+        priceText: "$320.000.000",
+        condition: "venta",
+        type: "apartamento",
+        bedrooms: 2,
+        bathrooms: 2,
+        area: 85,
+        parking: 1,
+        stratum: 5,
+        age: "new",
+        status: "excellent",
+        features: ["balcony", "elevator", "security"],
+        description:
+          "Moderno apartamento en la exclusiva Zona Rosa, con acabados de lujo y una ubicación privilegiada.",
+        featured: false,
+        dateAdded: new Date("2024-01-20"),
+      },
+      {
+        id: 3,
+        title: "Casa Familiar Cedritos",
+        location: "cedritos",
+        locationName: "Cedritos, Bogotá",
+        fullAddress: "Calle 147 #9-15, Cedritos, Bogotá",
+        price: 580000000,
+        priceText: "$580.000.000",
+        condition: "venta",
+        type: "casa",
+        bedrooms: 4,
+        bathrooms: 3,
+        area: 180,
+        parking: 2,
+        stratum: 4,
+        age: "good",
+        status: "good",
+        features: ["garden", "security", "pool"],
+        description:
+          "Amplia casa familiar en Cedritos, ideal para familias grandes.",
+        featured: false,
+        dateAdded: new Date("2024-01-10"),
+      },
+      {
+        id: 4,
+        title: "Apartamento La Candelaria",
+        location: "la-candelaria",
+        locationName: "La Candelaria, Bogotá",
+        fullAddress: "Carrera 4 #12-65, La Candelaria, Bogotá",
+        price: 280000000,
+        priceText: "$280.000.000",
+        condition: "venta",
+        type: "apartamento",
+        bedrooms: 2,
+        bathrooms: 1,
+        area: 65,
+        parking: 0,
+        stratum: 3,
+        age: "older",
+        status: "remodel",
+        features: [],
+        description:
+          "Acogedor apartamento en el histórico barrio de La Candelaria.",
+        featured: false,
+        dateAdded: new Date("2024-01-05"),
+      },
+      {
+        id: 5,
+        title: "Penthouse Rosales",
+        location: "rosales",
+        locationName: "Rosales, Bogotá",
+        fullAddress: "Carrera 7 #70-45, Rosales, Bogotá",
+        price: 850000000,
+        priceText: "$850.000.000",
+        condition: "venta",
+        type: "penthouse",
+        bedrooms: 3,
+        bathrooms: 3,
+        area: 200,
+        parking: 2,
+        stratum: 6,
+        age: "new",
+        status: "excellent",
+        features: ["balcony", "elevator", "security", "gym"],
+        description:
+          "Exclusivo penthouse en Rosales con vista panorámica de la ciudad.",
+        featured: true,
+        dateAdded: new Date("2024-01-25"),
+      },
+      {
+        id: 6,
+        title: "Casa Campestre Chía",
+        location: "chia",
+        locationName: "Chía, Cundinamarca",
+        fullAddress: "Vereda Fagua, Chía, Cundinamarca",
+        price: 680000000,
+        priceText: "$680.000.000",
+        condition: "venta",
+        type: "casa",
+        bedrooms: 4,
+        bathrooms: 4,
+        area: 250,
+        parking: 3,
+        stratum: 5,
+        age: "recent",
+        status: "excellent",
+        features: ["garden", "pool", "security"],
+        description: "Hermosa casa campestre en Chía, perfecta para descansar.",
+        featured: false,
+        dateAdded: new Date("2024-01-18"),
+      },
+      {
+        id: 7,
+        title: "Apartamento Alquiler Chapinero",
+        location: "chapinero",
+        locationName: "Chapinero, Bogotá",
+        fullAddress: "Calle 63 #11-25, Chapinero, Bogotá",
+        price: 2500000,
+        priceText: "$2.500.000/mes",
+        condition: "alquiler",
+        type: "apartamento",
+        bedrooms: 1,
+        bathrooms: 1,
+        area: 45,
+        parking: 0,
+        stratum: 4,
+        age: "recent",
+        status: "excellent",
+        features: ["furnished", "elevator"],
+        description: "Moderno apartamento amoblado en alquiler en Chapinero.",
+        featured: false,
+        dateAdded: new Date("2024-01-22"),
+      },
+      {
+        id: 8,
+        title: "Casa Alquiler Zona Rosa",
+        location: "zona-rosa",
+        locationName: "Zona Rosa, Bogotá",
+        fullAddress: "Calle 82 #12-34, Zona Rosa, Bogotá",
+        price: 4200000,
+        priceText: "$4.200.000/mes",
+        condition: "alquiler",
+        type: "casa",
+        bedrooms: 3,
+        bathrooms: 2,
+        area: 110,
+        parking: 1,
+        stratum: 5,
+        age: "good",
+        status: "good",
+        features: ["garden", "security", "petFriendly"],
+        description: "Casa en alquiler en Zona Rosa, acepta mascotas.",
+        featured: false,
+        dateAdded: new Date("2024-01-12"),
+      },
+      {
+        id: 9,
+        title: "Local Comercial Centro",
+        location: "la-candelaria",
+        locationName: "Centro, Bogotá",
+        fullAddress: "Carrera 7 #14-23, Centro, Bogotá",
+        price: 180000000,
+        priceText: "$180.000.000",
+        condition: "venta",
+        type: "local",
+        bedrooms: 0,
+        bathrooms: 1,
+        area: 80,
+        parking: 0,
+        stratum: 3,
+        age: "older",
+        status: "good",
+        features: ["security"],
+        description: "Local comercial en el centro histórico de Bogotá.",
+        featured: false,
+        dateAdded: new Date("2024-01-08"),
+      },
+      {
+        id: 10,
+        title: "Terreno Chía",
+        location: "chia",
+        locationName: "Chía, Cundinamarca",
+        fullAddress: "Vereda Bojacá, Chía, Cundinamarca",
+        price: 350000000,
+        priceText: "$350.000.000",
+        condition: "venta",
+        type: "terreno",
+        bedrooms: 0,
+        bathrooms: 0,
+        area: 500,
+        parking: 0,
+        stratum: 4,
+        age: "new",
+        status: "new",
+        features: [],
+        description: "Terreno plano ideal para construcción en Chía.",
+        featured: false,
+        dateAdded: new Date("2024-01-30"),
+      },
+      {
+        id: 11,
+        title: "Apartamento Cedritos",
+        location: "cedritos",
+        locationName: "Cedritos, Bogotá",
+        fullAddress: "Calle 140 #15-67, Cedritos, Bogotá",
+        price: 380000000,
+        priceText: "$380.000.000",
+        condition: "venta",
+        type: "apartamento",
+        bedrooms: 3,
+        bathrooms: 2,
+        area: 95,
+        parking: 1,
+        stratum: 4,
+        age: "recent",
+        status: "excellent",
+        features: ["balcony", "elevator", "gym"],
+        description: "Apartamento moderno en Cedritos con excelentes acabados.",
+        featured: false,
+        dateAdded: new Date("2024-01-14"),
+      },
+      {
+        id: 12,
+        title: "Casa Rosales Premium",
+        location: "rosales",
+        locationName: "Rosales, Bogotá",
+        fullAddress: "Carrera 5 #72-18, Rosales, Bogotá",
+        price: 1200000000,
+        priceText: "$1.200.000.000",
+        condition: "venta",
+        type: "casa",
+        bedrooms: 5,
+        bathrooms: 4,
+        area: 300,
+        parking: 3,
+        stratum: 6,
+        age: "new",
+        status: "excellent",
+        features: ["garden", "pool", "security", "gym", "elevator"],
+        description: "Casa de lujo en Rosales con todas las comodidades.",
+        featured: true,
+        dateAdded: new Date("2024-02-01"),
+      },
+    ];
+
+    // Datos de las propiedades para compatibilidad
+    const properties = {
+      1: {
+        title: "Casa Moderna Chapinero",
+        location: "Calle 85 #15-23, Chapinero, Bogotá",
+        price: "$450.000.000",
+        bedrooms: "3",
+        bathrooms: "2",
+        area: "120",
+        parking: "2",
+        description:
+          "Hermosa casa moderna ubicada en el corazón de Chapinero, una de las zonas más exclusivas y valorizada de Bogotá. Esta propiedad combina elegancia contemporánea con funcionalidad, perfecta para familias que buscan comodidad y estilo.",
+      },
+      2: {
+        title: "Apartamento Zona Rosa",
+        location: "Carrera 13 #85-32, Zona Rosa, Bogotá",
+        price: "$320.000.000",
+        bedrooms: "2",
+        bathrooms: "2",
+        area: "85",
+        parking: "1",
+        description:
+          "Moderno apartamento en la exclusiva Zona Rosa, con acabados de lujo y una ubicación privilegiada. Perfecto para profesionales jóvenes o parejas que buscan vivir en el centro de la vida nocturna y gastronómica de Bogotá.",
+      },
+      3: {
+        title: "Casa Familiar Cedritos",
+        location: "Calle 147 #9-15, Cedritos, Bogotá",
+        price: "$580.000.000",
+        bedrooms: "4",
+        bathrooms: "3",
+        area: "180",
+        parking: "2",
+        description:
+          "Amplia casa familiar en Cedritos, ideal para familias grandes. Cuenta con jardín privado, múltiples espacios sociales y excelente ubicación cerca de colegios y centros comerciales.",
+      },
+      4: {
+        title: "Apartamento La Candelaria",
+        location: "Carrera 4 #12-65, La Candelaria, Bogotá",
+        price: "$280.000.000",
+        bedrooms: "2",
+        bathrooms: "1",
+        area: "65",
+        parking: "0",
+        description:
+          "Acogedor apartamento en el histórico barrio de La Candelaria. Perfecto para quienes buscan vivir en el centro histórico de Bogotá, rodeado de cultura, arte y tradición.",
+      },
+    };
+
+    // Función para contactar por WhatsApp
+    function contactWhatsApp() {
+      const message = encodeURIComponent(
+        "Hola, estoy interesado en los servicios de Nazar Propiedades. ¿Podrían ayudarme?"
+      );
+      window.open(`https://wa.me/573001234567?text=${message}`, "_blank");
+    }
+
+    // Función para llamar
+    function callPhone() {
+      window.open("tel:+5712345678", "_self");
+    }
+
+    // Función para buscar propiedades
+    function searchProperties() {
+      alert(
+        "Funcionalidad de búsqueda - En una implementación real, esto procesaría los filtros y mostraría los resultados."
+      );
+    }
+
+    // Función para ver todas las propiedades
+    function viewAllProperties() {
+      alert(
+        "Funcionalidad de catálogo completo - En una implementación real, esto llevaría a la página de búsqueda avanzada."
+      );
+    }
+
+    // Función para ver propiedad individual
+    function viewProperty(id) {
+      // Buscar propiedad en la base de datos extendida
+      const property = allProperties.find((p) => p.id === id);
+
+      if (property) {
+        // Actualizar información de la propiedad
+        document.getElementById("propertyTitle").textContent = property.title;
+        document.getElementById("propertyLocation").textContent =
+          property.fullAddress;
+        document.getElementById("propertyPrice").textContent =
+          property.priceText;
+        document.getElementById("propertyBedrooms").textContent =
+          property.bedrooms;
+        document.getElementById("propertyBathrooms").textContent =
+          property.bathrooms;
+        document.getElementById("propertyArea").textContent = property.area;
+        document.getElementById("propertyParking").textContent =
+          property.parking;
+        document.getElementById(
+          "propertyDescription"
+        ).innerHTML = `<p>${property.description}</p>`;
+
+        // Ocultar otras páginas y mostrar detalle
+        document.getElementById("mainPage").classList.add("hidden");
+        document.getElementById("propertiesPage").classList.add("hidden");
+        document
+          .getElementById("propertyDetailPage")
+          .classList.remove("hidden");
+
+        // Scroll al inicio
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // Variables para la página de propiedades
+    let currentPage = 1;
+    let propertiesPerPage = 9;
+    let filteredProperties = [...allProperties];
+
+    // Función para mostrar la página de propiedades
+    function showPropertiesPage(condition = "") {
+      // Ocultar otras páginas
+      document.getElementById("mainPage").classList.add("hidden");
+      document.getElementById("propertyDetailPage").classList.add("hidden");
+
+      // Mostrar página de propiedades
+      document.getElementById("propertiesPage").classList.remove("hidden");
+
+      // Aplicar filtro de condición si se especifica
+      if (condition) {
+        document.getElementById("conditionFilter").value = condition;
+      }
+
+      // Cargar propiedades
+      applyFilters();
+      window.scrollTo(0, 0);
+    }
+
+    // Función para volver a la página principal
+    function goBackToMain() {
+      document.getElementById("propertyDetailPage").classList.add("hidden");
+      document.getElementById("propertiesPage").classList.add("hidden");
+      document.getElementById("mainPage").classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
+
+    // Función para mostrar/ocultar filtros avanzados
+    function toggleAdvancedFilters() {
+      const advancedFilters = document.getElementById("advancedFilters");
+      advancedFilters.classList.toggle("hidden");
+    }
+
+    // Función para aplicar filtros
+    function applyFilters() {
+      const filters = {
+        location: document.getElementById("locationFilter").value.toLowerCase(),
+        condition: document.getElementById("conditionFilter").value,
+        type: document.getElementById("typeFilter").value,
+        maxPrice: document
+          .getElementById("priceFilter")
+          .value.replace(/[^\d]/g, ""),
+        bedrooms: document.getElementById("bedroomsFilter").value,
+        bathrooms: document.getElementById("bathroomsFilter").value,
+        minArea: document.getElementById("minAreaFilter").value,
+        maxArea: document.getElementById("maxAreaFilter").value,
+        parking: document.getElementById("parkingFilter").value,
+      };
+
+      // Obtener características seleccionadas
+      const features = [];
+      if (document.getElementById("balconyFilter").checked)
+        features.push("balcony");
+      if (document.getElementById("gardenFilter").checked)
+        features.push("garden");
+      if (document.getElementById("poolFilter").checked) features.push("pool");
+      if (document.getElementById("gymFilter").checked) features.push("gym");
+      if (document.getElementById("elevatorFilter").checked)
+        features.push("elevator");
+      if (document.getElementById("securityFilter").checked)
+        features.push("security");
+      if (document.getElementById("furnishedFilter").checked)
+        features.push("furnished");
+      if (document.getElementById("petFriendlyFilter").checked)
+        features.push("petFriendly");
+
+      // Filtrar propiedades
+      filteredProperties = allProperties.filter((property) => {
+        // Filtro por ubicación (búsqueda flexible)
+        if (
+          filters.location &&
+          !property.locationName.toLowerCase().includes(filters.location) &&
+          property.location !== filters.location
+        )
+          return false;
+
+        // Filtro por condición
+        if (filters.condition && property.condition !== filters.condition)
+          return false;
+
+        // Filtro por tipo
+        if (filters.type && property.type !== filters.type) return false;
+
+        // Filtro por precio máximo
+        if (filters.maxPrice && property.price > parseInt(filters.maxPrice))
+          return false;
+
+        // Filtro por habitaciones
+        if (filters.bedrooms && property.bedrooms < parseInt(filters.bedrooms))
+          return false;
+
+        // Filtro por baños
+        if (
+          filters.bathrooms &&
+          property.bathrooms < parseInt(filters.bathrooms)
+        )
+          return false;
+
+        // Filtro por área mínima
+        if (filters.minArea && property.area < parseInt(filters.minArea))
+          return false;
+
+        // Filtro por área máxima
+        if (filters.maxArea && property.area > parseInt(filters.maxArea))
+          return false;
+
+        // Filtro por cochera
+        if (filters.parking && property.parking < parseInt(filters.parking))
+          return false;
+
+        // Filtro por características
+        if (features.length > 0) {
+          const hasAllFeatures = features.every((feature) =>
+            property.features.includes(feature)
+          );
+          if (!hasAllFeatures) return false;
+        }
+
+        return true;
+      });
+
+      // Resetear página actual
+      currentPage = 1;
+
+      // Ordenar propiedades
+      sortProperties();
+    }
+
+    // Variables para ubicación
+    let selectedLocationValue = "";
+
+    // Función para mostrar sugerencias de ubicación
+    function showLocationSuggestions(value) {
+      const suggestions = document.getElementById("locationSuggestions");
+      const suggestionItems = suggestions.querySelectorAll("div");
+
+      if (value.length === 0) {
+        suggestions.classList.add("hidden");
+        return;
+      }
+
+      let hasVisibleSuggestions = false;
+      suggestionItems.forEach((item) => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(value.toLowerCase())) {
+          item.style.display = "block";
+          hasVisibleSuggestions = true;
+        } else {
+          item.style.display = "none";
+        }
+      });
+
+      if (hasVisibleSuggestions) {
+        suggestions.classList.remove("hidden");
+      } else {
+        suggestions.classList.add("hidden");
+      }
+    }
+
+    // Función para ocultar sugerencias
+    function hideLocationSuggestions() {
+      setTimeout(() => {
+        document.getElementById("locationSuggestions").classList.add("hidden");
+      }, 200);
+    }
+
+    // Función para seleccionar ubicación
+    function selectLocation(value, displayText) {
+      document.getElementById("locationFilter").value = displayText;
+      selectedLocationValue = value;
+      document.getElementById("locationSuggestions").classList.add("hidden");
+    }
+
+    // Función para formatear entrada de precio
+    function formatPriceInput(input) {
+      let value = input.value.replace(/[^\d]/g, "");
+      if (value) {
+        value = parseInt(value).toLocaleString();
+        input.value = "$" + value;
+      }
+    }
+
+    // Función para limpiar filtros
+    function clearFilters() {
+      // Limpiar filtros básicos
+      document.getElementById("locationFilter").value = "";
+      document.getElementById("conditionFilter").value = "";
+      document.getElementById("typeFilter").value = "";
+      document.getElementById("priceFilter").value = "";
+
+      // Limpiar filtros avanzados
+      document.getElementById("bedroomsFilter").value = "";
+      document.getElementById("bathroomsFilter").value = "";
+      document.getElementById("minAreaFilter").value = "";
+      document.getElementById("maxAreaFilter").value = "";
+      document.getElementById("parkingFilter").value = "";
+
+      // Limpiar checkboxes
+      document.getElementById("balconyFilter").checked = false;
+      document.getElementById("gardenFilter").checked = false;
+      document.getElementById("poolFilter").checked = false;
+      document.getElementById("gymFilter").checked = false;
+      document.getElementById("elevatorFilter").checked = false;
+      document.getElementById("securityFilter").checked = false;
+      document.getElementById("furnishedFilter").checked = false;
+      document.getElementById("petFriendlyFilter").checked = false;
+
+      // Aplicar filtros (mostrar todas las propiedades)
+      applyFilters();
+    }
+
+    // Función para ordenar propiedades
+    function sortProperties() {
+      const sortBy = document.getElementById("sortBy").value;
+
+      switch (sortBy) {
+        case "newest":
+          filteredProperties.sort((a, b) => b.dateAdded - a.dateAdded);
+          break;
+        case "price-low":
+          filteredProperties.sort((a, b) => a.price - b.price);
+          break;
+        case "price-high":
+          filteredProperties.sort((a, b) => b.price - a.price);
+          break;
+        case "area-large":
+          filteredProperties.sort((a, b) => b.area - a.area);
+          break;
+      }
+
+      renderProperties();
+    }
+
+    // Función para renderizar propiedades
+    function renderProperties() {
+      const grid = document.getElementById("propertiesGrid");
+      const startIndex = (currentPage - 1) * propertiesPerPage;
+      const endIndex = startIndex + propertiesPerPage;
+      const currentProperties = filteredProperties.slice(startIndex, endIndex);
+
+      // Actualizar contador de resultados
+      document.getElementById(
+        "resultsCount"
+      ).textContent = `Mostrando ${filteredProperties.length} propiedades`;
+
+      // Generar HTML de propiedades
+      grid.innerHTML = currentProperties
+        .map(
+          (property) => `
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer transform hover:scale-105 duration-300" onclick="viewProperty(${
+                  property.id
+                })">
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        ${generatePropertySVG(property.id)}
+                        ${
+                          property.featured
+                            ? '<div class="absolute top-3 right-3 bg-primary-red text-white px-2 py-1 rounded text-sm font-medium">Destacada</div>'
+                            : ""
+                        }
+                        ${
+                          property.condition === "alquiler"
+                            ? '<div class="absolute top-3 left-3 bg-blue-500 text-white px-2 py-1 rounded text-sm font-medium">Alquiler</div>'
+                            : ""
+                        }
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">${
+                          property.title
+                        }</h3>
+                        <p class="text-gray-600 text-sm mb-3">📍 ${
+                          property.locationName
+                        }</p>
+                        <p class="text-primary-red font-bold text-xl">${
+                          property.priceText
+                        }</p>
+                        <div class="flex justify-between text-sm text-gray-500 mt-3">
+                            ${
+                              property.bedrooms > 0
+                                ? `<span>🛏️ ${property.bedrooms} hab</span>`
+                                : "<span></span>"
+                            }
+                            ${
+                              property.bathrooms > 0
+                                ? `<span>🚿 ${property.bathrooms} baños</span>`
+                                : "<span></span>"
+                            }
+                            <span>📐 ${property.area} m²</span>
+                        </div>
+                    </div>
+                </div>
+            `
+        )
+        .join("");
+
+      // Actualizar paginación
+      renderPagination();
+    }
+
+    // Función para generar SVG de propiedad
+    function generatePropertySVG(propertyId) {
+      const svgs = {
+        1: `<svg class="w-full h-full" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect fill="#f8f9fa" width="300" height="200"/>
+                    <rect fill="#e9ecef" x="0" y="120" width="300" height="80"/>
+                    <rect fill="#dee2e6" x="50" y="60" width="80" height="60"/>
+                    <rect fill="#ced4da" x="170" y="80" width="60" height="40"/>
+                    <circle fill="#adb5bd" cx="250" cy="40" r="20"/>
+                </svg>`,
+        2: `<svg class="w-full h-full" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect fill="#f1f3f4" width="300" height="200"/>
+                    <rect fill="#e8eaed" x="0" y="100" width="300" height="100"/>
+                    <rect fill="#dadce0" x="40" y="40" width="100" height="80"/>
+                    <rect fill="#bdc1c6" x="160" y="60" width="80" height="60"/>
+                    <rect fill="#9aa0a6" x="20" y="140" width="260" height="20"/>
+                </svg>`,
+        3: `<svg class="w-full h-full" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect fill="#fafafa" width="300" height="200"/>
+                    <rect fill="#f5f5f5" x="0" y="80" width="300" height="120"/>
+                    <rect fill="#eeeeee" x="60" y="30" width="120" height="90"/>
+                    <rect fill="#e0e0e0" x="200" y="50" width="70" height="70"/>
+                    <polygon fill="#bdbdbd" points="60,30 120,10 180,30 180,120 60,120"/>
+                </svg>`,
+      };
+
+      return svgs[propertyId] || svgs[1];
+    }
+
+    // Función para renderizar paginación
+    function renderPagination() {
+      const totalPages = Math.ceil(
+        filteredProperties.length / propertiesPerPage
+      );
+      const pageNumbers = document.getElementById("pageNumbers");
+
+      // Actualizar botones anterior/siguiente
+      document.getElementById("prevPageBtn").disabled = currentPage === 1;
+      document.getElementById("nextPageBtn").disabled =
+        currentPage === totalPages;
+
+      // Generar números de página
+      let paginationHTML = "";
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === currentPage) {
+          paginationHTML += `<button class="px-3 py-2 bg-primary-red text-white rounded-lg">${i}</button>`;
+        } else {
+          paginationHTML += `<button onclick="goToPage(${i})" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">${i}</button>`;
+        }
+      }
+
+      pageNumbers.innerHTML = paginationHTML;
+    }
+
+    // Función para ir a página específica
+    function goToPage(page) {
+      currentPage = page;
+      renderProperties();
+      window.scrollTo(0, 0);
+    }
+
+    // Función para página anterior
+    function previousPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderProperties();
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // Función para página siguiente
+    function nextPage() {
+      const totalPages = Math.ceil(
+        filteredProperties.length / propertiesPerPage
+      );
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderProperties();
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // Función para cambiar imagen principal
+    function changeMainImage(imageNumber) {
+      // En una implementación real, aquí cambiarías la imagen principal
+      console.log(`Cambiando a imagen ${imageNumber}`);
+    }
+
+    // Función para enviar formulario de tasación
+    function submitValuation(event) {
+      event.preventDefault();
+      alert(
+        "¡Solicitud enviada exitosamente! Nos contactaremos contigo en las próximas 2 horas para coordinar la tasación gratuita."
+      );
+      event.target.reset();
+    }
+
+    // Función para enviar consulta de propiedad
+    function submitPropertyInquiry(event) {
+      event.preventDefault();
+      alert(
+        "¡Mensaje enviado! Nuestro asesor se contactará contigo en menos de 2 horas."
+      );
+      event.target.reset();
+    }
+
+    // Función para calcular crédito
+    function calculateCredit(initialPaymentPercent = 30) {
+      const propertyValue = 450000000; // Valor de la propiedad
+      const initialPayment = propertyValue * (initialPaymentPercent / 100);
+      const loanAmount = propertyValue - initialPayment;
+      const interestRate = 0.12 / 12; // 12% anual / 12 meses
+      const years = 20;
+      const payments = years * 12;
+
+      const monthlyPayment =
+        (loanAmount * (interestRate * Math.pow(1 + interestRate, payments))) /
+        (Math.pow(1 + interestRate, payments) - 1);
+
+      document.getElementById("initialPaymentPercent").textContent =
+        initialPaymentPercent + "%";
+      document.getElementById("monthlyPayment").textContent =
+        "$" + Math.round(monthlyPayment).toLocaleString();
+    }
+
+    // Variables del carrusel
+    let currentSlide = 0;
+    const totalSlides = 2;
+
+    // Función para ir al siguiente slide
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+
+    // Función para ir al slide anterior
+    function previousSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    // Función para ir a un slide específico
+    function goToSlide(slideIndex) {
+      currentSlide = slideIndex;
+      updateCarousel();
+    }
+
+    // Función para actualizar la posición del carrusel
+    function updateCarousel() {
+      const carousel = document.getElementById("carousel");
+      const translateX = -currentSlide * 100;
+      carousel.style.transform = `translateX(${translateX}%)`;
+
+      // Actualizar indicadores
+      const indicators = document.querySelectorAll(".carousel-indicator");
+      indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+          indicator.classList.remove("bg-gray-300");
+          indicator.classList.add("bg-primary-red");
+        } else {
+          indicator.classList.remove("bg-primary-red");
+          indicator.classList.add("bg-gray-300");
+        }
+      });
+    }
+
+    // Auto-play del carrusel
+    let autoPlayInterval;
+
+    function startAutoPlay() {
+      autoPlayInterval = setInterval(nextSlide, 5000); // Cambia cada 5 segundos
+    }
+
+    function stopAutoPlay() {
+      clearInterval(autoPlayInterval);
+    }
+
+    // Pausar auto-play cuando el usuario interactúa
+    document
+      .getElementById("carousel")
+      .addEventListener("mouseenter", stopAutoPlay);
+    document
+      .getElementById("carousel")
+      .addEventListener("mouseleave", startAutoPlay);
+
+    // Efecto de scroll para la barra superior
+    window.addEventListener("scroll", function () {
+      const header = document.querySelector("header");
+      if (window.scrollY > 100) {
+        header.classList.add("shadow-lg");
+      } else {
+        header.classList.remove("shadow-lg");
+      }
+    });
+
+    // Animación de entrada para las tarjetas de propiedades
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0)";
+        }
+      });
+    }, observerOptions);
+
+    // Aplicar animación a las tarjetas cuando se carga la página
+    document.addEventListener("DOMContentLoaded", function () {
+      const propertyCards = document.querySelectorAll(
+        "#properties .grid > div"
+      );
+      propertyCards.forEach((card, index) => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+        card.style.transition = `opacity 0.6s ease ${
+          index * 0.1
+        }s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(card);
+      });
+
+      // Inicializar calculadora de crédito
+      calculateCredit();
+
+      // Iniciar auto-play del carrusel
+      startAutoPlay();
+    });
+  </script>
+</html>

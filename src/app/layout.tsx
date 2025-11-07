@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/layout/Navbar";
+import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import Footer from "@/components/layout/Footer";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -27,7 +30,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`${manrope.variable} antialiased`}>{children}</body>
+      <body className={`${manrope.variable} antialiased`}>
+        <Navbar />
+        <WhatsAppButton />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
