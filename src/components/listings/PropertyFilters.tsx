@@ -17,16 +17,20 @@ const PropertyFilters = ({
   const [priceMin, setPriceMin] = useState(50000)
   const [priceMax, setPriceMax] = useState(500000)
   const [propertyType, setPropertyType] = useState('any')
-  const [bedrooms, setBedrooms] = useState('any')
-  const [bathrooms, setBathrooms] = useState('any')
+  const [bedroomsMin, setBedroomsMin] = useState(0)
+  const [bedroomsMax, setBedroomsMax] = useState(10)
+  const [bathroomsMin, setBathroomsMin] = useState(0)
+  const [bathroomsMax, setBathroomsMax] = useState(10)
 
   const handleApplyFilters = () => {
     onFilterChange?.({
       priceMin,
       priceMax,
       propertyType,
-      bedrooms,
-      bathrooms,
+      bedroomsMin,
+      bedroomsMax,
+      bathroomsMin,
+      bathroomsMax,
     })
     if (isMobile && onClose) {
       onClose()
@@ -37,8 +41,10 @@ const PropertyFilters = ({
     setPriceMin(50000)
     setPriceMax(500000)
     setPropertyType('any')
-    setBedrooms('any')
-    setBathrooms('any')
+    setBedroomsMin(0)
+    setBedroomsMax(10)
+    setBathroomsMin(0)
+    setBathroomsMax(10)
   }
 
   return (
@@ -112,33 +118,131 @@ const PropertyFilters = ({
         />
       </div>
 
-      {/* Habitaciones y Baños */}
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-2">Habitaciones</label>
-          <select
-            value={bedrooms}
-            onChange={(e) => setBedrooms(e.target.value)}
-            className="w-full rounded-md border-gray-300 text-sm focus:border-accent focus:ring-accent"
-          >
-            <option value="any">Cualquiera</option>
-            <option value="1">1+</option>
-            <option value="2">2+</option>
-            <option value="3">3+</option>
-          </select>
+      {/* Habitaciones */}
+      <div>
+        <label className="block text-sm font-medium mb-3">Habitaciones</label>
+        <div className="space-y-4">
+          {/* Slider Mínimo */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-xs text-text-secondary-light">
+                Mínimo
+              </label>
+              <span className="text-sm font-medium text-accent">
+                {bedroomsMin}
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              value={bedroomsMin}
+              onChange={(e) => {
+                const value = Number(e.target.value)
+                setBedroomsMin(value)
+                if (value > bedroomsMax) {
+                  setBedroomsMax(value)
+                }
+              }}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-accent"
+            />
+          </div>
+
+          {/* Slider Máximo */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-xs text-text-secondary-light">
+                Máximo
+              </label>
+              <span className="text-sm font-medium text-accent">
+                {bedroomsMax}
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              value={bedroomsMax}
+              onChange={(e) => {
+                const value = Number(e.target.value)
+                setBedroomsMax(value)
+                if (value < bedroomsMin) {
+                  setBedroomsMin(value)
+                }
+              }}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-accent"
+            />
+          </div>
+
+          {/* Indicadores de rango */}
+          <div className="flex justify-between text-xs text-text-secondary-light">
+            <span>0</span>
+            <span>10</span>
+          </div>
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Baños</label>
-          <select
-            value={bathrooms}
-            onChange={(e) => setBathrooms(e.target.value)}
-            className="w-full rounded-md border-gray-300 text-sm focus:border-accent focus:ring-accent"
-          >
-            <option value="any">Cualquiera</option>
-            <option value="1">1+</option>
-            <option value="2">2+</option>
-            <option value="3">3+</option>
-          </select>
+      </div>
+
+      {/* Baños */}
+      <div>
+        <label className="block text-sm font-medium mb-3">Baños</label>
+        <div className="space-y-4">
+          {/* Slider Mínimo */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-xs text-text-secondary-light">
+                Mínimo
+              </label>
+              <span className="text-sm font-medium text-accent">
+                {bathroomsMin}
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              value={bathroomsMin}
+              onChange={(e) => {
+                const value = Number(e.target.value)
+                setBathroomsMin(value)
+                if (value > bathroomsMax) {
+                  setBathroomsMax(value)
+                }
+              }}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-accent"
+            />
+          </div>
+
+          {/* Slider Máximo */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-xs text-text-secondary-light">
+                Máximo
+              </label>
+              <span className="text-sm font-medium text-accent">
+                {bathroomsMax}
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              value={bathroomsMax}
+              onChange={(e) => {
+                const value = Number(e.target.value)
+                setBathroomsMax(value)
+                if (value < bathroomsMin) {
+                  setBathroomsMin(value)
+                }
+              }}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-accent"
+            />
+          </div>
+
+          {/* Indicadores de rango */}
+          <div className="flex justify-between text-xs text-text-secondary-light">
+            <span>0</span>
+            <span>10</span>
+          </div>
         </div>
       </div>
 
