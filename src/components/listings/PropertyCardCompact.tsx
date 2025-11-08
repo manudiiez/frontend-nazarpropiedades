@@ -38,11 +38,11 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
             </span>
             <span>{property.area} m²</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center ">
             <span className="material-symbols-outlined text-base">bed</span>
             <span>{property.bedrooms} Hab</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center">
             <span className="material-symbols-outlined text-base">
               bathtub
             </span>
@@ -50,8 +50,8 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
           </div>
         </div>
 
-        {/* Botón */}
-        <button className="w-full bg-accent hover:bg-accent-hover text-white py-2 rounded-sm font-medium transition-colors mt-2 text-sm cursor-pointer">
+        {/* Botón (solo mobile) */}
+        <button className="w-full md:hidden bg-accent hover:bg-accent-hover text-white py-2 rounded-sm font-medium transition-colors mt-2 text-sm cursor-pointer">
           Ver Detalles
         </button>
       </div>

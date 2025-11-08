@@ -12,7 +12,7 @@ const PropertyCardMedium = ({ property }: PropertyCardMediumProps) => {
   return (
     <Link
       href={`/propiedades/${property.id}`}
-      className="flex flex-col bg-white rounded-xl overflow-hidden border border-gray-border hover:shadow-lg transition-shadow group"
+      className="flex flex-col bg-white rounded-sm overflow-hidden border border-gray-border hover:shadow-lg transition-shadow group"
     >
       {/* Imagen */}
       <div className="relative h-64 w-full overflow-hidden">
@@ -34,23 +34,23 @@ const PropertyCardMedium = ({ property }: PropertyCardMediumProps) => {
           {description}
         </p>
 
-        <p className="text-2xl font-black text-accent">
+        <p className="text-xl font-black text-accent">
           ${property.price.toLocaleString('es-AR')}
         </p>
 
         {/* Estadísticas */}
-        <div className="flex justify-between text-base text-text-secondary-light">
-          <div className="flex items-center gap-1.5">
+        <div className="flex justify-between text-base text-text-secondary-light text-sm">
+          <div className="flex items-center">
             <span className="material-symbols-outlined text-lg">
               square_foot
             </span>
             <span>{property.area} m²</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center">
             <span className="material-symbols-outlined text-lg">bed</span>
             <span>{property.bedrooms} Hab</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center">
             <span className="material-symbols-outlined text-lg">
               bathtub
             </span>
@@ -58,8 +58,8 @@ const PropertyCardMedium = ({ property }: PropertyCardMediumProps) => {
           </div>
         </div>
 
-        {/* Botón */}
-        <button className="w-full bg-accent hover:bg-accent-hover text-white py-2.5 rounded-sm font-medium transition-colors mt-2 text-sm cursor-pointer">
+        {/* Botón (solo mobile) */}
+        <button className="w-full md:hidden bg-accent hover:bg-accent-hover text-white py-2.5 rounded-sm font-medium transition-colors mt-2 text-sm cursor-pointer">
           Ver Detalles
         </button>
       </div>

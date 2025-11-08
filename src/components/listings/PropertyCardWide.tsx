@@ -13,7 +13,7 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
   return (
     <Link
       href={`/propiedades/${property.id}`}
-      className="flex flex-col lg:flex-row bg-white rounded-xl overflow-hidden border border-gray-border hover:shadow-lg transition-shadow group"
+      className="flex flex-col lg:flex-row bg-white rounded-sm overflow-hidden border border-gray-border hover:shadow-lg transition-shadow group"
     >
       {/* Imagen */}
       <div className="relative w-full lg:w-2/3 xl:w-1/2 h-64 lg:h-auto overflow-hidden">
@@ -57,18 +57,18 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
           </p>
 
           {/* Estadísticas */}
-          <div className="flex gap-6 text-base text-text-secondary-light mb-6">
-            <div className="flex items-center gap-2">
+          <div className="flex gap-6 text-sm text-text-secondary-light mb-6">
+            <div className="flex items-center gap-1.5">
               <span className="material-symbols-outlined text-xl">
                 square_foot
               </span>
               <span>{property.area} m²</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <span className="material-symbols-outlined text-xl">bed</span>
               <span>{property.bedrooms} Habitaciones</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <span className="material-symbols-outlined text-xl">
                 bathtub
               </span>
@@ -76,8 +76,8 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
             </div>
           </div>
 
-          {/* Botones */}
-          <div className="flex gap-3">
+          {/* Botones (solo mobile) */}
+          <div className="flex gap-3 lg:hidden">
             <button className="flex-1 bg-accent hover:bg-accent-hover text-white py-3 rounded-sm text-sm font-medium transition-colors cursor-pointer">
               Ver Detalles
             </button>
