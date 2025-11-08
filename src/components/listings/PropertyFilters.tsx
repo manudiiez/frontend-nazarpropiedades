@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import CustomSelectInput from '@/components/ui/CustomSelectInput'
+import DualRangeSlider from '@/components/ui/DualRangeSlider'
 
 interface PropertyFiltersProps {
   onFilterChange?: (filters: any) => void
@@ -130,161 +131,41 @@ const PropertyFilters = ({
       </div>
 
       {/* Rango de Precio */}
-      <div>
-        <label className="block text-sm font-medium mb-3">Rango de Precio</label>
-        <div className="space-y-4">
-          <input
-            type="range"
-            min="50000"
-            max="500000"
-            step="10000"
-            value={priceMin}
-            onChange={(e) => setPriceMin(Number(e.target.value))}
-            className="w-full"
-          />
-          <div className="flex justify-between text-sm">
-            <span>${priceMin.toLocaleString('es-AR')}</span>
-            <span>${priceMax.toLocaleString('es-AR')}</span>
-          </div>
-          <input
-            type="range"
-            min="50000"
-            max="500000"
-            step="10000"
-            value={priceMax}
-            onChange={(e) => setPriceMax(Number(e.target.value))}
-            className="w-full"
-          />
-        </div>
-      </div>
+      <DualRangeSlider
+        min={50000}
+        max={500000}
+        step={10000}
+        valueMin={priceMin}
+        valueMax={priceMax}
+        onMinChange={setPriceMin}
+        onMaxChange={setPriceMax}
+        label="Rango de Precio"
+        formatValue={(val) => `$${val.toLocaleString('es-AR')}`}
+      />
 
       {/* Habitaciones */}
-      <div>
-        <label className="block text-sm font-medium mb-3">Habitaciones</label>
-        <div className="space-y-4">
-          {/* Slider Mínimo */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-xs text-text-secondary-light">
-                Mínimo
-              </label>
-              <span className="text-sm font-medium text-accent">
-                {bedroomsMin}
-              </span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="10"
-              value={bedroomsMin}
-              onChange={(e) => {
-                const value = Number(e.target.value)
-                setBedroomsMin(value)
-                if (value > bedroomsMax) {
-                  setBedroomsMax(value)
-                }
-              }}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-accent"
-            />
-          </div>
-
-          {/* Slider Máximo */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-xs text-text-secondary-light">
-                Máximo
-              </label>
-              <span className="text-sm font-medium text-accent">
-                {bedroomsMax}
-              </span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="10"
-              value={bedroomsMax}
-              onChange={(e) => {
-                const value = Number(e.target.value)
-                setBedroomsMax(value)
-                if (value < bedroomsMin) {
-                  setBedroomsMin(value)
-                }
-              }}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-accent"
-            />
-          </div>
-
-          {/* Indicadores de rango */}
-          <div className="flex justify-between text-xs text-text-secondary-light">
-            <span>0</span>
-            <span>10</span>
-          </div>
-        </div>
-      </div>
+      <DualRangeSlider
+        min={0}
+        max={10}
+        step={1}
+        valueMin={bedroomsMin}
+        valueMax={bedroomsMax}
+        onMinChange={setBedroomsMin}
+        onMaxChange={setBedroomsMax}
+        label="Habitaciones"
+      />
 
       {/* Baños */}
-      <div>
-        <label className="block text-sm font-medium mb-3">Baños</label>
-        <div className="space-y-4">
-          {/* Slider Mínimo */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-xs text-text-secondary-light">
-                Mínimo
-              </label>
-              <span className="text-sm font-medium text-accent">
-                {bathroomsMin}
-              </span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="10"
-              value={bathroomsMin}
-              onChange={(e) => {
-                const value = Number(e.target.value)
-                setBathroomsMin(value)
-                if (value > bathroomsMax) {
-                  setBathroomsMax(value)
-                }
-              }}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-accent"
-            />
-          </div>
-
-          {/* Slider Máximo */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-xs text-text-secondary-light">
-                Máximo
-              </label>
-              <span className="text-sm font-medium text-accent">
-                {bathroomsMax}
-              </span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="10"
-              value={bathroomsMax}
-              onChange={(e) => {
-                const value = Number(e.target.value)
-                setBathroomsMax(value)
-                if (value < bathroomsMin) {
-                  setBathroomsMin(value)
-                }
-              }}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-accent"
-            />
-          </div>
-
-          {/* Indicadores de rango */}
-          <div className="flex justify-between text-xs text-text-secondary-light">
-            <span>0</span>
-            <span>10</span>
-          </div>
-        </div>
-      </div>
+      <DualRangeSlider
+        min={0}
+        max={10}
+        step={1}
+        valueMin={bathroomsMin}
+        valueMax={bathroomsMax}
+        onMinChange={setBathroomsMin}
+        onMaxChange={setBathroomsMax}
+        label="Baños"
+      />
 
       {/* Botones */}
       <div className="flex flex-col gap-3 pt-4 border-t border-gray-border">
