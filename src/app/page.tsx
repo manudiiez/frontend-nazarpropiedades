@@ -8,6 +8,7 @@ import { featuredProperties, recentProperties } from "@/data/properties";
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
+      {/* Ajustar para que solo sea client component la parte del filtro */}
       <HeroSection />
 
       <PropertyCarousel

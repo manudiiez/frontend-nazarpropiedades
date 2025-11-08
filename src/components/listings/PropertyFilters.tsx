@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import CustomSelectInput from '@/components/ui/CustomSelectInput'
 
 interface PropertyFiltersProps {
   onFilterChange?: (filters: any) => void
@@ -15,11 +16,7 @@ const PropertyFilters = ({
 }: PropertyFiltersProps) => {
   const [priceMin, setPriceMin] = useState(50000)
   const [priceMax, setPriceMax] = useState(500000)
-  const [propertyTypes, setPropertyTypes] = useState({
-    casa: true,
-    apartamento: false,
-    terreno: false,
-  })
+  const [propertyType, setPropertyType] = useState('any')
   const [bedrooms, setBedrooms] = useState('any')
   const [bathrooms, setBathrooms] = useState('any')
 
@@ -27,7 +24,7 @@ const PropertyFilters = ({
     onFilterChange?.({
       priceMin,
       priceMax,
-      propertyTypes,
+      propertyType,
       bedrooms,
       bathrooms,
     })
@@ -39,7 +36,7 @@ const PropertyFilters = ({
   const handleReset = () => {
     setPriceMin(50000)
     setPriceMax(500000)
-    setPropertyTypes({ casa: false, apartamento: false, terreno: false })
+    setPropertyType('any')
     setBedrooms('any')
     setBathrooms('any')
   }
@@ -98,22 +95,21 @@ const PropertyFilters = ({
 
       {/* Tipo de Propiedad */}
       <div>
-        <label className="block text-sm font-medium mb-3">Tipo de Propiedad</label>
-        <div className="space-y-2">
-          {Object.entries(propertyTypes).map(([key, value]) => (
-            <label key={key} className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={value}
-                onChange={(e) =>
-                  setPropertyTypes({ ...propertyTypes, [key]: e.target.checked })
-                }
-                className="rounded border-gray-300 text-accent focus:ring-accent"
-              />
-              <span className="text-sm capitalize">{key}</span>
-            </label>
-          ))}
-        </div>
+        <CustomSelectInput
+          label="Tipo de Propiedad"
+          options={[
+            { value: 'any', label: 'Cualquiera' },
+            { value: 'casa', label: 'Casa' },
+            { value: 'departamento', label: 'Departamento' },
+            { value: 'terreno', label: 'Terreno' },
+            { value: 'departamento', label: 'Departamento' },
+            { value: 'local', label: 'Local Comercial' },
+          ]}
+          value={propertyType}
+          onChange={setPropertyType}
+          labelClassName="text-sm font-medium"
+          buttonClassName="text-sm rounded-md"
+        />
       </div>
 
       {/* Habitaciones y Baños */}
