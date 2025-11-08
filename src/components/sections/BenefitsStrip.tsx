@@ -26,12 +26,12 @@ const benefits: Benefit[] = [
 const BenefitsStrip = () => {
   return (
     <section className="py-16 px-6 border-t border-b border-gray-border bg-gray-ui">
-      <div className="max-w-container mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
             <div key={index} className="text-center">
               <div className="flex justify-center mb-3">
-                <span className="material-symbols-outlined text-accent-red text-5xl">
+                <span className="material-symbols-outlined text-accent text-5xl">
                   {benefit.icon}
                 </span>
               </div>

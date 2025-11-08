@@ -24,7 +24,7 @@ const services: Service[] = [
 const ServicesSection = () => {
   return (
     <section id="servicios" className="py-24 px-6 bg-gray-ui">
-      <div className="max-w-container mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-semibold text-gray-900 mb-4">
             Su asesor de confianza en bienes raíces
@@ -42,8 +42,8 @@ const ServicesSection = () => {
               className="bg-white rounded-lg p-8 hover:shadow-lg transition-shadow"
             >
               <div className="mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-red/10 rounded-lg">
-                  <span className="material-symbols-outlined text-accent-red text-4xl">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/10 rounded-lg">
+                  <span className="material-symbols-outlined text-accent text-4xl">
                     {service.icon}
                   </span>
                 </div>

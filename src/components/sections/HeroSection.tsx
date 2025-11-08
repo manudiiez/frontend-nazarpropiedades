@@ -20,10 +20,10 @@ const HeroSection = () => {
             "url('https://www.construyehogar.com/wp-content/uploads/2014/07/Dsieño-de-sala-comedor-y-cocina-moderna.jpg')",
         }}
       />
-      <div className="max-w-container mx-auto text-center relative z-10">
+      <div className="max-w-7xl mx-auto text-center relative z-10">
         <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
           Inmobiliaria en{' '}
-          <span className="underline decoration-accent-red underline-offset-4">
+          <span className="underline decoration-accent underline-offset-4">
             Mendoza.
           </span>
         </h1>

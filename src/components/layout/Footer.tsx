@@ -1,9 +1,9 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-16 px-6">
-      <div className="max-w-container mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
           <div className="md:col-span-2">
@@ -59,19 +59,19 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Contacto</h4>
             <ul className="space-y-2 text-gray-400">
               <li className="flex items-start gap-2">
-                <span className="material-symbols-outlined text-accent-red">
+                <span className="material-symbols-outlined text-accent">
                   phone
                 </span>
                 <span>+54 261 123-4567</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="material-symbols-outlined text-accent-red">
+                <span className="material-symbols-outlined text-accent">
                   mail
                 </span>
                 <span>info@nazarpropiedades.com</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="material-symbols-outlined text-accent-red">
+                <span className="material-symbols-outlined text-accent">
                   location_on
                 </span>
                 <span>Av. San Martín 1234, Mendoza</span>
@@ -104,7 +104,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

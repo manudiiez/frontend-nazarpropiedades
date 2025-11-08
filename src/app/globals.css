@@ -2,22 +2,25 @@
 
 :root {
   --primary: #1f2937;
-  --accent: #d90429;
-  --accent-red: #cc3333;
+  --accent: #cc3333;
+  --accent-hover: #ab2525;
   --background-light: #ffffff;
   --background-dark: #111827;
   --neutral-light: #f3f4f6;
   --neutral-dark: #374151;
   --gray-ui: #f5f6f7;
   --gray-border: #e5e7eb;
-  --primary-red: #e10600;
   --primary-red-hover: #b30500;
+  --surface-light: #f4f4f7;
+  --surface-dark: #1f2937;
+  --text-secondary-light: #6b7280;
+  --text-secondary-dark: #9ca3af;
 }
 
 @theme inline {
   --color-primary: var(--primary);
   --color-accent: var(--accent);
-  --color-accent-red: var(--accent-red);
+  --color-accent-hover: var(--accent-hover);
   --color-background-light: var(--background-light);
   --color-background-dark: var(--background-dark);
   --color-neutral-light: var(--neutral-light);
@@ -26,6 +29,10 @@
   --color-gray-border: var(--gray-border);
   --color-primary-red: var(--primary-red);
   --color-primary-red-hover: var(--primary-red-hover);
+  --color-surface-light: var(--surface-light);
+  --color-surface-dark: var(--surface-dark);
+  --color-text-secondary-light: var(--text-secondary-light);
+  --color-text-secondary-dark: var(--text-secondary-dark);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -33,22 +40,25 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --primary: #1f2937;
-    --accent: #d90429;
-    --accent-red: #cc3333;
+    --accent: #cc3333;
+    --accent-hover: #ab2525;
     --background-light: #ffffff;
     --background-dark: #111827;
     --neutral-light: #f3f4f6;
     --neutral-dark: #374151;
     --gray-ui: #f5f6f7;
     --gray-border: #e5e7eb;
-    --primary-red: #e10600;
     --primary-red-hover: #b30500;
+    --surface-light: #f4f4f7;
+    --surface-dark: #1f2937;
+    --text-secondary-light: #6b7280;
+    --text-secondary-dark: #9ca3af;
   }
 }
 
-body {
+/* body {
   font-family: "Inter", sans-serif;
-}
+} */
 
 .card-hover {
   transition: all 0.3s ease;

@@ -35,7 +35,7 @@ const Navbar = () => {
             : ""
         }`}
       >
-        <div className="max-w-container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link href="/" className="text-xl font-semibold text-gray-900">
@@ -78,7 +78,7 @@ const Navbar = () => {
               </Link>
             </div>
 
-            <button className="hidden md:block bg-accent-red hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors">
+            <button className="hidden md:block bg-accent hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors">
               Publicar mi propiedad
             </button>
 
@@ -155,7 +155,7 @@ const Navbar = () => {
               <Link href="#contacto" className="block text-gray-600">
                 Contacto
               </Link>
-              <button className="w-full bg-accent-red text-white px-4 py-2 text-sm font-medium rounded-lg mt-4">
+              <button className="w-full bg-accent text-white px-4 py-2 text-sm font-medium rounded-lg mt-4">
                 Publicar mi propiedad
               </button>
             </div>

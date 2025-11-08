@@ -3,7 +3,7 @@ import Link from 'next/link'
 const CTASection = () => {
   return (
     <section id="contacto" className="my-24 px-6">
-      <div className="max-w-container mx-auto text-center">
+      <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl font-bold text-gray-900 mb-6">
           ¿Listo para Encontrar tu Hogar en Mendoza?
         </h2>

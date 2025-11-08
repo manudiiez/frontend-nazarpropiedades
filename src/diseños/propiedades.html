@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mendoza Real Estate - Propiedades</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      .filter-overlay {
+        transform: translateX(100%);
+        transition: transform 0.3s ease-out;
+      }
+      .filter-overlay.open {
+        transform: translateX(0);
+      }
+      .filter-overlay-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+      }
+      .filter-overlay-backdrop.open {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#D82C2C",
+              "background-light": "#FFFFFF",
+              "background-dark": "#1a1a1a",
+              "surface-light": "#F4F4F7",
+              "surface-dark": "#2c2c2c",
+              "text-light": "#212529",
+              "text-dark": "#f0f0f0",
+              "text-muted-light": "#6c757d",
+              "text-muted-dark": "#a0a0a0",
+              "border-light": "#e9ecef",
+              "border-dark": "#444444",
+              "accent-red": "#CC3333",
+            },
+            fontFamily: {
+              display: ["Manrope", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            maxWidth: {
+              container: "1280px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark"
+  >
+    <div class="relative flex h-auto min-h-screen  w-full flex-col pt-24">
+      <!-- Navbar -->
+      <nav
+        id="navbar"
+        class="fixed w-full top-0 z-50 transition-all duration-300"
+      >
+        <div class="max-w-container mx-auto px-6">
+          <div class="flex justify-between items-center h-20">
+            <!-- <div class="flex justify-between items-center h-16"> -->
+            <!-- <div class="text-xl font-semibold text-gray-900">
+            <img src="./imagenes/logo.png" alt="Nazar Propiedades Logo" class="h-6 inline-block mr-2" />
+            Nazar Propiedades
+          </div> -->
+            <div class="text-xl font-semibold text-gray-900">
+              <img
+                src="./imagenes/brand.png"
+                alt="Nazar Propiedades Logo"
+                class="h-14 inline-block mr-2"
+              />
+            </div>
+
+            <div class="hidden md:flex items-center space-x-8">
+              <!-- Dropdown Inicio -->
+              <div class="relative group">
+                <button
+                  class="text-gray-900 font-medium flex items-center hover:text-gray-700 transition-colors"
+                >
+                  Inicio
+                  <svg
+                    class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div
+                  class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+                >
+                  <div class="py-2">
+                    <a
+                      href="./index.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Inicio</a
+                    >
+                    <a
+                      href="./index2.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Inicio 2</a
+                    >
+                    <a
+                      href="./index3.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Inicio 3</a
+                    >
+                    <a
+                      href="./index4.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Inicio 4</a
+                    >
+                    <a
+                      href="./index5.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Inicio 5</a
+                    >
+                    <a
+                      href="./index6.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Inicio 6</a
+                    >
+                    <a
+                      href="./index7.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Inicio 7</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <button
+                  class="text-gray-900 font-medium flex items-center hover:text-gray-700 transition-colors"
+                >
+                  Propiedades
+                  <svg
+                    class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div
+                  class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+                >
+                  <div class="py-2">
+                    <a
+                      href="./propiedades.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Propiedades</a
+                    >
+                    <a
+                      href="./propiedades2.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Propiedades 2</a
+                    >
+                    <a
+                      href="./propiedades3.html"
+                      class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      >Propiedades 3</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <a
+                href="#servicios"
+                class="text-gray-600 hover:text-gray-900 transition-colors"
+                >Servicios</a
+              >
+              <a
+                href="#contacto"
+                class="text-gray-600 hover:text-gray-900 transition-colors"
+                >Contacto</a
+              >
+            </div>
+
+            <button
+              class="hidden md:block bg-accent-red hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors"
+            >
+              Publicar mi propiedad
+            </button>
+
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div
+          id="mobile-menu"
+          class="md:hidden hidden bg-white border-t border-gray-border"
+        >
+          <div class="px-6 py-4 space-y-3">
+            <!-- Dropdown Inicio Mobile -->
+            <div>
+              <button
+                id="mobile-inicio-btn"
+                class="w-full text-left text-gray-900 font-medium flex items-center justify-between"
+              >
+                Inicio
+                <svg
+                  id="mobile-inicio-icon"
+                  class="w-4 h-4 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                id="mobile-inicio-submenu"
+                class="hidden pl-4 mt-2 space-y-2"
+              >
+                <a href="./index.html" class="block text-gray-600 py-1">Inicio</a>
+                <a href="./index2.html" class="block text-gray-600 py-1"
+                  >Inicio 2</a
+                >
+                <a href="./index3.html" class="block text-gray-600 py-1"
+                  >Inicio 3</a
+                >
+                <a href="./index4.html" class="block text-gray-600 py-1"
+                  >Inicio 4</a
+                >
+                <a href="./index5.html" class="block text-gray-600 py-1"
+                  >Inicio 5</a
+                >
+                <a href="./index6.html" class="block text-gray-600 py-1"
+                  >Inicio 6</a
+                >
+                <a href="./index7.html" class="block text-gray-600 py-1"
+                  >Inicio 7</a
+                >
+              </div>
+            </div>
+            <a href="./propiedades.html" class="block text-gray-600"
+              >Propiedades</a
+            >
+            <a href="#servicios" class="block text-gray-600">Servicios</a>
+            <a href="#contacto" class="block text-gray-600">Contacto</a>
+            <button
+              class="w-full bg-accent-red text-white px-4 py-2 text-sm font-medium rounded-lg mt-4"
+            >
+              Publicar mi propiedad
+            </button>
+          </div>
+        </div>
+      </nav>
+      <div
+        class="lg:hidden fixed inset-0 z-[55] filter-overlay-backdrop"
+        id="mobile-filters-backdrop"
+      ></div>
+      <aside
+        class="lg:hidden fixed right-0 top-0 bottom-0 w-3/4 max-w-sm bg-surface-light dark:bg-surface-dark z-[60] p-6 filter-overlay flex flex-col gap-8 overflow-y-auto"
+        id="mobile-filters-sidebar"
+      >
+        <div
+          class="flex items-center justify-between pb-4 border-b border-border-light dark:border-border-dark"
+        >
+          <h3 class="text-lg font-bold">Filtrar Propiedades</h3>
+          <button
+            class="text-text-muted-light dark:text-text-muted-dark hover:text-primary"
+            id="close-filters-button"
+          >
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="flex flex-col gap-4">
+          <label class="text-base font-medium">Rango de Precio</label>
+          <div class="flex h-[38px] w-full pt-1.5">
+            <div
+              class="flex h-1.5 w-full rounded-full bg-border-light dark:bg-border-dark pl-[10%] pr-[30%]"
+            >
+              <div class="relative">
+                <div
+                  class="absolute -left-3 -top-2 flex flex-col items-center gap-1.5"
+                >
+                  <div
+                    class="size-5 rounded-full bg-primary ring-2 ring-white dark:ring-surface-dark cursor-pointer"
+                  ></div>
+                  <p
+                    class="text-xs font-medium text-text-muted-light dark:text-text-muted-dark"
+                  >
+                    $50,000
+                  </p>
+                </div>
+              </div>
+              <div class="h-1.5 flex-1 rounded-full bg-primary"></div>
+              <div class="relative">
+                <div
+                  class="absolute -right-3 -top-2 flex flex-col items-center gap-1.5"
+                >
+                  <div
+                    class="size-5 rounded-full bg-primary ring-2 ring-white dark:ring-surface-dark cursor-pointer"
+                  ></div>
+                  <p
+                    class="text-xs font-medium text-text-muted-light dark:text-text-muted-dark"
+                  >
+                    $500,000
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex flex-col gap-3 border-t border-border-light dark:border-border-dark pt-6"
+        >
+          <label class="text-base font-medium">Tipo de Propiedad</label>
+          <label class="flex items-center gap-x-3">
+            <input
+              checked=""
+              class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+              type="checkbox"
+            />
+            <span class="text-sm">Casa</span>
+          </label>
+          <label class="flex items-center gap-x-3">
+            <input
+              class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+              type="checkbox"
+            />
+            <span class="text-sm">Apartamento</span>
+          </label>
+          <label class="flex items-center gap-x-3">
+            <input
+              class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+              type="checkbox"
+            />
+            <span class="text-sm">Terreno</span>
+          </label>
+        </div>
+        <div
+          class="grid grid-cols-2 gap-4 border-t border-border-light dark:border-border-dark pt-6"
+        >
+          <div class="flex flex-col gap-2">
+            <label class="text-base font-medium" for="bedrooms-mobile"
+              >Habitaciones</label
+            >
+            <select
+              class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-surface-dark dark:text-text-dark focus:border-primary focus:ring-primary/50 text-sm"
+              id="bedrooms-mobile"
+            >
+              <option>Cualquiera</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3+</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-base font-medium" for="bathrooms-mobile"
+              >Baños</label
+            >
+            <select
+              class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-surface-dark dark:text-text-dark focus:border-primary focus:ring-primary/50 text-sm"
+              id="bathrooms-mobile"
+            >
+              <option>Cualquiera</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3+</option>
+            </select>
+          </div>
+        </div>
+        <div
+          class="flex flex-col gap-3 border-t border-border-light dark:border-border-dark pt-6"
+        >
+          <label class="text-base font-medium">Estilo Arquitectónico</label>
+          <label class="flex items-center gap-x-3">
+            <input
+              class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+              type="checkbox"
+            />
+            <span class="text-sm">Moderno</span>
+          </label>
+          <label class="flex items-center gap-x-3">
+            <input
+              class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+              type="checkbox"
+            />
+            <span class="text-sm">Tradicional</span>
+          </label>
+          <label class="flex items-center gap-x-3">
+            <input
+              class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+              type="checkbox"
+            />
+            <span class="text-sm">Mediterráneo</span>
+          </label>
+        </div>
+        <div
+          class="flex flex-col gap-3 border-t border-border-light dark:border-border-dark pt-6"
+        >
+          <label class="text-base font-medium"
+            >Características Exteriores</label
+          >
+          <label class="flex items-center gap-x-3">
+            <input
+              class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+              type="checkbox"
+            />
+            <span class="text-sm">Jardín</span>
+          </label>
+          <label class="flex items-center gap-x-3">
+            <input
+              class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+              type="checkbox"
+            />
+            <span class="text-sm">Balcón</span>
+          </label>
+          <label class="flex items-center gap-x-3">
+            <input
+              class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+              type="checkbox"
+            />
+            <span class="text-sm">Piscina</span>
+          </label>
+        </div>
+        <div
+          class="flex flex-col gap-2 border-t border-border-light dark:border-border-dark pt-6"
+        >
+          <label class="text-base font-medium" for="landmarks-mobile"
+            >Proximidad a Puntos de Interés</label
+          >
+          <select
+            class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-surface-dark dark:text-text-dark focus:border-primary focus:ring-primary/50 text-sm"
+            id="landmarks-mobile"
+          >
+            <option>Cualquiera</option>
+            <option>Centro de la Ciudad</option>
+            <option>Parque</option>
+            <option>Escuela</option>
+            <option>Hospital</option>
+          </select>
+        </div>
+        <div
+          class="flex flex-col gap-3 border-t border-border-light dark:border-border-dark pt-6"
+        >
+          <button
+            class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+          >
+            <span class="truncate">Aplicar Filtros</span>
+          </button>
+          <button
+            class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-text-muted-light dark:text-text-muted-dark border border-border-light dark:border-border-dark text-sm font-bold tracking-wide hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            <span class="truncate">Reiniciar</span>
+          </button>
+        </div>
+      </aside>
+      <main class="container mx-auto px-6 py-10">
+        <div class="flex flex-col lg:flex-row gap-10">
+          <aside
+            class="w-full lg:w-1/4 xl:w-1/5 hidden lg:block"
+            id="desktop-filters-sidebar"
+          >
+            <div class="sticky top-28">
+              <div
+                class="flex flex-col gap-8 rounded-xl bg-surface-light dark:bg-surface-dark p-6"
+              >
+                <div class="flex flex-col">
+                  <h3 class="text-lg font-bold">Filtrar Propiedades</h3>
+                  <p
+                    class="text-sm text-text-muted-light dark:text-text-muted-dark"
+                  >
+                    Encuentra tu hogar perfecto
+                  </p>
+                </div>
+                <div
+                  class="flex flex-col gap-4 border-t border-border-light dark:border-border-dark pt-6"
+                >
+                  <label class="text-base font-medium">Price Range</label>
+                  <div class="flex h-[38px] w-full pt-1.5">
+                    <div
+                      class="flex h-1.5 w-full rounded-full bg-border-light dark:bg-border-dark pl-[10%] pr-[30%]"
+                    >
+                      <div class="relative">
+                        <div
+                          class="absolute -left-3 -top-2 flex flex-col items-center gap-1.5"
+                        >
+                          <div
+                            class="size-5 rounded-full bg-primary ring-2 ring-white dark:ring-surface-dark cursor-pointer"
+                          ></div>
+                          <p
+                            class="text-xs font-medium text-text-muted-light dark:text-text-muted-dark"
+                          >
+                            $50,000
+                          </p>
+                        </div>
+                      </div>
+                      <div class="h-1.5 flex-1 rounded-full bg-primary"></div>
+                      <div class="relative">
+                        <div
+                          class="absolute -right-3 -top-2 flex flex-col items-center gap-1.5"
+                        >
+                          <div
+                            class="size-5 rounded-full bg-primary ring-2 ring-white dark:ring-surface-dark cursor-pointer"
+                          ></div>
+                          <p
+                            class="text-xs font-medium text-text-muted-light dark:text-text-muted-dark"
+                          >
+                            $500,000
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col gap-3 border-t border-border-light dark:border-border-dark pt-6"
+                >
+                  <label class="text-base font-medium">Property Type</label>
+                  <label class="flex items-center gap-x-3">
+                    <input
+                      checked=""
+                      class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                      type="checkbox"
+                    />
+                    <span class="text-sm">House</span>
+                  </label>
+                  <label class="flex items-center gap-x-3">
+                    <input
+                      class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                      type="checkbox"
+                    />
+                    <span class="text-sm">Apartment</span>
+                  </label>
+                  <label class="flex items-center gap-x-3">
+                    <input
+                      class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                      type="checkbox"
+                    />
+                    <span class="text-sm">Land</span>
+                  </label>
+                </div>
+                <div
+                  class="grid grid-cols-2 gap-4 border-t border-border-light dark:border-border-dark pt-6"
+                >
+                  <div class="flex flex-col gap-2">
+                    <label class="text-base font-medium" for="bedrooms"
+                      >Bedrooms</label
+                    >
+                    <select
+                      class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-surface-dark dark:text-text-dark focus:border-primary focus:ring-primary/50 text-sm"
+                      id="bedrooms"
+                    >
+                      <option>Any</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3+</option>
+                    </select>
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <label class="text-base font-medium" for="bathrooms"
+                      >Bathrooms</label
+                    >
+                    <select
+                      class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-surface-dark dark:text-text-dark focus:border-primary focus:ring-primary/50 text-sm"
+                      id="bathrooms"
+                    >
+                      <option>Any</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3+</option>
+                    </select>
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col gap-3 border-t border-border-light dark:border-border-dark pt-6"
+                >
+                  <label class="text-base font-medium"
+                    >Architectural Style</label
+                  >
+                  <label class="flex items-center gap-x-3">
+                    <input
+                      class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                      type="checkbox"
+                    />
+                    <span class="text-sm">Modern</span>
+                  </label>
+                  <label class="flex items-center gap-x-3">
+                    <input
+                      class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                      type="checkbox"
+                    />
+                    <span class="text-sm">Traditional</span>
+                  </label>
+                  <label class="flex items-center gap-x-3">
+                    <input
+                      class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                      type="checkbox"
+                    />
+                    <span class="text-sm">Mediterranean</span>
+                  </label>
+                </div>
+                <div
+                  class="flex flex-col gap-3 border-t border-border-light dark:border-border-dark pt-6"
+                >
+                  <label class="text-base font-medium">Outdoor Features</label>
+                  <label class="flex items-center gap-x-3">
+                    <input
+                      class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                      type="checkbox"
+                    />
+                    <span class="text-sm">Garden</span>
+                  </label>
+                  <label class="flex items-center gap-x-3">
+                    <input
+                      class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                      type="checkbox"
+                    />
+                    <span class="text-sm">Balcony</span>
+                  </label>
+                  <label class="flex items-center gap-x-3">
+                    <input
+                      class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-primary/50 focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                      type="checkbox"
+                    />
+                    <span class="text-sm">Pool</span>
+                  </label>
+                </div>
+                <div
+                  class="flex flex-col gap-2 border-t border-border-light dark:border-border-dark pt-6"
+                >
+                  <label class="text-base font-medium" for="landmarks"
+                    >Proximity to Landmarks</label
+                  >
+                  <select
+                    class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-surface-dark dark:text-text-dark focus:border-primary focus:ring-primary/50 text-sm"
+                    id="landmarks"
+                  >
+                    <option>Any</option>
+                    <option>City Center</option>
+                    <option>Park</option>
+                    <option>School</option>
+                    <option>Hospital</option>
+                  </select>
+                </div>
+                <div
+                  class="flex flex-col gap-3 border-t border-border-light dark:border-border-dark pt-6"
+                >
+                  <button
+                    class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Apply Filters</span>
+                  </button>
+                  <button
+                    class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-text-muted-light dark:text-text-muted-dark border border-border-light dark:border-border-dark text-sm font-bold tracking-wide hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <span class="truncate">Reset</span>
+                  </button>
+                </div>
+                <button
+                  class="mt-6 w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-surface-light dark:bg-surface-dark text-text-muted-light dark:text-text-muted-dark border border-border-light dark:border-border-dark text-sm font-bold tracking-wide hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  id="hide-filters-button"
+                >
+                  <span class="truncate">Ocultar Filtros</span>
+                </button>
+              </div>
+            </div>
+          </aside>
+          <div
+            class="w-full lg:w-3/4 xl:w-4/5 flex-grow"
+            id="properties-main-content"
+          >
+            <button
+              class="hidden lg:flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity mb-8"
+              id="show-filters-button"
+              style="display: none"
+            >
+              <span class="material-symbols-outlined">filter_alt</span>
+              <span class="truncate ml-2">Mostrar Filtros</span>
+            </button>
+            <div
+              class="flex flex-col sm:flex-row justify-between items-baseline gap-4 mb-8"
+            >
+              <h1 class="text-4xl font-black tracking-tighter">
+                Propiedades en Mendoza
+              </h1>
+              <div class="flex items-center gap-4">
+                <div
+                  class="flex items-center gap-2 border border-border-light dark:border-border-dark rounded-lg p-1"
+                >
+                  <button
+                    class="size-8 flex items-center justify-center rounded-md text-text-muted-light dark:text-text-muted-dark hover:bg-surface-light dark:hover:bg-surface-dark transition-colors layout-switcher active"
+                    data-cols="3"
+                  >
+                    <span class="material-symbols-outlined">grid_view</span>
+                  </button>
+                  <button
+                    class="size-8 flex items-center justify-center rounded-md text-text-muted-light dark:text-text-muted-dark hover:bg-surface-light dark:hover:bg-surface-dark transition-colors layout-switcher"
+                    data-cols="2"
+                  >
+                    <span class="material-symbols-outlined">view_module</span>
+                  </button>
+                  <button
+                    class="size-8 flex items-center justify-center rounded-md text-text-muted-light dark:text-text-muted-dark hover:bg-surface-light dark:hover:bg-surface-dark transition-colors layout-switcher"
+                    data-cols="1"
+                  >
+                    <span class="material-symbols-outlined">view_list</span>
+                  </button>
+                </div>
+                <label
+                  class="text-sm text-text-muted-light dark:text-text-muted-dark"
+                  for="sort-by"
+                  >Ordenar por:</label
+                >
+                <select
+                  class="rounded-lg border-gray-300 dark:border-gray-600 dark:bg-background-dark dark:text-text-dark focus:border-primary focus:ring-primary/50 text-sm p-2"
+                  id="sort-by"
+                >
+                  <option>Precio (Mayor-Menor)</option>
+                  <option>Precio (Menor-Mayor)</option>
+                  <option>Más Recientes</option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+              id="properties-grid"
+            >
+              <div
+                class="property-card property-card-3cols group flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Modern suburban house with a large front yard and a swimming pool."
+                    class="h-56 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnGRW2ID-Frl5shx15UFA98N26cOn4odIYE-5ECm8n7WOTT9eFSNjnvrwazH-hJltVu8Dka1dZTWuJ5JILshRywib-qQzVATP-j-sF6MUvDo_iZdOe8TEmOW6_XOHhQL7iHTePFI6Uowfij2gGMf2oEsStmS-UQPbHlN_SUQtJzaWRJGsUxmAV1kOVTToV3sxb3zfV1hIfevKOk2Z8p7lC5JPiWxRHwgEtuqNlD87PPLqi5EAzZau9xlgYW7ta7d4bw6yLaHXRmwk"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-lg font-bold">
+                    Chacras de Coria, Luján de Cuyo
+                  </h3>
+                  <p class="text-2xl font-black text-primary mt-2">$350,000</p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-sm text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >square_foot</span
+                      ><span>180 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bed</span
+                      ><span>3 Hab</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bathtub</span
+                      ><span>2 Baños</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-2cols hidden group flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Modern suburban house with a large front yard and a swimming pool."
+                    class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnGRW2ID-Frl5shx15UFA98N26cOn4odIYE-5ECm8n7WOTT9eFSNjnvrwazH-hJltVu8Dka1dZTWuJ5JILshRywib-qQzVATP-j-sF6MUvDo_iZdOe8TEmOW6_XOHhQL7iHTePFI6Uowfij2gGMf2oEsStmS-UQPbHlN_SUQtJzaWRJGsUxmAV1kOVTToV3sxb3zfV1hIfevKOk2Z8p7lC5JPiWxRHwgEtuqNlD87PPLqi5EAzZau9xlgYW7ta7d4bw6yLaHXRmwk"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-xl font-bold">
+                    Chacras de Coria, Luján de Cuyo
+                  </h3>
+                  <p class="text-3xl font-black text-primary mt-2">$350,000</p>
+                  <p
+                    class="text-sm text-text-muted-light dark:text-text-muted-dark mt-2"
+                  >
+                    Amplia casa familiar en una ubicación privilegiada. Disfruta
+                    de la tranquilidad de Chacras de Coria con fácil acceso a
+                    servicios.
+                  </p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>180 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>3 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>2 Baths</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-1col hidden flex-col lg:flex-row overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-lg"
+              >
+                <div class="relative w-full lg:w-2/3 xl:w-1/2 overflow-hidden">
+                  <img
+                    alt="Modern suburban house with a large front yard and a swimming pool."
+                    class="h-64 lg:h-full w-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnGRW2ID-Frl5shx15UFA98N26cOn4odIYE-5ECm8n7WOTT9eFSNjnvrwazH-hJltVu8Dka1dZTWuJ5JILshRywib-qQzVATP-j-sF6MUvDo_iZdOe8TEmOW6_XOHhQL7iHTePFI6Uowfij2gGMf2oEsStmS-UQPbHlN_SUQtJzaWRJGsUxmAV1kOVTToV3sxb3zfV1hIfevKOk2Z8p7lC5JPiWxRHwgEtuqNlD87PPLqi5EAzZau9xlgYW7ta7d4bw6yLaHXRmwk"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6 lg:p-8">
+                  <h3
+                    class="text-2xl font-bold text-text-light dark:text-text-dark"
+                  >
+                    Chacras de Coria, Luján de Cuyo
+                  </h3>
+                  <p class="text-4xl font-black text-primary mt-2">$350,000</p>
+                  <p
+                    class="text-base text-text-muted-light dark:text-text-muted-dark mt-4 leading-relaxed"
+                  >
+                    Descubre esta exquisita casa suburbana moderna en las
+                    codiciadas Chacras de Coria. Cuenta con un amplio patio
+                    delantero, piscina privada e interiores espaciosos perfectos
+                    para la vida familiar. Disfruta de la combinación de
+                    tranquilidad y comodidad urbana.
+                  </p>
+                  <div class="mt-6 flex flex-wrap gap-2">
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Para Familias</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Amplio Espacio</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Oasis al Aire Libre</span
+                    >
+                  </div>
+                  <div
+                    class="mt-6 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>180 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>3 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>2 Baths</span>
+                    </div>
+                  </div>
+                  <div class="mt-6 flex flex-col sm:flex-row gap-4">
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                    >
+                      <span class="truncate">Ver Detalles</span>
+                    </button>
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-primary border border-primary text-sm font-bold tracking-wide hover:bg-primary/10 transition-colors"
+                    >
+                      <span class="material-symbols-outlined text-base"
+                        >360</span
+                      >
+                      <span class="truncate ml-2">Virtual Tour</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-3cols group flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Stylish and modern apartment interior with an open-plan living room."
+                    class="h-56 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWnsE8-RUKN_zrkOm5mkhV_tFYBQPeNwittRBoDiPaTtUChticZVcucrPK3rH0tXe2E6yaJd2Tm9AA3QEMQbKVxS4iL1JoRuCD4NVPlq3Xii4Dfw1dkjNZVW40-ujDUUFLuJGXrhu3OCMCudYnNhaJmvTRAbNFfUt5YqlL54-Bgn_MYDE3_aX58OyAu6sM6d6NbFTfWritiEbgK1cfQ3YShiyd6Km6q9IxSTWPUyCjbCfAHijmPyPgUV1mANutqvDkpF8QGfiyfG8"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-lg font-bold">Quinta Sección, Capital</h3>
+                  <p class="text-2xl font-black text-primary mt-2">$180,000</p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-sm text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >square_foot</span
+                      ><span>95 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bed</span
+                      ><span>2 Hab</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bathtub</span
+                      ><span>2 Baños</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-2cols hidden group flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Stylish and modern apartment interior with an open-plan living room."
+                    class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWnsE8-RUKN_zrkOm5mkhV_tFYBQPeNwittRBoDiPaTtUChticZVcucrPK3rH0tXe2E6yaJd2Tm9AA3QEMQbKVxS4iL1JoRuCD4NVPlq3Xii4Dfw1dkjNZVW40-ujDUUFLuJGXrhu3OCMCudYnNhaJmvTRAbNFfUt5YqlL54-Bgn_MYDE3_aX58OyAu6sM6d6NbFTfWritiEbgK1cfQ3YShiyd6Km6q9IxSTWPUyCjbCfAHijmPyPgUV1mANutqvDkpF8QGfiyfG8"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-xl font-bold">Quinta Sección, Capital</h3>
+                  <p class="text-3xl font-black text-primary mt-2">$180,000</p>
+                  <p
+                    class="text-sm text-text-muted-light dark:text-text-muted-dark mt-2"
+                  >
+                    Moderno apartamento en la vibrante Quinta Sección. Cuenta con una
+                    sala de estar de planta abierta y acabados contemporáneos, perfecto para
+                    la vida urbana.
+                  </p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>95 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>2 Hab</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>2 Baños</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-1col hidden flex-col lg:flex-row overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-lg"
+              >
+                <div class="relative w-full lg:w-2/3 xl:w-1/2 overflow-hidden">
+                  <img
+                    alt="Stylish and modern apartment interior with an open-plan living room."
+                    class="h-64 lg:h-full w-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWnsE8-RUKN_zrkOm5mkhV_tFYBQPeNwittRBoDiPaTtUChticZVcucrPK3rH0tXe2E6yaJd2Tm9AA3QEMQbKVxS4iL1JoRuCD4NVPlq3Xii4Dfw1dkjNZVW40-ujDUUFLuJGXrhu3OCMCudYnNhaJmvTRAbNFfUt5YqlL54-Bgn_MYDE3_aX58OyAu6sM6d6NbFTfWritiEbgK1cfQ3YShiyd6Km6q9IxSTWPUyCjbCfAHijmPyPgUV1mANutqvDkpF8QGfiyfG8"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6 lg:p-8">
+                  <h3
+                    class="text-2xl font-bold text-text-light dark:text-text-dark"
+                  >
+                    Quinta Sección, Capital
+                  </h3>
+                  <p class="text-4xl font-black text-primary mt-2">$180,000</p>
+                  <p
+                    class="text-base text-text-muted-light dark:text-text-muted-dark mt-4 leading-relaxed"
+                  >
+                    Un elegante y moderno apartamento ubicado en la prestigiosa
+                    Quinta Sección. Este espacio de planta abierta está diseñado para
+                    la comodidad y la elegancia, con acabados de alta gama y
+                    abundante luz natural. Ideal para profesionales o familias pequeñas.
+                  </p>
+                  <div class="mt-6 flex flex-wrap gap-2">
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Oasis Urbano</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Diseño Moderno</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >High-Tech Ready</span
+                    >
+                  </div>
+                  <div
+                    class="mt-6 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>95 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>2 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>2 Baths</span>
+                    </div>
+                  </div>
+                  <div class="mt-6 flex flex-col sm:flex-row gap-4">
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                    >
+                      <span class="truncate">Ver Detalles</span>
+                    </button>
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-primary border border-primary text-sm font-bold tracking-wide hover:bg-primary/10 transition-colors"
+                    >
+                      <span class="material-symbols-outlined text-base"
+                        >360</span
+                      >
+                      <span class="truncate ml-2">Virtual Tour</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-3cols group flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Luxury home with a minimalist design and floor-to-ceiling windows."
+                    class="h-56 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCByZcDA80mILj9NNRpiuwEfH_iKkIw3OSFaGKmm5pvZlMbE0cthUOIPLlyqd189ixw6I42noNGhcLaIecqbWaKbtMbuFT7yGrIOR1AF5AfVK2z9HzSudmpvoDVQtW-hvCcVONQ2mEGQPswxVZuJNL7yJDk4D0WtdZZ9JE1lMgX5ZhYeGvy5pS55sQSh_JhTb6RQmNHGW1yGR4tpuJWCeUHV4tpSXSUEbb1Gw9eJl4Wdblo9S_8YeIjmbOKgX_uiaKvk3mlSK6UJls"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-lg font-bold">Dalvian, Capital</h3>
+                  <p class="text-2xl font-black text-primary mt-2">$620,000</p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-sm text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >square_foot</span
+                      ><span>320 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bed</span
+                      ><span>4 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bathtub</span
+                      ><span>3 Baths</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-2cols hidden group flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Luxury home with a minimalist design and floor-to-ceiling windows."
+                    class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCByZcDA80mILj9NNRpiuwEfH_iKkIw3OSFaGKmm5pvZlMbE0cthUOIPLlyqd189ixw6I42noNGhcLaIecqbWaKbtMbuFT7yGrIOR1AF5AfVK2z9HzSudmpvoDVQtW-hvCcVONQ2mEGQPswxVZuJNL7yJDk4D0WtdZZ9JE1lMgX5ZhYeGvy5pS55sQSh_JhTb6RQmNHGW1yGR4tpuJWCeUHV4tpSXSUEbb1Gw9eJl4Wdblo9S_8YeIjmbOKgX_uiaKvk3mlSK6UJls"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-xl font-bold">Dalvian, Capital</h3>
+                  <p class="text-3xl font-black text-primary mt-2">$620,000</p>
+                  <p
+                    class="text-sm text-text-muted-light dark:text-text-muted-dark mt-2"
+                  >
+                    Lujosa residencia en el exclusivo barrio de Dalvian.
+                    Cuenta con un diseño minimalista con amplias ventanas de piso a techo.
+                  </p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>320 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>4 Hab</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>3 Baños</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-1col hidden flex-col lg:flex-row overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-lg"
+              >
+                <div class="relative w-full lg:w-2/3 xl:w-1/2 overflow-hidden">
+                  <img
+                    alt="Luxury home with a minimalist design and floor-to-ceiling windows."
+                    class="h-64 lg:h-full w-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCByZcDA80mILj9NNRpiuwEfH_iKkIw3OSFaGKmm5pvZlMbE0cthUOIPLlyqd189ixw6I42noNGhcLaIecqbWaKbtMbuFT7yGrIOR1AF5AfVK2z9HzSudmpvoDVQtW-hvCcVONQ2mEGQPswxVZuJNL7yJDk4D0WtdZZ9JE1lMgX5ZhYeGvy5pS55sQSh_JhTb6RQmNHGW1yGR4tpuJWCeUHV4tpSXSUEbb1Gw9eJl4Wdblo9S_8YeIjmbOKgX_uiaKvk3mlSK6UJls"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6 lg:p-8">
+                  <h3
+                    class="text-2xl font-bold text-text-light dark:text-text-dark"
+                  >
+                    Dalvian, Capital
+                  </h3>
+                  <p class="text-4xl font-black text-primary mt-2">$620,000</p>
+                  <p
+                    class="text-base text-text-muted-light dark:text-text-muted-dark mt-4 leading-relaxed"
+                  >
+                    Experience unparalleled luxury in this Dalvian masterpiece.
+                    Boasting a striking minimalist design, this home features
+                    expansive floor-to-ceiling windows that offer breathtaking
+                    views and fill every space with natural light. A true
+                    architectural gem.
+                  </p>
+                  <div class="mt-6 flex flex-wrap gap-2">
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Luxury Living</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Stunning Views</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Architectural Gem</span
+                    >
+                  </div>
+                  <div
+                    class="mt-6 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>320 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>4 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>3 Baths</span>
+                    </div>
+                  </div>
+                  <div class="mt-6 flex flex-col sm:flex-row gap-4">
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                    >
+                      <span class="truncate">Ver Detalles</span>
+                    </button>
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-primary border border-primary text-sm font-bold tracking-wide hover:bg-primary/10 transition-colors"
+                    >
+                      <span class="material-symbols-outlined text-base"
+                        >360</span
+                      >
+                      <span class="truncate ml-2">Virtual Tour</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-3cols group flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="A spacious two-story family house with a well-kept lawn."
+                    class="h-56 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIyxk4S1UpXE8SHKTUPxvVIcf2cu8aadasTFvYvyRpUcah7MEjeVNc_tnbNUIDIYqz-3HO5dG-VtB_lFkcHKl5uzZZaa_vgvvHrl6b_lKDN_9anVwxLruU9TVyC1g53aeb84DedHWawgZq7_sDoO8mdR-mwI8OLp1hdtdQqk7xl3rY_RQc9GbqOF8V7Rw_3jBOIOM-zdrD22unV8auR8ry3LEXswwxLM4hm6zAtGx_jO1y4UpyIVz2lYmCvjkwUTtZb878EwmCO6U"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-lg font-bold">Vistalba, Luján de Cuyo</h3>
+                  <p class="text-2xl font-black text-primary mt-2">$410,000</p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-sm text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >square_foot</span
+                      ><span>250 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bed</span
+                      ><span>3 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bathtub</span
+                      ><span>3 Baths</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-2cols hidden group flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="A spacious two-story family house with a well-kept lawn."
+                    class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIyxk4S1UpXE8SHKTUPxvVIcf2cu8aadasTFvYvyRpUcah7MEjeVNc_tnbNUIDIYqz-3HO5dG-VtB_lFkcHKl5uzZZaa_vgvvHrl6b_lKDN_9anVwxLruU9TVyC1g53aeb84DedHWawgZq7_sDoO8mdR-mwI8OLp1hdtdQqk7xl3rY_RQc9GbqOF8V7Rw_3jBOIOM-zdrD22unV8auR8ry3LEXswwxLM4hm6zAtGx_jO1y4UpyIVz2lYmCvjkwUTtZb878EwmCO6U"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-xl font-bold">Vistalba, Luján de Cuyo</h3>
+                  <p class="text-3xl font-black text-primary mt-2">$410,000</p>
+                  <p
+                    class="text-sm text-text-muted-light dark:text-text-muted-dark mt-2"
+                  >
+                    Spacious two-story family house in the serene Vistalba area.
+                    Features a well-kept lawn and ample space for family
+                    activities.
+                  </p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>250 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>3 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>3 Baths</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-1col hidden flex-col lg:flex-row overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-lg"
+              >
+                <div class="relative w-full lg:w-2/3 xl:w-1/2 overflow-hidden">
+                  <img
+                    alt="A spacious two-story family house with a well-kept lawn."
+                    class="h-64 lg:h-full w-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIyxk4S1UpXE8SHKTUPxvVIcf2cu8aadasTFvYvyRpUcah7MEjeVNc_tnbNUIDIYqz-3HO5dG-VtB_lFkcHKl5uzZZaa_vgvvHrl6b_lKDN_9anVwxLruU9TVyC1g53aeb84DedHWawgZq7_sDoO8mdR-mwI8OLp1hdtdQqk7xl3rY_RQc9GbqOF8V7Rw_3jBOIOM-zdrD22unV8auR8ry3LEXswwxLM4hm6zAtGx_jO1y4UpyIVz2lYmCvjkwUTtZb878EwmCO6U"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6 lg:p-8">
+                  <h3
+                    class="text-2xl font-bold text-text-light dark:text-text-dark"
+                  >
+                    Vistalba, Luján de Cuyo
+                  </h3>
+                  <p class="text-4xl font-black text-primary mt-2">$410,000</p>
+                  <p
+                    class="text-base text-text-muted-light dark:text-text-muted-dark mt-4 leading-relaxed"
+                  >
+                    A stunning two-story family house nestled in the picturesque
+                    Vistalba. This home offers ample space for a growing family,
+                    with a meticulously kept lawn and garden, providing a serene
+                    escape. Close to vineyards and mountain views.
+                  </p>
+                  <div class="mt-6 flex flex-wrap gap-2">
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Vineyard Proximity</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Mountain Views</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Quiet Neighborhood</span
+                    >
+                  </div>
+                  <div
+                    class="mt-6 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>250 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>3 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>3 Baths</span>
+                    </div>
+                  </div>
+                  <div class="mt-6 flex flex-col sm:flex-row gap-4">
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                    >
+                      <span class="truncate">Ver Detalles</span>
+                    </button>
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-primary border border-primary text-sm font-bold tracking-wide hover:bg-primary/10 transition-colors"
+                    >
+                      <span class="material-symbols-outlined text-base"
+                        >360</span
+                      >
+                      <span class="truncate ml-2">Virtual Tour</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-3cols group flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Cozy apartment bedroom with a large window and modern decor."
+                    class="h-56 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbRe7vsUc96JYghdu8iBySwnimFMyJKP4JZNvxhEXavLKQWDDKSJCqQIuEUWy9udioR2A8074LIczpwXM_cNg7FL3Yr2HxnA9m_Txz6hlBVOQWRkkAYQaZ7eBe3x56Zd4rMK3sL5DVIduiR-pZwQIghm4rA32WptGbAw8cNd86lTOghpV5AtvEFTqGc2XYJjIG51dOIW0ea2wU8fVYn9bvJE25Saqt6DUFZ0H3n3lc-m4iA_bUP3b79a-ERIP-usLZCYfLIZ6vHPo"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-lg font-bold">Godoy Cruz Centro</h3>
+                  <p class="text-2xl font-black text-primary mt-2">$120,000</p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-sm text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >square_foot</span
+                      ><span>70 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bed</span
+                      ><span>1 Bed</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bathtub</span
+                      ><span>1 Bath</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-2cols hidden group flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Cozy apartment bedroom with a large window and modern decor."
+                    class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbRe7vsUc96JYghdu8iBySwnimFMyJKP4JZNvxhEXavLKQWDDKSJCqQIuEUWy9udioR2A8074LIczpwXM_cNg7FL3Yr2HxnA9m_Txz6hlBVOQWRkkAYQaZ7eBe3x56Zd4rMK3sL5DVIduiR-pZwQIghm4rA32WptGbAw8cNd86lTOghpV5AtvEFTqGc2XYJjIG51dOIW0ea2wU8fVYn9bvJE25Saqt6DUFZ0H3n3lc-m4iA_bUP3b79a-ERIP-usLZCYfLIZ6vHPo"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-xl font-bold">Godoy Cruz Centro</h3>
+                  <p class="text-3xl font-black text-primary mt-2">$120,000</p>
+                  <p
+                    class="text-sm text-text-muted-light dark:text-text-muted-dark mt-2"
+                  >
+                    Cozy apartment in Godoy Cruz Centro. Features a comfortable
+                    bedroom with a large window and modern decor, perfect for
+                    singles or couples.
+                  </p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>70 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>1 Bed</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>1 Bath</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-1col hidden flex-col lg:flex-row overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-lg"
+              >
+                <div class="relative w-full lg:w-2/3 xl:w-1/2 overflow-hidden">
+                  <img
+                    alt="Cozy apartment bedroom with a large window and modern decor."
+                    class="h-64 lg:h-full w-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbRe7vsUc96JYghdu8iBySwnimFMyJKP4JZNvxhEXavLKQWDDKSJCqQIuEUWy9udioR2A8074LIczpwXM_cNg7FL3Yr2HxnA9m_Txz6hlBVOQWRkkAYQaZ7eBe3x56Zd4rMK3sL5DVIduiR-pZwQIghm4rA32WptGbAw8cNd86lTOghpV5AtvEFTqGc2XYJjIG51dOIW0ea2wU8fVYn9bvJE25Saqt6DUFZ0H3n3lc-m4iA_bUP3b79a-ERIP-usLZCYfLIZ6vHPo"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6 lg:p-8">
+                  <h3
+                    class="text-2xl font-bold text-text-light dark:text-text-dark"
+                  >
+                    Godoy Cruz Centro
+                  </h3>
+                  <p class="text-4xl font-black text-primary mt-2">$120,000</p>
+                  <p
+                    class="text-base text-text-muted-light dark:text-text-muted-dark mt-4 leading-relaxed"
+                  >
+                    A charming and cozy apartment located in the bustling heart
+                    of Godoy Cruz Centro. This beautifully decorated unit
+                    features a large window offering city views and a modern
+                    aesthetic, perfect for individuals seeking convenience and
+                    style.
+                  </p>
+                  <div class="mt-6 flex flex-wrap gap-2">
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >City Living</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Cozy Retreat</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Walkable Area</span
+                    >
+                  </div>
+                  <div
+                    class="mt-6 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>70 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>1 Bed</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>1 Bath</span>
+                    </div>
+                  </div>
+                  <div class="mt-6 flex flex-col sm:flex-row gap-4">
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                    >
+                      <span class="truncate">Ver Detalles</span>
+                    </button>
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-primary border border-primary text-sm font-bold tracking-wide hover:bg-primary/10 transition-colors"
+                    >
+                      <span class="material-symbols-outlined text-base"
+                        >360</span
+                      >
+                      <span class="truncate ml-2">Virtual Tour</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-3cols group flex flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Modern kitchen with wooden cabinets and stainless steel appliances."
+                    class="h-56 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuABYnn5gcJ4t_4s0SKdjmj89L2SbZ_-x6WMkAg5cQoxS5lwt7EURnkQB4mO88XTMiASTuxT8OINdLZztSUuDYW7pUy6W8-i6EoI0ny2keOahh5FQ3N9_UvMRag-LbPmYPzEBsuJ6pcRvj_p3JT7WhInK1RxBG-zBa4adni3w_ZZs4JIgP-4Zi5Q7b-eVt4U9jXaDf6ekcq7m7l2ptNsxIxQ1giw4TITvMhV_f4Gbyljg6qDOp6Naaeu26QrvHYUWCxiasQuNENBa70"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-lg font-bold">Barrio Bombal, Capital</h3>
+                  <p class="text-2xl font-black text-primary mt-2">$230,000</p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-sm text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >square_foot</span
+                      ><span>110 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bed</span
+                      ><span>2 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-base"
+                        >bathtub</span
+                      ><span>2 Baths</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-2cols hidden group flex-col overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-sm hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="relative overflow-hidden">
+                  <img
+                    alt="Modern kitchen with wooden cabinets and stainless steel appliances."
+                    class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuABYnn5gcJ4t_4s0SKdjmj89L2SbZ_-x6WMkAg5cQoxS5lwt7EURnkQB4mO88XTMiASTuxT8OINdLZztSUuDYW7pUy6W8-i6EoI0ny2keOahh5FQ3N9_UvMRag-LbPmYPzEBsuJ6pcRvj_p3JT7WhInK1RxBG-zBa4adni3w_ZZs4JIgP-4Zi5Q7b-eVt4U9jXaDf6ekcq7m7l2ptNsxIxQ1giw4TITvMhV_f4Gbyljg6qDOp6Naaeu26QrvHYUWCxiasQuNENBa70"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-xl font-bold">Barrio Bombal, Capital</h3>
+                  <p class="text-3xl font-black text-primary mt-2">$230,000</p>
+                  <p
+                    class="text-sm text-text-muted-light dark:text-text-muted-dark mt-2"
+                  >
+                    Contemporary apartment in the prestigious Barrio Bombal.
+                    Features a modern kitchen with wooden cabinets and stainless
+                    steel appliances.
+                  </p>
+                  <div
+                    class="mt-4 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>110 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>2 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>2 Baths</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-6 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                  >
+                    <span class="truncate">Ver Detalles</span>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="property-card property-card-1col hidden flex-col lg:flex-row overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-surface-dark shadow-lg"
+              >
+                <div class="relative w-full lg:w-2/3 xl:w-1/2 overflow-hidden">
+                  <img
+                    alt="Modern kitchen with wooden cabinets and stainless steel appliances."
+                    class="h-64 lg:h-full w-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuABYnn5gcJ4t_4s0SKdjmj89L2SbZ_-x6WMkAg5cQoxS5lwt7EURnkQB4mO88XTMiASTuxT8OINdLZztSUuDYW7pUy6W8-i6EoI0ny2keOahh5FQ3N9_UvMRag-LbPmYPzEBsuJ6pcRvj_p3JT7WhInK1RxBG-zBa4adni3w_ZZs4JIgP-4Zi5Q7b-eVt4U9jXaDf6ekcq7m7l2ptNsxIxQ1giw4TITvMhV_f4Gbyljg6qDOp6Naaeu26QrvHYUWCxiasQuNENBa70"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6 lg:p-8">
+                  <h3
+                    class="text-2xl font-bold text-text-light dark:text-text-dark"
+                  >
+                    Barrio Bombal, Capital
+                  </h3>
+                  <p class="text-4xl font-black text-primary mt-2">$230,000</p>
+                  <p
+                    class="text-base text-text-muted-light dark:text-text-muted-dark mt-4 leading-relaxed"
+                  >
+                    Discover this elegant apartment in the desirable Barrio
+                    Bombal. The heart of this home is its modern kitchen,
+                    complete with stylish wooden cabinets and state-of-the-art
+                    stainless steel appliances. Perfect for those who love to
+                    entertain.
+                  </p>
+                  <div class="mt-6 flex flex-wrap gap-2">
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Gourmet Kitchen</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Prime Location</span
+                    >
+                    <span
+                      class="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full"
+                      >Entertainer's Delight</span
+                    >
+                  </div>
+                  <div
+                    class="mt-6 flex items-center justify-between text-base text-text-muted-light dark:text-text-muted-dark border-t border-border-light dark:border-border-dark pt-4"
+                  >
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >square_foot</span
+                      ><span>110 m²</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg">bed</span
+                      ><span>2 Beds</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg"
+                        >bathtub</span
+                      ><span>2 Baths</span>
+                    </div>
+                  </div>
+                  <div class="mt-6 flex flex-col sm:flex-row gap-4">
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-wide hover:bg-opacity-90 transition-opacity"
+                    >
+                      <span class="truncate">Ver Detalles</span>
+                    </button>
+                    <button
+                      class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-primary border border-primary text-sm font-bold tracking-wide hover:bg-primary/10 transition-colors"
+                    >
+                      <span class="material-symbols-outlined text-base"
+                        >360</span
+                      >
+                      <span class="truncate ml-2">Virtual Tour</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <nav
+              aria-label="Pagination"
+              class="mt-12 flex items-center justify-center gap-2"
+            >
+              <a
+                class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
+                href="#"
+              >
+                <span class="sr-only">Previous</span>
+                <span class="material-symbols-outlined">chevron_left</span>
+              </a>
+              <a
+                class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-semibold bg-primary text-white"
+                href="#"
+                >1</a
+              >
+              <a
+                class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-semibold hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
+                href="#"
+                >2</a
+              >
+              <a
+                class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-semibold hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
+                href="#"
+                >3</a
+              >
+              <span
+                class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-semibold"
+                >...</span
+              >
+              <a
+                class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-semibold hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
+                href="#"
+                >8</a
+              >
+              <a
+                class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
+                href="#"
+              >
+                <span class="sr-only">Next</span>
+                <span class="material-symbols-outlined">chevron_right</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </main>
+      <footer
+        class="mt-16 bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark"
+      >
+        <div class="container mx-auto px-6 py-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center text-center md:text-left"
+          >
+            <p class="text-sm text-text-muted-light dark:text-text-muted-dark">
+              © 2024 Mendoza Real Estate. Todos los derechos reservados.
+            </p>
+            <div class="flex gap-4 mt-4 md:mt-0">
+              <a
+                class="text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors"
+                href="#"
+                >Política de Privacidad</a
+              >
+              <a
+                class="text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors"
+                href="#"
+                >Términos de Servicio</a
+              >
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const propertiesGrid = document.getElementById("properties-grid");
+        const layoutSwitchers = document.querySelectorAll(".layout-switcher");
+        const mobileFiltersButton = document.getElementById(
+          "mobile-filters-button"
+        );
+        const mobileFiltersSidebar = document.getElementById(
+          "mobile-filters-sidebar"
+        );
+        const mobileFiltersBackdrop = document.getElementById(
+          "mobile-filters-backdrop"
+        );
+        const closeFiltersButton = document.getElementById(
+          "close-filters-button"
+        );
+        const desktopFiltersSidebar = document.getElementById(
+          "desktop-filters-sidebar"
+        );
+        const hideFiltersButton = document.getElementById(
+          "hide-filters-button"
+        );
+        const showFiltersButton = document.getElementById(
+          "show-filters-button"
+        );
+        const propertiesMainContent = document.getElementById(
+          "properties-main-content"
+        );
+        function setLayout(cols) {
+          propertiesGrid.className = ""; // Clear existing grid classes
+          let cardClassToShow = "";
+          switch (cols) {
+            case 3:
+              propertiesGrid.classList.add(
+                "grid",
+                "grid-cols-1",
+                "md:grid-cols-2",
+                "xl:grid-cols-3",
+                "gap-8"
+              );
+              cardClassToShow = "property-card-3cols";
+              break;
+            case 2:
+              propertiesGrid.classList.add(
+                "grid",
+                "grid-cols-1",
+                "md:grid-cols-2",
+                "gap-8"
+              );
+              cardClassToShow = "property-card-2cols";
+              break;
+            case 1:
+              propertiesGrid.classList.add("grid", "grid-cols-1", "gap-8");
+              cardClassToShow = "property-card-1col";
+              break;
+            default:
+              propertiesGrid.classList.add(
+                "grid",
+                "grid-cols-1",
+                "md:grid-cols-2",
+                "xl:grid-cols-3",
+                "gap-8"
+              );
+              cardClassToShow = "property-card-3cols";
+          }
+          document.querySelectorAll(".property-card").forEach((card) => {
+            card.classList.add("hidden");
+          });
+          document.querySelectorAll(`.${cardClassToShow}`).forEach((card) => {
+            card.classList.remove("hidden");
+          });
+          layoutSwitchers.forEach((button) =>
+            button.classList.remove(
+              "text-primary",
+              "bg-surface-light",
+              "dark:bg-surface-dark",
+              "active"
+            )
+          );
+          document
+            .querySelector(`.layout-switcher[data-cols="${cols}"]`)
+            .classList.add(
+              "text-primary",
+              "bg-surface-light",
+              "dark:bg-surface-dark",
+              "active"
+            );
+        }
+        layoutSwitchers.forEach((button) => {
+          button.addEventListener("click", () => {
+            const cols = parseInt(button.dataset.cols, 10);
+            setLayout(cols);
+          });
+        });
+        // Initialize layout to 3 columns on load
+        setLayout(3);
+        // Mobile filters toggle
+        mobileFiltersButton.addEventListener("click", () => {
+          mobileFiltersSidebar.classList.add("open");
+          mobileFiltersBackdrop.classList.add("open");
+          document.body.style.overflow = "hidden"; // Prevent scrolling body
+        });
+        closeFiltersButton.addEventListener("click", () => {
+          mobileFiltersSidebar.classList.remove("open");
+          mobileFiltersBackdrop.classList.remove("open");
+          document.body.style.overflow = "";
+        });
+        mobileFiltersBackdrop.addEventListener("click", () => {
+          mobileFiltersSidebar.classList.remove("open");
+          mobileFiltersBackdrop.classList.remove("open");
+          document.body.style.overflow = "";
+        });
+        // Desktop filters hide/show
+        hideFiltersButton.addEventListener("click", () => {
+          desktopFiltersSidebar.classList.add("hidden");
+          propertiesMainContent.classList.remove("lg:w-3/4", "xl:w-4/5");
+          propertiesMainContent.classList.add("lg:w-full");
+          showFiltersButton.style.display = "flex";
+        });
+        showFiltersButton.addEventListener("click", () => {
+          desktopFiltersSidebar.classList.remove("hidden");
+          propertiesMainContent.classList.remove("lg:w-full");
+          propertiesMainContent.classList.add("lg:w-3/4", "xl:w-4/5");
+          showFiltersButton.style.display = "none";
+        });
+      });
+    </script>
+    <script>
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("navbar-scroll", "bg-white", "shadow-lg");
+        } else {
+          navbar.classList.remove("navbar-scroll", "bg-white", "shadow-lg");
+        }
+      });
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuBtn.addEventListener("click", function () {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+            // Close mobile menu if open
+            mobileMenu.classList.add("hidden");
+          }
+        });
+      });
+
+      // Form submission
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("¡Gracias por tu mensaje! Te responderemos a la brevedad.");
+        this.reset();
+      });
+
+      // WhatsApp button functionality
+      document
+        .querySelector("button:has(svg)")
+        .addEventListener("click", function () {
+          if (this.textContent.includes("WhatsApp")) {
+            window.open(
+              "https://wa.me/5492611234567?text=Hola, me interesa obtener más información sobre sus propiedades.",
+              "_blank"
+            );
+          }
+        });
+
+      // Property buttons functionality
+      document.querySelectorAll("button").forEach((button) => {
+        if (button.textContent.includes("Ver propiedad")) {
+          button.addEventListener("click", function () {
+            alert("Redirigiendo a la página de la propiedad...");
+          });
+        }
+      });
+
+      // CTA buttons functionality
+      document.querySelectorAll("button").forEach((button) => {
+        if (button.textContent.includes("Ver propiedades")) {
+          button.addEventListener("click", function () {
+            alert("Redirigiendo a la página de propiedades...");
+          });
+        }
+        if (button.textContent.includes("Tasación gratuita")) {
+          button.addEventListener("click", function () {
+            alert("Redirigiendo al formulario de tasación...");
+          });
+        }
+        if (button.textContent.includes("Publicar mi propiedad")) {
+          button.addEventListener("click", function () {
+            alert("Redirigiendo al formulario de publicación...");
+          });
+        }
+      });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'9814c99476fba77a',t:'MTc1ODIzOTg2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -49,7 +49,7 @@ const PropertyCarousel = ({
 
   return (
     <section className="py-24 px-6 bg-gray-ui">
-      <div className="max-w-container mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-semibold text-gray-900 mb-4">{title}</h2>
           <p className="text-gray-600">{subtitle}</p>
@@ -130,7 +130,7 @@ const PropertyCarousel = ({
                 onClick={() => goToSlide(index)}
                 className={`h-3 rounded-full transition-all duration-300 ${
                   currentSlide === index
-                    ? 'w-8 bg-primary-red'
+                    ? 'w-8 bg-accent'
                     : 'w-3 bg-gray-300'
                 }`}
                 aria-label={`Ir al slide ${index + 1}`}
