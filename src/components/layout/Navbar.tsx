@@ -28,7 +28,7 @@ const Navbar = () => {
         />
       )}
 
-      <nav
+      <header
         className={`fixed w-full top-0 z-50 transition-all duration-300 ${
           isScrolled || isMobileMenuOpen
             ? "shadow-lg bg-white/95 backdrop-blur-md"
@@ -49,7 +49,7 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8">
               {/* Dropdown Inicio */}
               <Link
                 href="/"
@@ -76,7 +76,7 @@ const Navbar = () => {
               >
                 Contacto
               </Link>
-            </div>
+            </nav>
 
             <button className="hidden md:block bg-accent hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors">
               Publicar mi propiedad
@@ -133,7 +133,7 @@ const Navbar = () => {
                   </svg>
                 </button>
                 {isInicioOpen && (
-                  <div className="pl-4 mt-2 space-y-2">
+                  <nav className="pl-4 mt-2 space-y-2">
                     <Link href="/index" className="block text-gray-600 py-1">
                       Inicio
                     </Link>
@@ -143,7 +143,7 @@ const Navbar = () => {
                     <Link href="/index3" className="block text-gray-600 py-1">
                       Inicio 3
                     </Link>
-                  </div>
+                  </nav>
                 )}
               </div>
               <Link href="/propiedades" className="block text-gray-600">
@@ -161,7 +161,7 @@ const Navbar = () => {
             </div>
           </div>
         )}
-      </nav>
+      </header>
     </>
   );
 };
