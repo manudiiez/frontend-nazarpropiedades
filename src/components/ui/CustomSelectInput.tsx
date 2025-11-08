@@ -108,7 +108,7 @@ const CustomSelectInput = ({
         disabled={disabled}
         className={`
           w-full flex items-center justify-between px-3 py-1
-          text-left bg-white border border-gray-300 rounded-lg
+          text-left border border-gray-300 rounded-lg
           hover:border-gray-400 focus:outline-none focus:ring-2
           focus:ring-accent focus:border-accent
           transition-colors duration-200
