@@ -9,6 +9,7 @@
   --neutral-light: #f3f4f6;
   --neutral-dark: #374151;
   --gray-ui: #f5f6f7;
+  --gray-ui-hover: #e2e4e6;
   --gray-border: #e5e7eb;
   --primary-red-hover: #b30500;
   --surface-light: #f4f4f7;
@@ -26,6 +27,7 @@
   --color-neutral-light: var(--neutral-light);
   --color-neutral-dark: var(--neutral-dark);
   --color-gray-ui: var(--gray-ui);
+  --color-gray-ui-hover: var(--gray-ui-hover);
   --color-gray-border: var(--gray-border);
   --color-primary-red: var(--primary-red);
   --color-primary-red-hover: var(--primary-red-hover);
@@ -47,6 +49,7 @@
     --neutral-light: #f3f4f6;
     --neutral-dark: #374151;
     --gray-ui: #f5f6f7;
+    --gray-ui-hover: #e2e4e6;
     --gray-border: #e5e7eb;
     --primary-red-hover: #b30500;
     --surface-light: #f4f4f7;

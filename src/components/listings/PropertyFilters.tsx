@@ -18,6 +18,7 @@ const PropertyFilters = ({
   const [searchQuery, setSearchQuery] = useState('')
   const [propertyType, setPropertyType] = useState('any')
   const [condition, setCondition] = useState('any')
+  const [currency, setCurrency] = useState<'ARS' | 'USD' | null>('ARS')
   const [priceMin, setPriceMin] = useState(50000)
   const [priceMax, setPriceMax] = useState(500000)
   const [bedroomsMin, setBedroomsMin] = useState(0)
@@ -30,6 +31,7 @@ const PropertyFilters = ({
       searchQuery,
       propertyType,
       condition,
+      currency,
       priceMin,
       priceMax,
       bedroomsMin,
@@ -46,6 +48,7 @@ const PropertyFilters = ({
     setSearchQuery('')
     setPropertyType('any')
     setCondition('any')
+    setCurrency('ARS')
     setPriceMin(50000)
     setPriceMax(500000)
     setBedroomsMin(0)
@@ -55,16 +58,11 @@ const PropertyFilters = ({
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      {/* <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-xl font-bold">Filtrar Propiedades</h3>
-          {!isMobile && (
-            <p className="text-sm text-text-secondary-light mt-1">
-              Encuentra tu hogar perfecto
-            </p>
-          )}
+          <h3 className="text-md font-bold">Filtrar Propiedades</h3>
         </div>
         {isMobile && onClose && (
           <button
@@ -75,7 +73,7 @@ const PropertyFilters = ({
             <span className="material-symbols-outlined">close</span>
           </button>
         )}
-      </div>
+      </div> */}
 
       {/* Búsqueda por ubicación */}
       <div>
@@ -88,11 +86,11 @@ const PropertyFilters = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Ej: Godoy Cruz, Luján de Cuyo..."
-            className="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
+            className="w-full px-4 py-2  border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
           />
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
+          {/* <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
             search
-          </span>
+          </span> */}
         </div>
       </div>
 
@@ -131,17 +129,47 @@ const PropertyFilters = ({
       </div>
 
       {/* Rango de Precio */}
-      <DualRangeSlider
-        min={50000}
-        max={500000}
-        step={10000}
-        valueMin={priceMin}
-        valueMax={priceMax}
-        onMinChange={setPriceMin}
-        onMaxChange={setPriceMax}
-        label="Rango de Precio"
-        formatValue={(val) => `$${val.toLocaleString('es-AR')}`}
-      />
+      <div>
+        <label className="block text-sm font-medium mb-3">Rango de Precio</label>
+
+        {/* Selector de Moneda */}
+        <div className="flex gap-3 mb-4">
+          <button
+            type="button"
+            onClick={() => setCurrency(currency === 'ARS' ? null : 'ARS')}
+            className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors border border-gray-border  ${
+              currency === 'ARS'
+                ? 'bg-accent text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            ARS
+          </button>
+          <button
+            type="button"
+            onClick={() => setCurrency(currency === 'USD' ? null : 'USD')}
+            className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors border border-gray-border ${
+              currency === 'USD'
+                ? 'bg-accent text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            USD
+          </button>
+        </div>
+
+        {/* Dual Range Slider */}
+        <DualRangeSlider
+          min={50000}
+          max={500000}
+          step={10000}
+          valueMin={priceMin}
+          valueMax={priceMax}
+          onMinChange={setPriceMin}
+          onMaxChange={setPriceMax}
+          formatValue={(val) => `${currency === 'USD' ? 'US$' : currency === 'ARS' ? '$' : ''}${val.toLocaleString('es-AR')}`}
+        />
+      </div>
 
       {/* Habitaciones */}
       <DualRangeSlider
@@ -171,13 +199,13 @@ const PropertyFilters = ({
       <div className="flex flex-col gap-3 pt-4 border-t border-gray-border">
         <button
           onClick={handleApplyFilters}
-          className="w-full bg-accent hover:bg-accent-hover text-white py-3 rounded-lg font-medium transition-colors"
+          className="w-full bg-accent hover:bg-accent-hover text-white py-1.5 rounded-sm font-medium transition-colors text-sm cursor-pointer"
         >
           Aplicar Filtros
         </button>
         <button
           onClick={handleReset}
-          className="w-full border border-gray-border hover:bg-gray-ui py-3 rounded-lg font-medium transition-colors"
+          className="w-full border border-gray-border hover:bg-gray-ui-hover py-1.5 rounded-sm font-medium transition-colors text-sm cursor-pointer"
         >
           Reiniciar
         </button>
