@@ -10,7 +10,7 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
   return (
     <Link
       href={`/propiedades/${property.id}`}
-      className="flex flex-col bg-white rounded-md overflow-hidden border border-gray-border hover:shadow-lg transition-shadow group"
+      className="flex flex-col bg-white rounded-sm overflow-hidden border border-gray-border hover:shadow-lg transition-shadow group"
     >
       {/* Imagen */}
       <div className="relative h-56 w-full overflow-hidden">
@@ -25,14 +25,14 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
 
       {/* Contenido */}
       <div className="p-4 flex flex-col gap-3">
-        <h3 className="text-lg font-bold text-gray-900">{property.location}</h3>
-        <p className="text-2xl font-black text-accent">
+        <h3 className="text-md font-bold text-gray-900">{property.location}</h3>
+        <p className="text-lg font-black text-accent">
           ${property.price.toLocaleString('es-AR')}
         </p>
 
         {/* Estadísticas */}
-        <div className="flex justify-between text-sm text-text-secondary-light">
-          <div className="flex items-center gap-1">
+        <div className="flex justify-between text-xs text-text-secondary-light">
+          <div className="flex items-center ">
             <span className="material-symbols-outlined text-base">
               square_foot
             </span>
@@ -51,7 +51,7 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
         </div>
 
         {/* Botón */}
-        <button className="w-full bg-accent hover:bg-accent-hover text-white py-2 rounded-lg font-medium transition-colors mt-2 cursor-pointer">
+        <button className="w-full bg-accent hover:bg-accent-hover text-white py-2 rounded-sm font-medium transition-colors mt-2 text-sm cursor-pointer">
           Ver Detalles
         </button>
       </div>

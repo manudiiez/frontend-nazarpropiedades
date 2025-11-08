@@ -22,11 +22,11 @@ export default function PropertiesPage() {
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-10 mt-20">
-      <div className="flex flex-col lg:flex-row gap-10">
+      <div className="flex flex-col lg:flex-row gap-6">
         {/* SIDEBAR FILTROS DESKTOP */}
         {showFilters && (
-          <aside className="hidden lg:block w-1/4 xl:w-1/5">
-            <div className="sticky top-28 bg-surface-light rounded-md p-6">
+          <aside className="hidden lg:block w-1/4 xl:w-1/4">
+            <div className="sticky top-28 bg-gray-ui rounded-md p-6">
               <PropertyFilters onFilterChange={handleFilterChange} />
               <button
                 onClick={() => setShowFilters(false)}

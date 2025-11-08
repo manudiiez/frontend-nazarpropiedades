@@ -59,7 +59,7 @@ const PropertyCardMedium = ({ property }: PropertyCardMediumProps) => {
         </div>
 
         {/* Botón */}
-        <button className="w-full bg-accent hover:bg-accent-hover text-white py-2.5 rounded-lg font-medium transition-colors mt-2 cursor-pointer">
+        <button className="w-full bg-accent hover:bg-accent-hover text-white py-2.5 rounded-sm font-medium transition-colors mt-2 text-sm cursor-pointer">
           Ver Detalles
         </button>
       </div>

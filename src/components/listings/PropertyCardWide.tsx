@@ -78,10 +78,10 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
 
           {/* Botones */}
           <div className="flex gap-3">
-            <button className="flex-1 bg-accent hover:bg-accent-hover text-white py-3 rounded-lg font-medium transition-colors cursor-pointer">
+            <button className="flex-1 bg-accent hover:bg-accent-hover text-white py-3 rounded-sm text-sm font-medium transition-colors cursor-pointer">
               Ver Detalles
             </button>
-            <button className="px-6 border border-gray-border hover:bg-gray-ui rounded-lg font-medium transition-colors flex items-center gap-2">
+            <button className="px-6 border border-gray-border hover:bg-gray-ui rounded-sm text-sm font-medium transition-colors flex items-center gap-2">
               <span className="material-symbols-outlined">360</span>
               <span>Virtual Tour</span>
             </button>

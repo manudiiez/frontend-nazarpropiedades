@@ -19,13 +19,13 @@ const PropertyGrid = ({ properties }: PropertyGridProps) => {
   const getGridClasses = () => {
     switch (layout) {
       case 3:
-        return "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8";
+        return "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6";
       case 2:
-        return "grid grid-cols-1 md:grid-cols-2 gap-8";
+        return "grid grid-cols-1 md:grid-cols-2 gap-6";
       case 1:
-        return "grid grid-cols-1 gap-8";
+        return "grid grid-cols-1 gap-6";
       default:
-        return "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8";
+        return "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6";
     }
   };
 
