@@ -25,6 +25,14 @@ const PropertyFilters = ({
   const [bedroomsMax, setBedroomsMax] = useState(10)
   const [bathroomsMin, setBathroomsMin] = useState(0)
   const [bathroomsMax, setBathroomsMax] = useState(10)
+  const [totalAreaMin, setTotalAreaMin] = useState(0)
+  const [totalAreaMax, setTotalAreaMax] = useState(1000)
+  const [coveredAreaMin, setCoveredAreaMin] = useState(0)
+  const [coveredAreaMax, setCoveredAreaMax] = useState(1000)
+  const [floorsMin, setFloorsMin] = useState(0)
+  const [floorsMax, setFloorsMax] = useState(30)
+  const [roomsMin, setRoomsMin] = useState(0)
+  const [roomsMax, setRoomsMax] = useState(30)
 
   const handleApplyFilters = () => {
     onFilterChange?.({
@@ -38,6 +46,14 @@ const PropertyFilters = ({
       bedroomsMax,
       bathroomsMin,
       bathroomsMax,
+      totalAreaMin,
+      totalAreaMax,
+      coveredAreaMin,
+      coveredAreaMax,
+      floorsMin,
+      floorsMax,
+      roomsMin,
+      roomsMax,
     })
     if (isMobile && onClose) {
       onClose()
@@ -55,6 +71,14 @@ const PropertyFilters = ({
     setBedroomsMax(10)
     setBathroomsMin(0)
     setBathroomsMax(10)
+    setTotalAreaMin(0)
+    setTotalAreaMax(1000)
+    setCoveredAreaMin(0)
+    setCoveredAreaMax(1000)
+    setFloorsMin(0)
+    setFloorsMax(30)
+    setRoomsMin(0)
+    setRoomsMax(30)
   }
 
   return (
@@ -193,6 +217,56 @@ const PropertyFilters = ({
         onMinChange={setBathroomsMin}
         onMaxChange={setBathroomsMax}
         label="Baños"
+      />
+
+      {/* Superficie Total */}
+      <DualRangeSlider
+        min={0}
+        max={1000}
+        step={10}
+        valueMin={totalAreaMin}
+        valueMax={totalAreaMax}
+        onMinChange={setTotalAreaMin}
+        onMaxChange={setTotalAreaMax}
+        label="Superficie Total (m²)"
+        formatValue={(val) => `${val}`}
+      />
+
+      {/* Superficie Cubierta */}
+      <DualRangeSlider
+        min={0}
+        max={1000}
+        step={10}
+        valueMin={coveredAreaMin}
+        valueMax={coveredAreaMax}
+        onMinChange={setCoveredAreaMin}
+        onMaxChange={setCoveredAreaMax}
+        label="Superficie Cubierta (m²)"
+        formatValue={(val) => `${val}`}
+      />
+
+      {/* Plantas */}
+      <DualRangeSlider
+        min={0}
+        max={30}
+        step={1}
+        valueMin={floorsMin}
+        valueMax={floorsMax}
+        onMinChange={setFloorsMin}
+        onMaxChange={setFloorsMax}
+        label="Plantas"
+      />
+
+      {/* Ambientes */}
+      <DualRangeSlider
+        min={0}
+        max={30}
+        step={1}
+        valueMin={roomsMin}
+        valueMax={roomsMax}
+        onMinChange={setRoomsMin}
+        onMaxChange={setRoomsMax}
+        label="Ambientes"
       />
 
       {/* Botones */}
