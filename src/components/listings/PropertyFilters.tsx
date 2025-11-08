@@ -14,6 +14,7 @@ const PropertyFilters = ({
   isMobile = false,
   onClose,
 }: PropertyFiltersProps) => {
+  const [searchQuery, setSearchQuery] = useState('')
   const [propertyType, setPropertyType] = useState('any')
   const [condition, setCondition] = useState('any')
   const [priceMin, setPriceMin] = useState(50000)
@@ -25,6 +26,7 @@ const PropertyFilters = ({
 
   const handleApplyFilters = () => {
     onFilterChange?.({
+      searchQuery,
       propertyType,
       condition,
       priceMin,
@@ -40,6 +42,7 @@ const PropertyFilters = ({
   }
 
   const handleReset = () => {
+    setSearchQuery('')
     setPropertyType('any')
     setCondition('any')
     setPriceMin(50000)
@@ -71,6 +74,25 @@ const PropertyFilters = ({
             <span className="material-symbols-outlined">close</span>
           </button>
         )}
+      </div>
+
+      {/* Búsqueda por ubicación */}
+      <div>
+        <label className="block text-sm font-medium mb-2">
+          Buscar por ubicación
+        </label>
+        <div className="relative">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Ej: Godoy Cruz, Luján de Cuyo..."
+            className="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
+          />
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
+            search
+          </span>
+        </div>
       </div>
 
       {/* Tipo de Propiedad */}
