@@ -14,9 +14,10 @@ const PropertyFilters = ({
   isMobile = false,
   onClose,
 }: PropertyFiltersProps) => {
+  const [propertyType, setPropertyType] = useState('any')
+  const [condition, setCondition] = useState('any')
   const [priceMin, setPriceMin] = useState(50000)
   const [priceMax, setPriceMax] = useState(500000)
-  const [propertyType, setPropertyType] = useState('any')
   const [bedroomsMin, setBedroomsMin] = useState(0)
   const [bedroomsMax, setBedroomsMax] = useState(10)
   const [bathroomsMin, setBathroomsMin] = useState(0)
@@ -24,9 +25,10 @@ const PropertyFilters = ({
 
   const handleApplyFilters = () => {
     onFilterChange?.({
+      propertyType,
+      condition,
       priceMin,
       priceMax,
-      propertyType,
       bedroomsMin,
       bedroomsMax,
       bathroomsMin,
@@ -38,9 +40,10 @@ const PropertyFilters = ({
   }
 
   const handleReset = () => {
+    setPropertyType('any')
+    setCondition('any')
     setPriceMin(50000)
     setPriceMax(500000)
-    setPropertyType('any')
     setBedroomsMin(0)
     setBedroomsMax(10)
     setBathroomsMin(0)
@@ -70,6 +73,40 @@ const PropertyFilters = ({
         )}
       </div>
 
+      {/* Tipo de Propiedad */}
+      <div>
+        <CustomSelectInput
+          label="Tipo de Propiedad"
+          options={[
+            { value: 'any', label: 'Cualquiera' },
+            { value: 'casa', label: 'Casa' },
+            { value: 'departamento', label: 'Departamento' },
+            { value: 'terreno', label: 'Terreno' },
+            { value: 'local', label: 'Local Comercial' },
+          ]}
+          value={propertyType}
+          onChange={setPropertyType}
+          labelClassName="text-sm font-medium"
+          buttonClassName="text-sm rounded-md"
+        />
+      </div>
+
+      {/* Condición */}
+      <div>
+        <CustomSelectInput
+          label="Condición"
+          options={[
+            { value: 'any', label: 'Cualquiera' },
+            { value: 'venta', label: 'Venta' },
+            { value: 'alquiler', label: 'Alquiler' },
+          ]}
+          value={condition}
+          onChange={setCondition}
+          labelClassName="text-sm font-medium"
+          buttonClassName="text-sm rounded-md"
+        />
+      </div>
+
       {/* Rango de Precio */}
       <div>
         <label className="block text-sm font-medium mb-3">Rango de Precio</label>
@@ -97,25 +134,6 @@ const PropertyFilters = ({
             className="w-full"
           />
         </div>
-      </div>
-
-      {/* Tipo de Propiedad */}
-      <div>
-        <CustomSelectInput
-          label="Tipo de Propiedad"
-          options={[
-            { value: 'any', label: 'Cualquiera' },
-            { value: 'casa', label: 'Casa' },
-            { value: 'departamento', label: 'Departamento' },
-            { value: 'terreno', label: 'Terreno' },
-            { value: 'departamento', label: 'Departamento' },
-            { value: 'local', label: 'Local Comercial' },
-          ]}
-          value={propertyType}
-          onChange={setPropertyType}
-          labelClassName="text-sm font-medium"
-          buttonClassName="text-sm rounded-md"
-        />
       </div>
 
       {/* Habitaciones */}
