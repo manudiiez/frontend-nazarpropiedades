@@ -26,7 +26,7 @@ export default function PropertiesPage() {
         {/* SIDEBAR FILTROS DESKTOP */}
         {showFilters && (
           <aside className="hidden lg:block w-1/4 xl:w-1/4">
-            <div className="sticky top-22 bg-gray-ui rounded-md p-6 z-100">
+            <div className="sticky top-22 bg-gray-ui rounded-md p-6 z-49">
               <PropertyFilters onFilterChange={handleFilterChange} />
               <button
                 onClick={() => setShowFilters(false)}
