@@ -1,18 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-
-interface Agent {
-  name: string
-  role: string
-  phone: string
-}
+import type { Agent } from '@/types/property'
 
 interface ContactFormProps {
-  agent: Agent
+  agent?: Agent
 }
 
 export default function ContactForm({ agent }: ContactFormProps) {
+  // Si no hay agente, no mostrar el componente
+  if (!agent) return null
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -34,7 +31,7 @@ export default function ContactForm({ agent }: ContactFormProps) {
         <div className="text-lg font-semibold text-gray-900 mb-1">
           {agent.name}
         </div>
-        <div className="text-sm text-gray-600">{agent.role}</div>
+        {agent.role && <div className="text-sm text-gray-600">{agent.role}</div>}
       </div>
 
       {/* Success message */}

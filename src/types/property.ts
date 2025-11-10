@@ -1,0 +1,170 @@
+// Tipos completos para las propiedades basados en Payload CMS
+
+export interface PropertyImage {
+  id: number
+  title: string
+  url: string
+  alt?: string
+}
+
+export interface Classification {
+  type: string // 'casa' | 'departamento' | 'terreno' | 'local' | etc
+  condition: string // 'venta' | 'alquiler' | 'temporario'
+}
+
+export interface Ubication {
+  province?: string
+  department?: string
+  locality?: string
+  neighborhood?: string
+  address: string
+  mapLocation?: {
+    lat: number
+    lng: number
+  }
+  locationPrivacy?: 'exact' | 'approximate' | 'hidden'
+}
+
+export interface Price {
+  amount: number
+  currency: 'USD' | 'ARS'
+  expenses?: number
+  expensesCurrency?: 'USD' | 'ARS'
+}
+
+export interface Measures {
+  // Superficies
+  totalArea?: number
+  coveredArea?: number
+  uncoveredArea?: number
+  terrainArea?: number
+  frontMeters?: number
+  depthMeters?: number
+  balconyArea?: number
+
+  // Para departamentos/edificios
+  floor?: number
+  totalFloors?: number
+  unitsPerFloor?: number
+
+  // Para casas/lotes
+  floors?: number
+}
+
+export interface Features {
+  // Espacios
+  bedrooms?: number
+  bathrooms?: number
+  toilets?: number
+  rooms?: number
+  livingRooms?: number
+  diningRooms?: number
+  kitchens?: number
+
+  // Estacionamiento
+  garages?: number
+  garageType?: 'cubierta' | 'descubierta' | 'semicubierta'
+
+  // Estado y características
+  age?: number
+  constructionYear?: number
+  condition?: 'excelente' | 'muy-bueno' | 'bueno' | 'a-refaccionar' | 'a-estrenar'
+  furnished?: boolean
+  orientation?: 'norte' | 'sur' | 'este' | 'oeste' | 'noreste' | 'noroeste' | 'sureste' | 'suroeste'
+}
+
+export interface Amenities {
+  // Servicios básicos
+  gas?: boolean
+  water?: boolean
+  electricity?: boolean
+  sewer?: boolean
+  phone?: boolean
+  internet?: boolean
+
+  // Climatización
+  airConditioning?: boolean
+  heating?: boolean
+  centralHeating?: boolean
+
+  // Seguridad
+  security24h?: boolean
+  alarm?: boolean
+  cameras?: boolean
+  gatedCommunity?: boolean
+
+  // Espacios comunes
+  pool?: boolean
+  gym?: boolean
+  sauna?: boolean
+  jacuzzi?: boolean
+  playroom?: boolean
+  grill?: boolean
+  garden?: boolean
+  terrace?: boolean
+  balcony?: boolean
+
+  // Otros
+  elevator?: boolean
+  laundry?: boolean
+  storage?: boolean
+  petFriendly?: boolean
+  accessibility?: boolean
+}
+
+export interface NearbyPlaces {
+  schools?: string[]
+  universities?: string[]
+  hospitals?: string[]
+  supermarkets?: string[]
+  shopping?: string[]
+  parks?: string[]
+  publicTransport?: string[]
+  other?: string[]
+}
+
+export interface Agent {
+  name: string
+  role?: string
+  phone: string
+  email?: string
+  photo?: string
+}
+
+export interface Property {
+  id: number | string
+  title: string
+  status?: 'borrador' | 'activa' | 'reservada' | 'terminada'
+
+  // Clasificación
+  classification: Classification
+
+  // Ubicación
+  ubication: Ubication
+
+  // Precio
+  price: Price
+
+  // Medidas (opcionales según tipo)
+  measures?: Measures
+
+  // Características (opcionales según tipo)
+  features?: Features
+
+  // Amenities (opcionales)
+  amenities?: Amenities
+
+  // Descripción e imágenes
+  description?: string
+  images: PropertyImage[]
+
+  // Lugares cercanos (opcional)
+  nearbyPlaces?: NearbyPlaces
+
+  // Agente responsable
+  agent?: Agent
+
+  // Metadata
+  createdAt?: string
+  updatedAt?: string
+}
