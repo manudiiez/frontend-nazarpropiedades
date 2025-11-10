@@ -5,6 +5,7 @@ import type { Property } from "@/types";
 import PropertyCardCompact from "./PropertyCardCompact";
 import PropertyCardMedium from "./PropertyCardMedium";
 import PropertyCardWide from "./PropertyCardWide";
+import CustomSelectInput from "@/components/ui/CustomSelectInput";
 
 interface PropertyGridProps {
   properties: Property[];
@@ -85,19 +86,18 @@ const PropertyGrid = ({ properties }: PropertyGridProps) => {
 
         {/* Sort By */}
         <div className="flex items-center gap-2">
-          <label htmlFor="sort-by" className="text-sm font-medium">
-            Ordenar por:
-          </label>
-          <select
-            id="sort-by"
+          <CustomSelectInput
+            label="Ordenar por:"
+            options={[
+              { value: "price-desc", label: "Precio (Mayor-Menor)" },
+              { value: "price-asc", label: "Precio (Menor-Mayor)" },
+              { value: "newest", label: "Más Recientes" },
+            ]}
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="rounded-lg border-gray-border focus:border-accent focus:ring-accent"
-          >
-            <option value="price-desc">Precio (Mayor-Menor)</option>
-            <option value="price-asc">Precio (Menor-Mayor)</option>
-            <option value="newest">Más Recientes</option>
-          </select>
+            onChange={setSortBy}
+            labelClassName="text-sm font-medium"
+            buttonClassName="text-sm rounded-md"
+          />
         </div>
       </div>
 

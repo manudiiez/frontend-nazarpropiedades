@@ -1,1975 +1,1678 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Inmobiliaria Mendoza - Detalles de la Propiedad</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Propiedad Minimalista</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
+    <script src="/_sdk/element_sdk.js"></script>
     <style>
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: #fafafa;
+        color: #1a1a1a;
+        line-height: 1.5;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      /* Navigation */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(250, 250, 250, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid #e5e5e5;
+        z-index: 1000;
+        padding: 1.5rem 0;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        letter-spacing: -0.02em;
+      }
+
+      .nav-menu {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .nav-link {
+        color: #666;
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 0.9rem;
+        transition: color 0.2s ease;
+      }
+
+      .nav-link:hover {
+        color: #1a1a1a;
+      }
+
+      .contact-btn {
+        background: #1a1a1a;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .contact-btn:hover {
+        background: #333;
+        transform: translateY(-1px);
+      }
+
+      /* Hero Section */
+      .hero {
+        margin-top: 80px;
+        min-height: 90%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+        align-items: center;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 6rem 2rem;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .hero-title {
+        font-size: 4rem;
+        font-weight: 300;
+        line-height: 1.1;
+        color: #1a1a1a;
+        letter-spacing: -0.04em;
+      }
+
+      .hero-location {
+        font-size: 1.125rem;
+        color: #666;
+        font-weight: 400;
+      }
+
+      .hero-price {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        letter-spacing: -0.02em;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .stat {
+        text-align: center;
+        padding: 1.5rem 0;
+        border-top: 1px solid #e5e5e5;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.875rem;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .btn-primary {
+        background: #1a1a1a;
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: #333;
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: #1a1a1a;
+        padding: 1rem 2rem;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-secondary:hover {
+        border-color: #1a1a1a;
+        transform: translateY(-1px);
+      }
+
+      /* Gallery Section */
+      .gallery-section {
+        margin-top: 80px;
+        padding: 2rem 0;
+        background: #fafafa;
+      }
+
+      .gallery-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .gallery {
+        position: relative;
+        height: 70vh;
+        min-height: 500px;
+        background: #f5f5f5;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .gallery-main {
+        position: relative;
+        height: 100%;
+      }
+
+      .gallery-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+        background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .gallery-slide.active {
+        opacity: 1;
+      }
+
+      .slide-icon {
+        width: 48px;
+        height: 48px;
+        fill: #999;
+        margin-bottom: 1rem;
+      }
+
+      .slide-text {
+        color: #666;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      .gallery-nav {
+        position: absolute;
+        bottom: 2rem;
+        left: 2rem;
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .nav-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .nav-dot.active {
+        background: white;
+        width: 24px;
+        border-radius: 4px;
+      }
+
+      .gallery-counter {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        color: white;
+        font-size: 0.875rem;
+        font-weight: 500;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+      }
+
+      .zoom-indicator {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        width: 32px;
+        height: 32px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .gallery-slide:hover .zoom-indicator {
+        opacity: 1;
+      }
+
+      .zoom-indicator svg {
+        width: 16px;
+        height: 16px;
+        fill: white;
+      }
+
+      /* Modal */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        background: #f5f5f5;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-slide {
+        width: 100%;
+        height: 100%;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
+      }
+
+      .modal-slide .slide-icon {
+        width: 80px;
+        height: 80px;
+        fill: #999;
+        margin-bottom: 2rem;
+      }
+
+      .modal-slide .slide-text {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #666;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease;
+      }
+
+      .modal-close:hover {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .modal-close svg {
+        width: 20px;
+        height: 20px;
+        fill: white;
+      }
+
+      /* Details Section */
+      .details {
+        max-width: 1200px;
+        margin: 8rem auto;
+        padding: 0 2rem;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 6rem;
+      }
+
+      .details-content {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        letter-spacing: -0.02em;
+      }
+
+      .description {
+        font-size: 1.125rem;
+        color: #666;
+        line-height: 1.7;
+      }
+
+      .specs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+
+      .spec {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .spec-label {
+        color: #666;
+        font-weight: 400;
+      }
+
+      .spec-value {
+        color: #1a1a1a;
+        font-weight: 600;
+      }
+
+      .features {
+        margin-top: 3rem;
+      }
+
+      .detail-section {
+        margin-bottom: 3rem;
+      }
+
+      .detail-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .feature {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem;
+        background: #f9f9f9;
+        border-radius: 8px;
+      }
+
+      .feature-icon {
+        width: 16px;
+        height: 16px;
+        fill: #1a1a1a;
+      }
+
+      .feature-text {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      /* Contact Card */
+      .contact-card {
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        padding: 2rem;
+        height: fit-content;
+        position: sticky;
+        top: 120px;
+      }
+
+      .agent {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .agent-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #f5f5f5;
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .agent-avatar svg {
+        width: 24px;
+        height: 24px;
+        fill: #666;
+      }
+
+      .agent-name {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 0.25rem;
+      }
+
+      .agent-role {
+        color: #666;
+        font-size: 0.875rem;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .form-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #1a1a1a;
+      }
+
+      .form-input {
+        padding: 0.75rem;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: border-color 0.2s ease;
+        font-family: "Inter", sans-serif;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: #1a1a1a;
+      }
+
+      .form-textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        background: #1a1a1a;
+        color: white;
+        padding: 0.875rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .submit-btn:hover {
+        background: #333;
+        transform: translateY(-1px);
+      }
+
+      .success-message {
+        background: #f0f9f0;
+        color: #2d5a2d;
+        padding: 1rem;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+        display: none;
+      }
+
+      .success-message.show {
+        display: block;
+      }
+
+      .contact-info {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #f0f0f0;
+        text-align: center;
+      }
+
+      .phone-number {
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 0.5rem;
+      }
+
+      .phone-label {
+        color: #666;
+        font-size: 0.875rem;
+      }
+
+      /* Map Section */
+      .map-section {
+        max-width: 1200px;
+        margin: 8rem auto;
+        padding: 0 2rem;
+      }
+
+      .map-container {
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        padding: 3rem;
+      }
+
+      .map-placeholder {
+        height: 300px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed #ddd;
+      }
+
+      .map-icon {
+        width: 32px;
+        height: 32px;
+        fill: #999;
+        margin-bottom: 1rem;
+      }
+
+      .map-text {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      /* Related Properties */
+      .related {
+        max-width: 1200px;
+        margin: 8rem auto;
+        padding: 0 2rem;
+      }
+
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .property-card {
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .property-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .property-image {
+        height: 180px;
+        background: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .property-image svg {
+        width: 32px;
+        height: 32px;
+        fill: #999;
+      }
+
+      .property-info {
+        padding: 1.5rem;
+      }
+
+      .property-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 0.5rem;
+      }
+
+      .property-location {
+        color: #666;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+      }
+
+      .property-price {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 4rem;
+          text-align: center;
+        }
+
+        .hero-title {
+          font-size: 3rem;
+        }
+
+        .details {
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+
+        .contact-card {
+          position: static;
+        }
+
+        .related-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .nav-menu {
+          display: none;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-container {
+          padding: 0 1rem;
+        }
+
+        .gallery-container {
+          padding: 0 1rem;
+        }
+
+        .gallery {
+          height: 50vh;
+          min-height: 300px;
+        }
+
+        .hero {
+          padding: 4rem 1rem;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-stats {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1rem;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+        }
+
+        .details,
+        .map-section,
+        .related {
+          padding: 0 1rem;
+        }
+
+        .map-container {
+          padding: 2rem;
+        }
+
+        .specs {
+          grid-template-columns: 1fr;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section-title {
+          font-size: 1.75rem;
+        }
+
+        .modal-content {
+          max-width: 95%;
+          max-height: 80%;
+        }
+
+        .modal-slide {
+          padding: 2rem;
+        }
+
+        .modal-slide .slide-icon {
+          width: 60px;
+          height: 60px;
+        }
+
+        .modal-slide .slide-text {
+          font-size: 1.25rem;
+        }
       }
     </style>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#D10023",
-              "background-light": "#FFFFFF",
-              "background-dark": "#111827",
-              "surface-light": "#F4F4F7",
-              "surface-dark": "#1F2937",
-              "text-primary-light": "#2D2D2D",
-              "text-primary-dark": "#F9FAFB",
-              "text-secondary-light": "#6B7280",
-              "text-secondary-dark": "#9CA3AF",
-            },
-            fontFamily: {
-              display: ["Inter", "sans-serif"],
-            },
-            borderRadius: {
-              DEFAULT: "0.5rem",
-              lg: "1rem",
-              xl: "1.5rem",
-              full: "9999px",
-            },
-            maxWidth: {
-              container: "1280px",
-            },
-          },
-        },
-      };
-    </script>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+    <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
   </head>
-  <body
-    class="bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark"
-  >
-    <div
-      class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden"
-    >
-      <div class="layout-container flex h-full grow flex-col">
-        <!-- Navbar -->
-        <nav
-          id="navbar"
-          class="fixed w-full top-0 z-50 transition-all duration-300"
-        >
-          <div class="max-w-container mx-auto px-6">
-            <div class="flex justify-between items-center h-20">
-              <!-- <div class="flex justify-between items-center h-16"> -->
-              <!-- <div class="text-xl font-semibold text-gray-900">
-            <img src="./imagenes/logo.png" alt="Nazar Propiedades Logo" class="h-6 inline-block mr-2" />
-            Nazar Propiedades
-          </div> -->
-              <div class="text-xl font-semibold text-gray-900">
-                <img
-                  src="./imagenes/brand.png"
-                  alt="Nazar Propiedades Logo"
-                  class="h-14 inline-block mr-2"
-                />
-              </div>
-
-              <div class="hidden md:flex items-center space-x-8">
-                <!-- Dropdown Inicio -->
-                <div class="relative group">
-                  <button
-                    class="text-gray-900 font-medium flex items-center hover:text-gray-700 transition-colors"
-                  >
-                    Inicio
-                    <svg
-                      class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 9l-7 7-7-7"
-                      ></path>
-                    </svg>
-                  </button>
-                  <!-- Dropdown menu -->
-                  <div
-                    class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
-                  >
-                    <div class="py-2">
-                      <a
-                        href="./index.html"
-                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                        >Inicio</a
-                      >
-                      <a
-                        href="./index2.html"
-                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                        >Inicio 2</a
-                      >
-                      <a
-                        href="./index3.html"
-                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                        >Inicio 3</a
-                      >
-                      <a
-                        href="./index4.html"
-                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                        >Inicio 4</a
-                      >
-                      <a
-                        href="./index5.html"
-                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                        >Inicio 5</a
-                      >
-                      <a
-                        href="./index6.html"
-                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                        >Inicio 6</a
-                      >
-                      <a
-                        href="./index7.html"
-                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-                        >Inicio 7</a
-                      >
-                    </div>
-                  </div>
-                </div>
-                <a
-                  href="./propiedades.html"
-                  class="text-gray-600 hover:text-gray-900 transition-colors"
-                  >Propiedades</a
-                >
-                <a
-                  href="#servicios"
-                  class="text-gray-600 hover:text-gray-900 transition-colors"
-                  >Servicios</a
-                >
-                <a
-                  href="#contacto"
-                  class="text-gray-600 hover:text-gray-900 transition-colors"
-                  >Contacto</a
-                >
-              </div>
-
-              <button
-                class="hidden md:block bg-accent-red hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors"
-              >
-                Publicar mi propiedad
-              </button>
-
-              <!-- Mobile menu button -->
-              <button id="mobile-menu-btn" class="md:hidden text-gray-600">
-                <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+  <body>
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav-container">
+        <div class="logo">MINIMAL</div>
+        <div class="nav-menu">
+          <a href="#" class="nav-link">Propiedades</a>
+          <a href="#" class="nav-link">Servicios</a>
+          <a href="#" class="nav-link">Contacto</a>
+          <button class="contact-btn">Consultar</button>
+        </div>
+      </div>
+    </nav>
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+      <div class="gallery-container">
+        <div class="gallery">
+          <div class="gallery-main">
+            <div class="gallery-slide active" data-slide="0">
+              <svg class="slide-icon" viewbox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+              </svg>
+              <div class="slide-text">Fachada principal</div>
+              <div class="zoom-indicator">
+                <svg viewbox="0 0 24 24">
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  ></path>
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  />
                 </svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Mobile menu -->
-          <div
-            id="mobile-menu"
-            class="md:hidden hidden bg-white border-t border-gray-border"
-          >
-            <div class="px-6 py-4 space-y-3">
-              <!-- Dropdown Inicio Mobile -->
-              <div>
-                <button
-                  id="mobile-inicio-btn"
-                  class="w-full text-left text-gray-900 font-medium flex items-center justify-between"
-                >
-                  Inicio
-                  <svg
-                    id="mobile-inicio-icon"
-                    class="w-4 h-4 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </button>
-                <div
-                  id="mobile-inicio-submenu"
-                  class="hidden pl-4 mt-2 space-y-2"
-                >
-                  <a href="./index.html" class="block text-gray-600 py-1"
-                    >Inicio</a
-                  >
-                  <a href="./index2.html" class="block text-gray-600 py-1"
-                    >Inicio 2</a
-                  >
-                  <a href="./index3.html" class="block text-gray-600 py-1"
-                    >Inicio 3</a
-                  >
-                </div>
-              </div>
-              <a href="./propiedades.html" class="block text-gray-600"
-                >Propiedades</a
-              >
-              <a href="#servicios" class="block text-gray-600">Servicios</a>
-              <a href="#contacto" class="block text-gray-600">Contacto</a>
-              <button
-                class="w-full bg-accent-red text-white px-4 py-2 text-sm font-medium rounded-lg mt-4"
-              >
-                Publicar mi propiedad
-              </button>
-            </div>
-          </div>
-        </nav>
-        <main class="flex flex-1 justify-center py-5 lg:py-10 mt-20">
-          <div
-            class="layout-content-container flex flex-col w-full max-w-7xl px-4 md:px-6"
-          >
-            <div
-              class="relative w-full h-[300px] md:h-[400px] lg:h-[550px] overflow-hidden rounded-xl bg-surface-light dark:bg-surface-dark group"
-            >
-              <div class="flex h-full w-full">
-                <div
-                  class="w-full h-full bg-center bg-no-repeat bg-cover"
-                  data-alt="Exterior view of a modern villa with a swimming pool at dusk (1/3)"
-                  style="
-                    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAdbXcRw4GA6HTalz0WfWiwUpxltGC0MrrWAOXSa6y536anAbTRxLgaga2dnuxyCsFWkvBMkSR23e-LW56s-kwwzz_LOSJ1VcA9xjq3y8zRQSU1q_hWcWaSb1DGH6RPery3trFJkkfgtfQmW--WnX01NyabAtnIDy4RDqgIntODYNS3DjJG09OeXdxhGLNVzkTroGyJ7ggtkZe0fCEYxsTVWQGqoZvWuR5Vhs87xLFs4ihYehiPkObF5S2vqCWmnv-r6j_cuZUMCJs');
-                  "
-                ></div>
-              </div>
-              <button
-                class="absolute top-1/2 left-4 -translate-y-1/2 size-10 rounded-full bg-background-light/70 dark:bg-background-dark/70 text-text-primary-light dark:text-text-primary-dark flex items-center justify-center shadow-md"
-              >
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-              </button>
-              <button
-                class="absolute top-1/2 right-4 -translate-y-1/2 size-10 rounded-full bg-background-light/70 dark:bg-background-dark/70 text-text-primary-light dark:text-text-primary-dark flex items-center justify-center shadow-md"
-              >
-                <span class="material-symbols-outlined">arrow_forward_ios</span>
-              </button>
-              <div
-                class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"
-              >
-                <div class="size-2 rounded-full bg-white opacity-100"></div>
-                <div class="size-2 rounded-full bg-white opacity-50"></div>
-                <div class="size-2 rounded-full bg-white opacity-50"></div>
               </div>
             </div>
-            <div class="mt-8 lg:mt-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
-              <div class="lg:col-span-2">
-                <div
-                  class="flex flex-wrap justify-between gap-4 items-start border-b border-surface-light dark:border-surface-dark/20 pb-6"
-                >
-                  <div class="flex flex-col gap-2">
-                    <h1 class="text-4xl font-black tracking-tighter">
-                      Villa Moderna en Chacras de Coria
-                    </h1>
-                  </div>
-                  <div class="flex flex-col gap-1 text-left lg:text-right">
-                    <p class="text-primary text-3xl font-bold">$450,000</p>
-                    <p
-                      class="text-text-secondary-light dark:text-text-secondary-dark text-base font-normal"
-                    >
-                      En Venta
-                    </p>
-                  </div>
-                </div>
-                <div class="py-6 space-y-4">
-                  <div
-                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
-                  >
-                    <div
-                      class="flex items-center justify-between p-3 text-lg font-bold"
-                    >
-                      <div class="flex items-center gap-2">
-                        <span
-                          class="material-symbols-outlined text-primary text-xl"
-                          >location_on</span
-                        >
-                        <span>Ubicación</span>
-                      </div>
-                    </div>
-                    <div
-                      class="p-3 border-t border-surface-light dark:border-surface-dark/20 text-text-secondary-light dark:text-text-secondary-dark space-y-2"
-                    >
-                      <p
-                        class="text-base font-normal text-text-primary-light dark:text-text-primary-dark"
-                      >
-                        Viamonte 5678, Chacras de Coria, Mendoza
-                      </p>
-                      <p class="text-sm">
-                        Esta propiedad está situada en el exclusivo barrio de
-                        Chacras de Coria, conocido por sus calles tranquilas,
-                        paisajes exuberantes y proximidad a las mejores bodegas
-                        y restaurantes gourmet de Mendoza. Disfrute de fácil
-                        acceso a rutas principales y un ambiente comunitario
-                        vibrante.
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
-                  >
-                    <div
-                      class="flex items-center justify-between p-3 text-lg font-bold"
-                    >
-                      <div class="flex items-center gap-2">
-                        <span
-                          class="material-symbols-outlined text-primary text-xl"
-                          >home</span
-                        >
-                        <span>Características</span>
-                      </div>
-                    </div>
-                    <div
-                      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-3 gap-x-4 py-3 px-3 border-t border-surface-light dark:border-surface-dark/20"
-                    >
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >bed</span
-                        >
-                        <h2 class="text-xs font-bold text-center">
-                          3 Dormitorios
-                        </h2>
-                      </div>
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >shower</span
-                        >
-                        <h2 class="text-xs font-bold text-center">2 Baños</h2>
-                      </div>
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >aspect_ratio</span
-                        >
-                        <h2 class="text-xs font-bold text-center">
-                          250 m² Construidos
-                        </h2>
-                      </div>
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >landscape</span
-                        >
-                        <h2 class="text-xs font-bold text-center">
-                          500 m² Terreno
-                        </h2>
-                      </div>
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >garage</span
-                        >
-                        <h2 class="text-xs font-bold text-center">
-                          2 Cocheras
-                        </h2>
-                      </div>
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >balcony</span
-                        >
-                        <h2 class="text-xs font-bold text-center">
-                          Balcón Privado
-                        </h2>
-                      </div>
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >pool</span
-                        >
-                        <h2 class="text-xs font-bold text-center">
-                          Piscina Privada
-                        </h2>
-                      </div>
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >grass</span
-                        >
-                        <h2 class="text-xs font-bold text-center">
-                          Jardín Paisajista
-                        </h2>
-                      </div>
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >construction</span
-                        >
-                        <h2 class="text-xs font-bold text-center">Año 2021</h2>
-                      </div>
-                      <div
-                        class="flex flex-col gap-0.5 items-center justify-center"
-                      >
-                        <span
-                          class="material-symbols-outlined text-primary text-lg"
-                          >thermostat</span
-                        >
-                        <h2 class="text-xs font-bold text-center">
-                          Clima Central
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
-                  >
-                    <div
-                      class="flex items-center justify-between p-3 text-lg font-bold"
-                    >
-                      <div class="flex items-center gap-2">
-                        <span
-                          class="material-symbols-outlined text-primary text-xl"
-                          >map</span
-                        >
-                        <span>Zonas Cercanas</span>
-                      </div>
-                    </div>
-                    <div
-                      class="p-3 border-t border-surface-light dark:border-surface-dark/20 text-text-secondary-light dark:text-text-secondary-dark space-y-2 text-sm"
-                    >
-                      <p>
-                        <strong
-                          class="text-text-primary-light dark:text-text-primary-dark"
-                          >Colegios:</strong
-                        >
-                        Colegio San Jorge (2km), Liceo Agrícola (3km)
-                      </p>
-                      <p>
-                        <strong
-                          class="text-text-primary-light dark:text-text-primary-dark"
-                          >Hospitales:</strong
-                        >
-                        Hospital Español (5km), Clínica de Cuyo (6km)
-                      </p>
-                      <p>
-                        <strong
-                          class="text-text-primary-light dark:text-text-primary-dark"
-                          >Compras:</strong
-                        >
-                        Palmares Open Mall (3km), Jumbo (4km)
-                      </p>
-                      <p>
-                        <strong
-                          class="text-text-primary-light dark:text-text-primary-dark"
-                          >Parques:</strong
-                        >
-                        Parque General San Martín (8km), Parque Luján (2km)
-                      </p>
-                      <p>
-                        <strong
-                          class="text-text-primary-light dark:text-text-primary-dark"
-                          >Transporte Público:</strong
-                        >
-                        Parada de autobús a 2 cuadras
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
-                  >
-                    <div
-                      class="flex items-center justify-between p-3 text-lg font-bold"
-                    >
-                      <div class="flex items-center gap-2">
-                        <span
-                          class="material-symbols-outlined text-primary text-xl"
-                          >info</span
-                        >
-                        <span>Especificaciones Detalladas y Finanzas</span>
-                      </div>
-                    </div>
-                    <div
-                      class="p-3 border-t border-surface-light dark:border-surface-dark/20"
-                    >
-                      <div
-                        class="grid grid-cols-2 gap-y-3 gap-x-4 text-sm text-text-secondary-light dark:text-text-secondary-dark"
-                      >
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Precio/m²
-                          </p>
-                          <p>$1,800</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Impuesto Inmobiliario (Anual)
-                          </p>
-                          <p>$1,500</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Tamaño del Terreno
-                          </p>
-                          <p>500 m²</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Sistema de Calefacción
-                          </p>
-                          <p>Clima Central</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Sistema de Refrigeración
-                          </p>
-                          <p>Aire Acondicionado Central</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Techo
-                          </p>
-                          <p>Hormigón Plano</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Pisos
-                          </p>
-                          <p>Porcelanato</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Ventanas
-                          </p>
-                          <p>Doble Vidriado</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Servicios
-                          </p>
-                          <p>Agua, Electricidad, Gas</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Expensas (Mensuales)
-                          </p>
-                          <p>$100</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Última Renovación
-                          </p>
-                          <p>N/A</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Eficiencia Energética
-                          </p>
-                          <p>B</p>
-                        </div>
-                        <div class="flex flex-col">
-                          <p
-                            class="font-bold text-text-primary-light dark:text-text-primary-dark"
-                          >
-                            Orientación
-                          </p>
-                          <p>Noreste</p>
-                        </div>
-                      </div>
-                      <h4
-                        class="text-base font-bold mt-4 mb-2 text-text-primary-light dark:text-text-primary-dark"
-                      >
-                        Comodidades
-                      </h4>
-                      <ul
-                        class="list-disc list-inside text-sm text-text-secondary-light dark:text-text-secondary-dark space-y-1"
-                      >
-                        <li>Piscina</li>
-                        <li>Jardín Privado</li>
-                        <li>Sistema de Seguridad</li>
-                        <li>Casa Inteligente Integrada</li>
-                        <li>Área de Parrilla al Aire Libre</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="py-6 space-y-4 leading-relaxed rounded-xl border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark p-6 mt-6"
-                >
-                  <h3 class="text-2xl font-bold mb-3">Descripción</h3>
-                  <p
-                    class="text-text-secondary-light dark:text-text-secondary-dark"
-                  >
-                    Descubra el lujo sin igual en esta impresionante villa
-                    moderna ubicada en el corazón de Chacras de Coria. Esta
-                    residencia ofrece una combinación perfecta de comodidad,
-                    estilo y sofisticación. El área de estar de planta abierta
-                    está bañada en luz natural, creando una atmósfera acogedora
-                    tanto para relajarse como para entretener. La propiedad
-                    cuenta con una cocina gourmet, amplios dormitorios
-                    incluyendo una suite principal con balcón privado, y un
-                    hermoso jardín paisajista con una piscina privada.
-                  </p>
-                  <details
-                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
-                  >
-                    <summary
-                      class="flex items-center justify-between p-4 cursor-pointer text-lg font-bold"
-                    >
-                      <span>Descripción Detallada</span>
-                      <span class="material-symbols-outlined">expand_more</span>
-                    </summary>
-                    <div
-                      class="p-4 border-t border-surface-light dark:border-surface-dark/20 text-text-secondary-light dark:text-text-secondary-dark space-y-3"
-                    >
-                      <p>
-                        Esta exquisita villa moderna, situada en el prestigioso
-                        Chacras de Coria, representa la cúspide del lujo
-                        habitacional. Cada detalle ha sido meticulosamente
-                        elaborado para brindar una experiencia de comodidad,
-                        elegancia y diseño moderno. Las amplias áreas de estar y
-                        comedor de planta abierta están diseñadas para maximizar
-                        la luz natural y ofrecer una transición fluida entre
-                        espacios, ideal tanto para grandes entretenimientos como
-                        para reuniones familiares íntimas.
-                      </p>
-                      <p>
-                        La cocina gourmet de última generación es el sueño de
-                        cualquier entusiasta culinario, con electrodomésticos de
-                        alta gama, gabinetes personalizados y una gran isla
-                        perfecta para la preparación de comidas y cenas
-                        informales. Los tres dormitorios de generosas
-                        dimensiones sirven como serenos retiros privados. La
-                        suite principal es particularmente notable, ofreciendo
-                        un balcón privado con vistas impresionantes y un baño
-                        privado inspirado en spa equipado con accesorios y
-                        acabados premium.
-                      </p>
-                      <p>
-                        El exterior es igualmente impresionante, con un jardín
-                        cuidadosamente diseñado que proporciona un oasis
-                        tranquilo. Una piscina privada ofrece un escape
-                        refrescante durante el clima cálido de Mendoza, mientras
-                        que varias áreas de estar al aire libre proporcionan
-                        amplio espacio para cenas al aire libre y relajación.
-                        Esta propiedad no es solo un hogar; es una declaración
-                        de estilo de vida, ofreciendo una experiencia de vida
-                        incomparable en una de las ubicaciones más codiciadas de
-                        Mendoza.
-                      </p>
-                    </div>
-                  </details>
-                  <details
-                    class="rounded-lg border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark overflow-hidden"
-                  >
-                    <summary
-                      class="flex items-center justify-between p-4 cursor-pointer text-lg font-bold"
-                    >
-                      <span>Información Legal</span>
-                      <span class="material-symbols-outlined">expand_more</span>
-                    </summary>
-                    <div
-                      class="p-4 border-t border-surface-light dark:border-surface-dark/20 text-text-secondary-light dark:text-text-secondary-dark space-y-3"
-                    >
-                      <p>
-                        <strong>Título de Propiedad:</strong> Libre y sin
-                        gravámenes.
-                      </p>
-                      <p>
-                        <strong>Zonificación:</strong> Residencial, vivienda
-                        unifamiliar. Los usos permitidos incluyen residencial,
-                        con posibilidad de oficina en casa (sujeto a
-                        regulaciones locales).
-                      </p>
-                      <p>
-                        <strong>Información Catastral:</strong> Disponible bajo
-                        solicitud. Incluye número de parcela, área del terreno y
-                        área construida. Todos los documentos están actualizados
-                        y registrados en la Dirección Provincial de Catastro.
-                      </p>
-                      <p>
-                        <strong>Impuestos y Tasas:</strong> Impuestos
-                        inmobiliarios (ARBA), tasas municipales, y cuotas de
-                        consorcio (si corresponde) están al día. Desglose
-                        detallado disponible en el resumen financiero en la
-                        barra lateral.
-                      </p>
-                      <p>
-                        <strong>Permisos de Construcción:</strong> Toda la
-                        construcción se ha llevado a cabo con permisos válidos e
-                        inspecciones por las autoridades pertinentes. Los
-                        certificados de habilitación están disponibles.
-                      </p>
-                      <p>
-                        <strong>Gravámenes e Hipotecas:</strong> No hay
-                        hipotecas registradas, gravámenes u otros impedimentos
-                        que afecten a la propiedad al momento de la publicación.
-                        Un informe completo de búsqueda de título puede
-                        proporcionarse a compradores serios.
-                      </p>
-                      <p>
-                        <strong>Servidumbres:</strong> No hay servidumbres
-                        conocidas que impacten en el uso o disfrute de la
-                        propiedad.
-                      </p>
-                      <p>
-                        Para una revisión legal completa, se recomienda
-                        consultar con un profesional legal.
-                      </p>
-                    </div>
-                  </details>
-                </div>
-                <div
-                  class="mt-8 rounded-xl border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark p-6"
-                >
-                  <h3 class="text-2xl font-bold mb-4">Mapa de Ubicación</h3>
-                  <div
-                    class="aspect-video w-full rounded-xl bg-surface-light dark:bg-surface-dark overflow-hidden border border-surface-light dark:border-surface-dark/20"
-                  >
-                    <div
-                      class="w-full h-full bg-cover bg-center"
-                      data-alt="Map showing the location of the property in Mendoza"
-                      data-location="Mendoza"
-                      style="
-                        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGEbaRk3YX7HcToYKc_gxTH7gAK0kq085jUdShQK0YBHNf9s6hVYcSSqnNnexbAsaiRoqcmbcoX0qWGoLB96JHvKGw_tJY6i27hmWxdyBA-3JAGLBbHGlwqxIxitrz0LLOgO4TROISlmD5Lekpg1K6Ri1qZLnJkILPtobJpb023PFcVjMPrF6uWHYKJJ0afOI1LDlTEGJ2nfSY9sN6-zDz7TYM6k6FrflHkz1aCYRw0AjQv7iwNqUkf5JpMeX1D0P8htfpzMRgb6s');
-                      "
-                    ></div>
-                  </div>
-                </div>
-                <div
-                  class="mt-8 rounded-xl border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark p-6"
-                >
-                  <h3 class="text-2xl font-bold mb-4">Video Tour</h3>
-                  <div
-                    class="aspect-video w-full rounded-xl bg-surface-light dark:bg-surface-dark overflow-hidden border border-surface-light dark:border-surface-dark/20"
-                  >
-                    <div
-                      class="w-full h-full bg-cover bg-center"
-                      data-alt="Video player placeholder for the property tour"
-                      style="
-                        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBz2vQd5IXs8l6y4l-mEbdgfKLO9Ne9JLbgYGMf72FnLGv6imubH_masIWbyrSGjNpQa7vJApTfjySmHeg08dudXGttOLelQ5zV2Sw8vfqQ5oS5mGyFLA0wEHlOFbb8Sv1JvL5xF4ezny4PNjQrI7480n4Z7aIOD7hFeOG8-UN1rdXalqItJCD_7C4Q6sCmYYnhYSmGJ37vqlhdO1P0Ve7mI0Pi_WK8NNV5QCX8O68bP4xBkWbDNeQJe7KONTT2mtrlRq-P7wOno8E');
-                      "
-                    ></div>
-                  </div>
-                </div>
+            <div class="gallery-slide" data-slide="1">
+              <svg class="slide-icon" viewbox="0 0 24 24">
+                <path
+                  d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V7H1v10h22v-6c0-2.21-1.79-4-4-4z"
+                />
+              </svg>
+              <div class="slide-text">Dormitorio principal</div>
+              <div class="zoom-indicator">
+                <svg viewbox="0 0 24 24">
+                  <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  />
+                </svg>
               </div>
-              <aside class="lg:col-span-1">
-                <div
-                  class="sticky top-28 space-y-6 max-h-[calc(100vh-theme(space.28)*2)] overflow-y-auto pr-2 -mr-2"
-                >
-                  <div
-                    class="p-6 rounded-xl border border-surface-light dark:border-surface-dark/20 bg-surface-light dark:bg-surface-dark"
-                  >
-                    <h3 class="text-xl font-bold mb-4">Contactar Agente</h3>
-                    <div class="flex items-center gap-4">
-                      <div
-                        class="size-16 rounded-full bg-cover bg-center"
-                        data-alt="Foto del agente inmobiliario, Maria Gomez"
-                        style="
-                          background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCuul1rQCtg5_ROilc6Gdd9KF8HbsSFfvJNkqRPq56CjtYhv6edg2kKTOlWtIqxsy7zljMWklm4B-QimIplrMJtWSARd0oY0zTgnfh3phF2w8XkDPhjmG6yT-NWFbMu-HCTwzqu2a9Gf4YQ4agXohEF9fvrtjwEqVYZSf2Nmslw5u8H60zQcHfZ8XW4DA8aQ9fgWy1TeZiJZnjkH6SmtFYJZJzX6serqzw5wVXR05L-fHEQGv0Tnflp4D3q7Dqy_wb8iF7Ai2fGhy0');
-                        "
-                      ></div>
-                      <div>
-                        <p class="font-bold">María Gómez</p>
-                        <p
-                          class="text-sm text-text-secondary-light dark:text-text-secondary-dark"
-                        >
-                          Agente Inmobiliario
-                        </p>
-                      </div>
-                    </div>
-                    <div class="mt-6 space-y-4">
-                      <button
-                        class="w-full flex items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold tracking-wide"
-                      >
-                        Contactar Agente
-                      </button>
-                      <div class="flex gap-4">
-                        <button
-                          class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-4 bg-background-light dark:bg-background-dark text-sm font-bold border border-surface-light dark:border-surface-dark/20"
-                        >
-                          <span class="material-symbols-outlined text-lg"
-                            >favorite_border</span
-                          >
-                          Guardar
-                        </button>
-                        <button
-                          class="w-full flex items-center justify-center gap-2 rounded-lg h-12 px-4 bg-background-light dark:bg-background-dark text-sm font-bold border border-surface-light dark:border-surface-dark/20"
-                        >
-                          <span class="material-symbols-outlined text-lg"
-                            >share</span
-                          >
-                          Compartir
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </aside>
             </div>
-            <div class="mt-16 lg:mt-24">
-              <h3 class="text-3xl font-bold mb-6">Propiedades Relacionadas</h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div
-                  class="flex flex-col rounded-xl overflow-hidden border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark"
-                >
-                  <div
-                    class="h-56 w-full bg-cover bg-center"
-                    data-alt="Casa moderna con jardín"
-                    style="
-                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD5u1iGfjEWVUd7nkWcKIxAbpCva5hmtOTaNakTtoGu-OLxFHWa_lMcqAJy6VjImZ6Geoxy0WbDfz61J0EspDualaINAV4Yh7M9Hv2fdFE4249ZISER6li7uZMjhsoCnBfG1lumvBJ3apMCHEFv7eGzCPpVu7YFVNcA5goJDh6rjAKzoZcVlndDYDwsWlRsuzYQdasMdxrUJXjWAL_RYcGPc7vxSwQmdyrHGeTkq1sKZR2mF3MuAyGbaLRy0BMzFEY_SjSiCxcWN8c');
-                    "
-                  ></div>
-                  <div class="p-4 flex flex-col gap-2 flex-grow">
-                    <h4 class="font-bold text-lg">Villa en Godoy Cruz</h4>
-                    <p
-                      class="text-text-secondary-light dark:text-text-secondary-dark text-sm"
-                    >
-                      Godoy Cruz, Mendoza
-                    </p>
-                    <p class="text-primary font-bold text-lg mt-auto">
-                      $380,000
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="flex flex-col rounded-xl overflow-hidden border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark"
-                >
-                  <div
-                    class="h-56 w-full bg-cover bg-center"
-                    data-alt="Exterior de edificio de apartamentos"
-                    style="
-                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdXww-9sebWTtpRKm6r5eQ7AscGw2vIAre1npWWo7GnW58ryI5fdXFRFPCLrIbh-XA7vEEy1DGxSfyysoUg6EmWSzRk4ellkU8UfaCDJb1jELRskAFvLmwCnfxOKUz2ZOltiH0VIM0o_uNJWhDCd-dUbm3VvsDZK-FWka2krMELiq5tdKsUGRBMbQjqrH4XE605_mvRrlEIF17ls0DNh7lsvxRyz8qH1DgCZFz_nW1sbc8YI7QSJkxHB9wj_kliiFYIybBTMIeo6Q');
-                    "
-                  ></div>
-                  <div class="p-4 flex flex-col gap-2 flex-grow">
-                    <h4 class="font-bold text-lg">Apartamento en el Centro</h4>
-                    <p
-                      class="text-text-secondary-light dark:text-text-secondary-dark text-sm"
-                    >
-                      Ciudad de Mendoza
-                    </p>
-                    <p class="text-primary font-bold text-lg mt-auto">
-                      $210,000
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="flex flex-col rounded-xl overflow-hidden border border-surface-light dark:border-surface-dark/20 bg-background-light dark:bg-surface-dark"
-                >
-                  <div
-                    class="h-56 w-full bg-cover bg-center"
-                    data-alt="Casa de campo con vistas a viñedos"
-                    style="
-                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA5IHGC2wl_eeAUgsf1qD8eaDaIl0UxpRiogxekHJ9oamQzFL_QQ6Cr9ld4YlG1o8DMizRYCAHx3AmLcgHy_3omyW789hZzxpxH6CKHc714xCFHRBvW4M9BxJ5fWBmAr0YZd0G9E3cOfP_yA3xaXeiY2Tv0ttmmhdr4yy19Vpe51uSNesRKMduy8VJUcM0JrkDx6Tr10ypuAcitvtRXhRStI2A4E1D-b7ZMV5pGsdwYlScAxjpt3HgPgBmXHFiOH7myTCG2zlCZK8g');
-                    "
-                  ></div>
-                  <div class="p-4 flex flex-col gap-2 flex-grow">
-                    <h4 class="font-bold text-lg">Casa de Campo en Luján</h4>
-                    <p
-                      class="text-text-secondary-light dark:text-text-secondary-dark text-sm"
-                    >
-                      Luján de Cuyo, Mendoza
-                    </p>
-                    <p class="text-primary font-bold text-lg mt-auto">
-                      $520,000
-                    </p>
-                  </div>
-                </div>
+            <div class="gallery-slide" data-slide="2">
+              <svg class="slide-icon" viewbox="0 0 24 24">
+                <path
+                  d="M18 2l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2h-2z"
+                />
+              </svg>
+              <div class="slide-text">Cocina integrada</div>
+              <div class="zoom-indicator">
+                <svg viewbox="0 0 24 24">
+                  <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="gallery-slide" data-slide="3">
+              <svg class="slide-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+              <div class="slide-text">Jardín minimalista</div>
+              <div class="zoom-indicator">
+                <svg viewbox="0 0 24 24">
+                  <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="gallery-slide" data-slide="4">
+              <svg class="slide-icon" viewbox="0 0 24 24">
+                <path
+                  d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10z"
+                />
+              </svg>
+              <div class="slide-text">Living comedor</div>
+              <div class="zoom-indicator">
+                <svg viewbox="0 0 24 24">
+                  <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="gallery-slide" data-slide="5">
+              <svg class="slide-icon" viewbox="0 0 24 24">
+                <path
+                  d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 18c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm0-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm3-8c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"
+                />
+              </svg>
+              <div class="slide-text">Baño principal</div>
+              <div class="zoom-indicator">
+                <svg viewbox="0 0 24 24">
+                  <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  />
+                </svg>
               </div>
             </div>
           </div>
-        </main>
+          <div class="gallery-nav">
+            <div class="nav-dot active" data-slide="0"></div>
+            <div class="nav-dot" data-slide="1"></div>
+            <div class="nav-dot" data-slide="2"></div>
+            <div class="nav-dot" data-slide="3"></div>
+            <div class="nav-dot" data-slide="4"></div>
+            <div class="nav-dot" data-slide="5"></div>
+          </div>
+          <div class="gallery-counter">
+            <span id="current-slide">1</span> / 6
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title" id="property-title">Casa Minimalista Palermo</h1>
+        <div class="hero-location" id="property-location">
+          Palermo, Buenos Aires
+        </div>
+        <div class="hero-price" id="property-price">USD 850.000</div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Dormitorios</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Baños</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">320m²</div>
+            <div class="stat-label">Superficie</div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn-primary">Agendar visita</button>
+          <button class="btn-secondary">Ver detalles</button>
+        </div>
+      </div>
+    </section>
+    <!-- Details Section -->
+    <section class="details">
+      <div class="details-content">
+        <h2 class="section-title">Detalles</h2>
+        <p class="description">
+          Arquitectura contemporánea que abraza la simplicidad. Espacios
+          amplios, líneas limpias y materiales nobles crean un ambiente sereno y
+          sofisticado. Cada detalle ha sido cuidadosamente pensado para
+          maximizar la funcionalidad sin comprometer la estética minimalista.
+        </p>
+        <!-- Medidas -->
+        <div class="detail-section">
+          <h3 class="detail-title">Medidas</h3>
+          <div class="specs">
+            <div class="spec">
+              <span class="spec-label">Superficie total</span>
+              <span class="spec-value">320 m²</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Superficie cubierta</span>
+              <span class="spec-value">280 m²</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Superficie terreno</span>
+              <span class="spec-value">400 m²</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Metros de frente</span>
+              <span class="spec-value">12 m</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Metros de fondo</span>
+              <span class="spec-value">33 m</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Superficie balcón</span>
+              <span class="spec-value">25 m²</span>
+            </div>
+          </div>
+        </div>
+        <!-- Ambientes -->
+        <div class="detail-section">
+          <h3 class="detail-title">Ambientes</h3>
+          <div class="specs">
+            <div class="spec">
+              <span class="spec-label">Dormitorios</span>
+              <span class="spec-value">4</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Baños</span>
+              <span class="spec-value">3</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Ambientes</span>
+              <span class="spec-value">8</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Cocheras</span>
+              <span class="spec-value">2 cubiertas</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Tipo cochera</span>
+              <span class="spec-value">Cubierta</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Amoblado</span>
+              <span class="spec-value">No</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Año construcción</span>
+              <span class="spec-value">2022</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">Estado</span>
+              <span class="spec-value">Excelente</span>
+            </div>
+          </div>
+        </div>
+        <!-- Amenities -->
+        <div class="detail-section">
+          <h3 class="detail-title">Amenities</h3>
+          <div class="features-grid">
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M18 2l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2h-2z"
+                />
+              </svg>
+              <span class="feature-text">Cocina integrada</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+                </svg>
+                <span class="feature-text">Piscina</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V7H1v10h22v-6c0-2.21-1.79-4-4-4z"
+                />
+            </svg>
+                <span class="feature-text">Dormitorio en suite</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                /></svg
+              ><span class="feature-text">Balcón</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                /></svg
+              ><span class="feature-text">Sauna</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                /></svg
+              ><span class="feature-text">Jardín privado</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                /></svg
+              ><span class="feature-text">Aire acondicionado</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                /></svg
+              ><span class="feature-text">Calefacción central</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                /></svg
+              ><span class="feature-text">Domótica</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                /></svg
+              ><span class="feature-text">Seguridad 24hs</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                /></svg
+              ><span class="feature-text">Pisos de hormigón pulido</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                /></svg
+              ><span class="feature-text">Ventanales de piso a techo</span>
+            </div>
+          </div>
+        </div>
+        <!-- Zonas Cercanas -->
+        <div class="detail-section">
+          <h3 class="detail-title">Zonas cercanas</h3>
+          <div class="features-grid">
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"
+                /></svg
+              ><span class="feature-text">Colegio San Patricio (500m)</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"
+                /></svg
+              ><span class="feature-text">Universidad de Palermo (1.2km)</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><span class="feature-text">Club Atlético Palermo (800m)</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v10z"
+                /></svg
+              ><span class="feature-text">Shopping Palermo (600m)</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                /></svg
+              ><span class="feature-text">Estación Palermo (400m)</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><span class="feature-text">Parque Tres de Febrero (300m)</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+                /></svg
+              ><span class="feature-text">Hospital Italiano (1km)</span>
+            </div>
+            <div class="feature">
+              <svg class="feature-icon" viewbox="0 0 24 24">
+                <path
+                  d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v10z"
+                /></svg
+              ><span class="feature-text">Supermercado Jumbo (200m)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="agent">
+          <div class="agent-avatar">
+            <svg viewbox="0 0 24 24">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
+          <div class="agent-name" id="agent-name">María González</div>
+          <div class="agent-role">Agente inmobiliario</div>
+        </div>
+        <div class="success-message" id="success-message">
+          Mensaje enviado correctamente. Te contactaremos pronto.
+        </div>
+        <form class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label class="form-label" for="name">Nombre</label>
+            <input type="text" id="name" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input type="email" id="email" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Teléfono</label>
+            <input type="tel" id="phone" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Mensaje</label>
+            <textarea
+              id="message"
+              class="form-input form-textarea"
+              placeholder="Me interesa conocer más detalles..."
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Enviar consulta</button>
+        </form>
+        <div class="contact-info">
+          <div class="phone-number" id="agent-phone">+54 11 1234-5678</div>
+          <div class="phone-label">Llamada directa</div>
+        </div>
+      </div>
+    </section>
+    <!-- Map Section -->
+    <section class="map-section">
+      <div class="map-container">
+        <h2 class="section-title">Ubicación</h2>
+        <div class="map-placeholder">
+          <svg class="map-icon" viewbox="0 0 24 24">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+            />
+          </svg>
+          <div class="map-text">Mapa interactivo</div>
+        </div>
+      </div>
+    </section>
+    <!-- Related Properties -->
+    <section class="related">
+      <h2 class="section-title">Propiedades similares</h2>
+      <div class="related-grid">
+        <div class="property-card">
+          <div class="property-image">
+            <svg viewbox="0 0 24 24">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+          </div>
+          <div class="property-info">
+            <div class="property-title">Loft Moderno Belgrano</div>
+            <div class="property-location">Belgrano, Buenos Aires</div>
+            <div class="property-price">USD 620.000</div>
+          </div>
+        </div>
+        <div class="property-card">
+          <div class="property-image">
+            <svg viewbox="0 0 24 24">
+              <path
+                d="M17 11V3H7v4H3v14h8v-4h2v4h8V11h-4zM7 19H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm4 4H9v-2h2v2zm0-4H9V9h2v2zm0-4H9V5h2v2zm4 8h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm4 12h-2v-2h2v2zm0-4h-2v-2h2v2z"
+              />
+            </svg>
+          </div>
+          <div class="property-info">
+            <div class="property-title">Penthouse Minimalista</div>
+            <div class="property-location">Puerto Madero, Buenos Aires</div>
+            <div class="property-price">USD 1.100.000</div>
+          </div>
+        </div>
+        <div class="property-card">
+          <div class="property-image">
+            <svg viewbox="0 0 24 24">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+          </div>
+          <div class="property-info">
+            <div class="property-title">Casa Contemporánea</div>
+            <div class="property-location">Recoleta, Buenos Aires</div>
+            <div class="property-price">USD 780.000</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Modal for enlarged images -->
+    <div class="modal" id="image-modal">
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close">
+          <svg viewbox="0 0 24 24">
+            <path
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            />
+          </svg>
+        </button>
+        <div class="modal-slide" id="modal-slide">
+          <svg class="slide-icon" viewbox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+          <div class="slide-text">Fachada principal</div>
+        </div>
       </div>
     </div>
-  </body>
-  <script>
-    // Navbar scroll effect
-    window.addEventListener("scroll", function () {
-      const navbar = document.getElementById("navbar");
-      if (window.scrollY > 50) {
-        navbar.classList.add("navbar-scroll", "bg-white", "shadow-lg");
-      } else {
-        navbar.classList.remove("navbar-scroll", "bg-white", "shadow-lg");
-      }
-    });
+    <script>
+      const defaultConfig = {
+        property_title: "Casa Minimalista Palermo",
+        property_location: "Palermo, Buenos Aires",
+        property_price: "USD 850.000",
+        agent_name: "María González",
+        agent_phone: "+54 11 1234-5678",
+        background_color: "#fafafa",
+        surface_color: "#ffffff",
+        text_color: "#1a1a1a",
+        primary_action_color: "#1a1a1a",
+        secondary_action_color: "#666666",
+        font_family: "Inter",
+        font_size: 16,
+      };
 
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-    const mobileMenu = document.getElementById("mobile-menu");
+      async function onConfigChange(config) {
+        const customFont = config.font_family || defaultConfig.font_family;
+        const baseFontStack = "sans-serif";
+        const baseSize = config.font_size || defaultConfig.font_size;
 
-    mobileMenuBtn.addEventListener("click", function () {
-      mobileMenu.classList.toggle("hidden");
-    });
+        // Apply font and colors
+        document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        document.body.style.fontSize = `${baseSize}px`;
+        document.body.style.backgroundColor =
+          config.background_color || defaultConfig.background_color;
+        document.body.style.color =
+          config.text_color || defaultConfig.text_color;
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        if (target) {
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-          // Close mobile menu if open
-          mobileMenu.classList.add("hidden");
-        }
-      });
-    });
-
-    // Form submission
-    document.querySelector("form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("¡Gracias por tu mensaje! Te responderemos a la brevedad.");
-      this.reset();
-    });
-
-    // WhatsApp button functionality
-    document
-      .querySelector("button:has(svg)")
-      .addEventListener("click", function () {
-        if (this.textContent.includes("WhatsApp")) {
-          window.open(
-            "https://wa.me/5492611234567?text=Hola, me interesa obtener más información sobre sus propiedades.",
-            "_blank"
-          );
-        }
-      });
-
-    // Property buttons functionality
-    document.querySelectorAll("button").forEach((button) => {
-      if (button.textContent.includes("Ver propiedad")) {
-        button.addEventListener("click", function () {
-          alert("Redirigiendo a la página de la propiedad...");
-        });
-      }
-    });
-
-    // CTA buttons functionality
-    document.querySelectorAll("button").forEach((button) => {
-      if (button.textContent.includes("Ver propiedades")) {
-        button.addEventListener("click", function () {
-          alert("Redirigiendo a la página de propiedades...");
-        });
-      }
-      if (button.textContent.includes("Tasación gratuita")) {
-        button.addEventListener("click", function () {
-          alert("Redirigiendo al formulario de tasación...");
-        });
-      }
-      if (button.textContent.includes("Publicar mi propiedad")) {
-        button.addEventListener("click", function () {
-          alert("Redirigiendo al formulario de publicación...");
-        });
-      }
-    });
-  </script>
-  <script>
-    (function () {
-      function c() {
-        var b = a.contentDocument || a.contentWindow.document;
-        if (b) {
-          var d = b.createElement("script");
-          d.innerHTML =
-            "window.__CF$cv$params={r:'9814c99476fba77a',t:'MTc1ODIzOTg2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
-          b.getElementsByTagName("head")[0].appendChild(d);
-        }
-      }
-      if (document.body) {
-        var a = document.createElement("iframe");
-        a.height = 1;
-        a.width = 1;
-        a.style.position = "absolute";
-        a.style.top = 0;
-        a.style.left = 0;
-        a.style.border = "none";
-        a.style.visibility = "hidden";
-        document.body.appendChild(a);
-        if ("loading" !== document.readyState) c();
-        else if (window.addEventListener)
-          document.addEventListener("DOMContentLoaded", c);
-        else {
-          var e = document.onreadystatechange || function () {};
-          document.onreadystatechange = function (b) {
-            e(b);
-            "loading" !== document.readyState &&
-              ((document.onreadystatechange = e), c());
-          };
-        }
-      }
-    })();
-  </script>
-  <script>
-    // Base de datos extendida de propiedades
-    const allProperties = [
-      {
-        id: 1,
-        title: "Casa Moderna Chapinero",
-        location: "chapinero",
-        locationName: "Chapinero, Bogotá",
-        fullAddress: "Calle 85 #15-23, Chapinero, Bogotá",
-        price: 450000000,
-        priceText: "$450.000.000",
-        condition: "venta",
-        type: "casa",
-        bedrooms: 3,
-        bathrooms: 2,
-        area: 120,
-        parking: 2,
-        stratum: 5,
-        age: "recent",
-        status: "excellent",
-        features: ["balcony", "garden", "security"],
-        description:
-          "Hermosa casa moderna ubicada en el corazón de Chapinero, una de las zonas más exclusivas y valorizada de Bogotá.",
-        featured: true,
-        dateAdded: new Date("2024-01-15"),
-      },
-      {
-        id: 2,
-        title: "Apartamento Zona Rosa",
-        location: "zona-rosa",
-        locationName: "Zona Rosa, Bogotá",
-        fullAddress: "Carrera 13 #85-32, Zona Rosa, Bogotá",
-        price: 320000000,
-        priceText: "$320.000.000",
-        condition: "venta",
-        type: "apartamento",
-        bedrooms: 2,
-        bathrooms: 2,
-        area: 85,
-        parking: 1,
-        stratum: 5,
-        age: "new",
-        status: "excellent",
-        features: ["balcony", "elevator", "security"],
-        description:
-          "Moderno apartamento en la exclusiva Zona Rosa, con acabados de lujo y una ubicación privilegiada.",
-        featured: false,
-        dateAdded: new Date("2024-01-20"),
-      },
-      {
-        id: 3,
-        title: "Casa Familiar Cedritos",
-        location: "cedritos",
-        locationName: "Cedritos, Bogotá",
-        fullAddress: "Calle 147 #9-15, Cedritos, Bogotá",
-        price: 580000000,
-        priceText: "$580.000.000",
-        condition: "venta",
-        type: "casa",
-        bedrooms: 4,
-        bathrooms: 3,
-        area: 180,
-        parking: 2,
-        stratum: 4,
-        age: "good",
-        status: "good",
-        features: ["garden", "security", "pool"],
-        description:
-          "Amplia casa familiar en Cedritos, ideal para familias grandes.",
-        featured: false,
-        dateAdded: new Date("2024-01-10"),
-      },
-      {
-        id: 4,
-        title: "Apartamento La Candelaria",
-        location: "la-candelaria",
-        locationName: "La Candelaria, Bogotá",
-        fullAddress: "Carrera 4 #12-65, La Candelaria, Bogotá",
-        price: 280000000,
-        priceText: "$280.000.000",
-        condition: "venta",
-        type: "apartamento",
-        bedrooms: 2,
-        bathrooms: 1,
-        area: 65,
-        parking: 0,
-        stratum: 3,
-        age: "older",
-        status: "remodel",
-        features: [],
-        description:
-          "Acogedor apartamento en el histórico barrio de La Candelaria.",
-        featured: false,
-        dateAdded: new Date("2024-01-05"),
-      },
-      {
-        id: 5,
-        title: "Penthouse Rosales",
-        location: "rosales",
-        locationName: "Rosales, Bogotá",
-        fullAddress: "Carrera 7 #70-45, Rosales, Bogotá",
-        price: 850000000,
-        priceText: "$850.000.000",
-        condition: "venta",
-        type: "penthouse",
-        bedrooms: 3,
-        bathrooms: 3,
-        area: 200,
-        parking: 2,
-        stratum: 6,
-        age: "new",
-        status: "excellent",
-        features: ["balcony", "elevator", "security", "gym"],
-        description:
-          "Exclusivo penthouse en Rosales con vista panorámica de la ciudad.",
-        featured: true,
-        dateAdded: new Date("2024-01-25"),
-      },
-      {
-        id: 6,
-        title: "Casa Campestre Chía",
-        location: "chia",
-        locationName: "Chía, Cundinamarca",
-        fullAddress: "Vereda Fagua, Chía, Cundinamarca",
-        price: 680000000,
-        priceText: "$680.000.000",
-        condition: "venta",
-        type: "casa",
-        bedrooms: 4,
-        bathrooms: 4,
-        area: 250,
-        parking: 3,
-        stratum: 5,
-        age: "recent",
-        status: "excellent",
-        features: ["garden", "pool", "security"],
-        description: "Hermosa casa campestre en Chía, perfecta para descansar.",
-        featured: false,
-        dateAdded: new Date("2024-01-18"),
-      },
-      {
-        id: 7,
-        title: "Apartamento Alquiler Chapinero",
-        location: "chapinero",
-        locationName: "Chapinero, Bogotá",
-        fullAddress: "Calle 63 #11-25, Chapinero, Bogotá",
-        price: 2500000,
-        priceText: "$2.500.000/mes",
-        condition: "alquiler",
-        type: "apartamento",
-        bedrooms: 1,
-        bathrooms: 1,
-        area: 45,
-        parking: 0,
-        stratum: 4,
-        age: "recent",
-        status: "excellent",
-        features: ["furnished", "elevator"],
-        description: "Moderno apartamento amoblado en alquiler en Chapinero.",
-        featured: false,
-        dateAdded: new Date("2024-01-22"),
-      },
-      {
-        id: 8,
-        title: "Casa Alquiler Zona Rosa",
-        location: "zona-rosa",
-        locationName: "Zona Rosa, Bogotá",
-        fullAddress: "Calle 82 #12-34, Zona Rosa, Bogotá",
-        price: 4200000,
-        priceText: "$4.200.000/mes",
-        condition: "alquiler",
-        type: "casa",
-        bedrooms: 3,
-        bathrooms: 2,
-        area: 110,
-        parking: 1,
-        stratum: 5,
-        age: "good",
-        status: "good",
-        features: ["garden", "security", "petFriendly"],
-        description: "Casa en alquiler en Zona Rosa, acepta mascotas.",
-        featured: false,
-        dateAdded: new Date("2024-01-12"),
-      },
-      {
-        id: 9,
-        title: "Local Comercial Centro",
-        location: "la-candelaria",
-        locationName: "Centro, Bogotá",
-        fullAddress: "Carrera 7 #14-23, Centro, Bogotá",
-        price: 180000000,
-        priceText: "$180.000.000",
-        condition: "venta",
-        type: "local",
-        bedrooms: 0,
-        bathrooms: 1,
-        area: 80,
-        parking: 0,
-        stratum: 3,
-        age: "older",
-        status: "good",
-        features: ["security"],
-        description: "Local comercial en el centro histórico de Bogotá.",
-        featured: false,
-        dateAdded: new Date("2024-01-08"),
-      },
-      {
-        id: 10,
-        title: "Terreno Chía",
-        location: "chia",
-        locationName: "Chía, Cundinamarca",
-        fullAddress: "Vereda Bojacá, Chía, Cundinamarca",
-        price: 350000000,
-        priceText: "$350.000.000",
-        condition: "venta",
-        type: "terreno",
-        bedrooms: 0,
-        bathrooms: 0,
-        area: 500,
-        parking: 0,
-        stratum: 4,
-        age: "new",
-        status: "new",
-        features: [],
-        description: "Terreno plano ideal para construcción en Chía.",
-        featured: false,
-        dateAdded: new Date("2024-01-30"),
-      },
-      {
-        id: 11,
-        title: "Apartamento Cedritos",
-        location: "cedritos",
-        locationName: "Cedritos, Bogotá",
-        fullAddress: "Calle 140 #15-67, Cedritos, Bogotá",
-        price: 380000000,
-        priceText: "$380.000.000",
-        condition: "venta",
-        type: "apartamento",
-        bedrooms: 3,
-        bathrooms: 2,
-        area: 95,
-        parking: 1,
-        stratum: 4,
-        age: "recent",
-        status: "excellent",
-        features: ["balcony", "elevator", "gym"],
-        description: "Apartamento moderno en Cedritos con excelentes acabados.",
-        featured: false,
-        dateAdded: new Date("2024-01-14"),
-      },
-      {
-        id: 12,
-        title: "Casa Rosales Premium",
-        location: "rosales",
-        locationName: "Rosales, Bogotá",
-        fullAddress: "Carrera 5 #72-18, Rosales, Bogotá",
-        price: 1200000000,
-        priceText: "$1.200.000.000",
-        condition: "venta",
-        type: "casa",
-        bedrooms: 5,
-        bathrooms: 4,
-        area: 300,
-        parking: 3,
-        stratum: 6,
-        age: "new",
-        status: "excellent",
-        features: ["garden", "pool", "security", "gym", "elevator"],
-        description: "Casa de lujo en Rosales con todas las comodidades.",
-        featured: true,
-        dateAdded: new Date("2024-02-01"),
-      },
-    ];
-
-    // Datos de las propiedades para compatibilidad
-    const properties = {
-      1: {
-        title: "Casa Moderna Chapinero",
-        location: "Calle 85 #15-23, Chapinero, Bogotá",
-        price: "$450.000.000",
-        bedrooms: "3",
-        bathrooms: "2",
-        area: "120",
-        parking: "2",
-        description:
-          "Hermosa casa moderna ubicada en el corazón de Chapinero, una de las zonas más exclusivas y valorizada de Bogotá. Esta propiedad combina elegancia contemporánea con funcionalidad, perfecta para familias que buscan comodidad y estilo.",
-      },
-      2: {
-        title: "Apartamento Zona Rosa",
-        location: "Carrera 13 #85-32, Zona Rosa, Bogotá",
-        price: "$320.000.000",
-        bedrooms: "2",
-        bathrooms: "2",
-        area: "85",
-        parking: "1",
-        description:
-          "Moderno apartamento en la exclusiva Zona Rosa, con acabados de lujo y una ubicación privilegiada. Perfecto para profesionales jóvenes o parejas que buscan vivir en el centro de la vida nocturna y gastronómica de Bogotá.",
-      },
-      3: {
-        title: "Casa Familiar Cedritos",
-        location: "Calle 147 #9-15, Cedritos, Bogotá",
-        price: "$580.000.000",
-        bedrooms: "4",
-        bathrooms: "3",
-        area: "180",
-        parking: "2",
-        description:
-          "Amplia casa familiar en Cedritos, ideal para familias grandes. Cuenta con jardín privado, múltiples espacios sociales y excelente ubicación cerca de colegios y centros comerciales.",
-      },
-      4: {
-        title: "Apartamento La Candelaria",
-        location: "Carrera 4 #12-65, La Candelaria, Bogotá",
-        price: "$280.000.000",
-        bedrooms: "2",
-        bathrooms: "1",
-        area: "65",
-        parking: "0",
-        description:
-          "Acogedor apartamento en el histórico barrio de La Candelaria. Perfecto para quienes buscan vivir en el centro histórico de Bogotá, rodeado de cultura, arte y tradición.",
-      },
-    };
-
-    // Función para contactar por WhatsApp
-    function contactWhatsApp() {
-      const message = encodeURIComponent(
-        "Hola, estoy interesado en los servicios de Nazar Propiedades. ¿Podrían ayudarme?"
-      );
-      window.open(`https://wa.me/573001234567?text=${message}`, "_blank");
-    }
-
-    // Función para llamar
-    function callPhone() {
-      window.open("tel:+5712345678", "_self");
-    }
-
-    // Función para buscar propiedades
-    function searchProperties() {
-      alert(
-        "Funcionalidad de búsqueda - En una implementación real, esto procesaría los filtros y mostraría los resultados."
-      );
-    }
-
-    // Función para ver todas las propiedades
-    function viewAllProperties() {
-      alert(
-        "Funcionalidad de catálogo completo - En una implementación real, esto llevaría a la página de búsqueda avanzada."
-      );
-    }
-
-    // Función para ver propiedad individual
-    function viewProperty(id) {
-      // Buscar propiedad en la base de datos extendida
-      const property = allProperties.find((p) => p.id === id);
-
-      if (property) {
-        // Actualizar información de la propiedad
-        document.getElementById("propertyTitle").textContent = property.title;
-        document.getElementById("propertyLocation").textContent =
-          property.fullAddress;
-        document.getElementById("propertyPrice").textContent =
-          property.priceText;
-        document.getElementById("propertyBedrooms").textContent =
-          property.bedrooms;
-        document.getElementById("propertyBathrooms").textContent =
-          property.bathrooms;
-        document.getElementById("propertyArea").textContent = property.area;
-        document.getElementById("propertyParking").textContent =
-          property.parking;
-        document.getElementById(
-          "propertyDescription"
-        ).innerHTML = `<p>${property.description}</p>`;
-
-        // Ocultar otras páginas y mostrar detalle
-        document.getElementById("mainPage").classList.add("hidden");
-        document.getElementById("propertiesPage").classList.add("hidden");
+        // Update surface colors
+        const surfaceColor =
+          config.surface_color || defaultConfig.surface_color;
         document
-          .getElementById("propertyDetailPage")
-          .classList.remove("hidden");
+          .querySelectorAll(
+            ".nav, .contact-card, .map-container, .property-card"
+          )
+          .forEach((el) => {
+            el.style.backgroundColor = surfaceColor;
+          });
 
-        // Scroll al inicio
-        window.scrollTo(0, 0);
+        // Update primary action color
+        const primaryColor =
+          config.primary_action_color || defaultConfig.primary_action_color;
+        document
+          .querySelectorAll(".contact-btn, .btn-primary, .submit-btn")
+          .forEach((el) => {
+            el.style.backgroundColor = primaryColor;
+          });
+
+        document
+          .querySelectorAll(
+            ".logo, .hero-title, .hero-price, .section-title, .agent-name, .property-title, .property-price"
+          )
+          .forEach((el) => {
+            el.style.color = primaryColor;
+          });
+
+        document.querySelectorAll(".feature-icon").forEach((el) => {
+          el.style.fill = primaryColor;
+        });
+
+        // Update secondary color
+        const secondaryColor =
+          config.secondary_action_color || defaultConfig.secondary_action_color;
+        document
+          .querySelectorAll(
+            ".nav-link, .hero-location, .description, .spec-label, .agent-role, .property-location, .feature-text, .phone-label"
+          )
+          .forEach((el) => {
+            el.style.color = secondaryColor;
+          });
+
+        // Update text content
+        document.getElementById("property-title").textContent =
+          config.property_title || defaultConfig.property_title;
+        document.getElementById("property-location").textContent =
+          config.property_location || defaultConfig.property_location;
+        document.getElementById("property-price").textContent =
+          config.property_price || defaultConfig.property_price;
+        document.getElementById("agent-name").textContent =
+          config.agent_name || defaultConfig.agent_name;
+        document.getElementById("agent-phone").textContent =
+          config.agent_phone || defaultConfig.agent_phone;
+
+        // Update font sizes
+        document.querySelectorAll(".hero-title").forEach((el) => {
+          el.style.fontSize = `${baseSize * 4}px`;
+          el.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        });
+
+        document.querySelectorAll(".section-title").forEach((el) => {
+          el.style.fontSize = `${baseSize * 2}px`;
+          el.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        });
+
+        document.querySelectorAll(".hero-price").forEach((el) => {
+          el.style.fontSize = `${baseSize * 2.5}px`;
+        });
       }
-    }
 
-    // Variables para la página de propiedades
-    let currentPage = 1;
-    let propertiesPerPage = 9;
-    let filteredProperties = [...allProperties];
-
-    // Función para mostrar la página de propiedades
-    function showPropertiesPage(condition = "") {
-      // Ocultar otras páginas
-      document.getElementById("mainPage").classList.add("hidden");
-      document.getElementById("propertyDetailPage").classList.add("hidden");
-
-      // Mostrar página de propiedades
-      document.getElementById("propertiesPage").classList.remove("hidden");
-
-      // Aplicar filtro de condición si se especifica
-      if (condition) {
-        document.getElementById("conditionFilter").value = condition;
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange,
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () =>
+                  config.background_color || defaultConfig.background_color,
+                set: (value) => {
+                  config.background_color = value;
+                  window.elementSdk.setConfig({ background_color: value });
+                },
+              },
+              {
+                get: () => config.surface_color || defaultConfig.surface_color,
+                set: (value) => {
+                  config.surface_color = value;
+                  window.elementSdk.setConfig({ surface_color: value });
+                },
+              },
+              {
+                get: () => config.text_color || defaultConfig.text_color,
+                set: (value) => {
+                  config.text_color = value;
+                  window.elementSdk.setConfig({ text_color: value });
+                },
+              },
+              {
+                get: () =>
+                  config.primary_action_color ||
+                  defaultConfig.primary_action_color,
+                set: (value) => {
+                  config.primary_action_color = value;
+                  window.elementSdk.setConfig({ primary_action_color: value });
+                },
+              },
+              {
+                get: () =>
+                  config.secondary_action_color ||
+                  defaultConfig.secondary_action_color,
+                set: (value) => {
+                  config.secondary_action_color = value;
+                  window.elementSdk.setConfig({
+                    secondary_action_color: value,
+                  });
+                },
+              },
+            ],
+            borderables: [],
+            fontEditable: {
+              get: () => config.font_family || defaultConfig.font_family,
+              set: (value) => {
+                config.font_family = value;
+                window.elementSdk.setConfig({ font_family: value });
+              },
+            },
+            fontSizeable: {
+              get: () => config.font_size || defaultConfig.font_size,
+              set: (value) => {
+                config.font_size = value;
+                window.elementSdk.setConfig({ font_size: value });
+              },
+            },
+          }),
+          mapToEditPanelValues: (config) =>
+            new Map([
+              [
+                "property_title",
+                config.property_title || defaultConfig.property_title,
+              ],
+              [
+                "property_location",
+                config.property_location || defaultConfig.property_location,
+              ],
+              [
+                "property_price",
+                config.property_price || defaultConfig.property_price,
+              ],
+              ["agent_name", config.agent_name || defaultConfig.agent_name],
+              ["agent_phone", config.agent_phone || defaultConfig.agent_phone],
+            ]),
+        });
       }
 
-      // Cargar propiedades
-      applyFilters();
-      window.scrollTo(0, 0);
-    }
+      // Gallery functionality
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".gallery-slide");
+      const dots = document.querySelectorAll(".nav-dot");
+      const slideCounter = document.getElementById("current-slide");
+      const modal = document.getElementById("image-modal");
+      const modalSlide = document.getElementById("modal-slide");
+      const modalClose = document.getElementById("modal-close");
 
-    // Función para volver a la página principal
-    function goBackToMain() {
-      document.getElementById("propertyDetailPage").classList.add("hidden");
-      document.getElementById("propertiesPage").classList.add("hidden");
-      document.getElementById("mainPage").classList.remove("hidden");
-      window.scrollTo(0, 0);
-    }
+      const slideData = [
+        {
+          icon: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z",
+          text: "Fachada principal",
+        },
+        {
+          icon: "M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V7H1v10h22v-6c0-2.21-1.79-4-4-4z",
+          text: "Dormitorio principal",
+        },
+        {
+          icon: "M18 2l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2h-2z",
+          text: "Cocina integrada",
+        },
+        {
+          icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+          text: "Jardín minimalista",
+        },
+        {
+          icon: "M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10z",
+          text: "Living comedor",
+        },
+        {
+          icon: "M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 18c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm0-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm3-8c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z",
+          text: "Baño principal",
+        },
+      ];
 
-    // Función para mostrar/ocultar filtros avanzados
-    function toggleAdvancedFilters() {
-      const advancedFilters = document.getElementById("advancedFilters");
-      advancedFilters.classList.toggle("hidden");
-    }
+      function showSlide(index) {
+        slides.forEach((slide) => slide.classList.remove("active"));
+        dots.forEach((dot) => dot.classList.remove("active"));
 
-    // Función para aplicar filtros
-    function applyFilters() {
-      const filters = {
-        location: document.getElementById("locationFilter").value.toLowerCase(),
-        condition: document.getElementById("conditionFilter").value,
-        type: document.getElementById("typeFilter").value,
-        maxPrice: document
-          .getElementById("priceFilter")
-          .value.replace(/[^\d]/g, ""),
-        bedrooms: document.getElementById("bedroomsFilter").value,
-        bathrooms: document.getElementById("bathroomsFilter").value,
-        minArea: document.getElementById("minAreaFilter").value,
-        maxArea: document.getElementById("maxAreaFilter").value,
-        parking: document.getElementById("parkingFilter").value,
-      };
+        slides[index].classList.add("active");
+        dots[index].classList.add("active");
+        slideCounter.textContent = index + 1;
+        currentSlide = index;
+      }
 
-      // Obtener características seleccionadas
-      const features = [];
-      if (document.getElementById("balconyFilter").checked)
-        features.push("balcony");
-      if (document.getElementById("gardenFilter").checked)
-        features.push("garden");
-      if (document.getElementById("poolFilter").checked) features.push("pool");
-      if (document.getElementById("gymFilter").checked) features.push("gym");
-      if (document.getElementById("elevatorFilter").checked)
-        features.push("elevator");
-      if (document.getElementById("securityFilter").checked)
-        features.push("security");
-      if (document.getElementById("furnishedFilter").checked)
-        features.push("furnished");
-      if (document.getElementById("petFriendlyFilter").checked)
-        features.push("petFriendly");
+      function openModal(index) {
+        const data = slideData[index];
+        modalSlide.innerHTML = `
+                <svg class="slide-icon" viewBox="0 0 24 24">
+                    <path d="${data.icon}"/>
+                </svg>
+                <div class="slide-text">${data.text}</div>
+            `;
+        modal.classList.add("show");
+      }
 
-      // Filtrar propiedades
-      filteredProperties = allProperties.filter((property) => {
-        // Filtro por ubicación (búsqueda flexible)
-        if (
-          filters.location &&
-          !property.locationName.toLowerCase().includes(filters.location) &&
-          property.location !== filters.location
-        )
-          return false;
+      function closeModal() {
+        modal.classList.remove("show");
+      }
 
-        // Filtro por condición
-        if (filters.condition && property.condition !== filters.condition)
-          return false;
-
-        // Filtro por tipo
-        if (filters.type && property.type !== filters.type) return false;
-
-        // Filtro por precio máximo
-        if (filters.maxPrice && property.price > parseInt(filters.maxPrice))
-          return false;
-
-        // Filtro por habitaciones
-        if (filters.bedrooms && property.bedrooms < parseInt(filters.bedrooms))
-          return false;
-
-        // Filtro por baños
-        if (
-          filters.bathrooms &&
-          property.bathrooms < parseInt(filters.bathrooms)
-        )
-          return false;
-
-        // Filtro por área mínima
-        if (filters.minArea && property.area < parseInt(filters.minArea))
-          return false;
-
-        // Filtro por área máxima
-        if (filters.maxArea && property.area > parseInt(filters.maxArea))
-          return false;
-
-        // Filtro por cochera
-        if (filters.parking && property.parking < parseInt(filters.parking))
-          return false;
-
-        // Filtro por características
-        if (features.length > 0) {
-          const hasAllFeatures = features.every((feature) =>
-            property.features.includes(feature)
-          );
-          if (!hasAllFeatures) return false;
-        }
-
-        return true;
+      dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => showSlide(index));
       });
 
-      // Resetear página actual
-      currentPage = 1;
-
-      // Ordenar propiedades
-      sortProperties();
-    }
-
-    // Variables para ubicación
-    let selectedLocationValue = "";
-
-    // Función para mostrar sugerencias de ubicación
-    function showLocationSuggestions(value) {
-      const suggestions = document.getElementById("locationSuggestions");
-      const suggestionItems = suggestions.querySelectorAll("div");
-
-      if (value.length === 0) {
-        suggestions.classList.add("hidden");
-        return;
-      }
-
-      let hasVisibleSuggestions = false;
-      suggestionItems.forEach((item) => {
-        const text = item.textContent.toLowerCase();
-        if (text.includes(value.toLowerCase())) {
-          item.style.display = "block";
-          hasVisibleSuggestions = true;
-        } else {
-          item.style.display = "none";
-        }
+      slides.forEach((slide, index) => {
+        slide.addEventListener("click", () => openModal(index));
       });
 
-      if (hasVisibleSuggestions) {
-        suggestions.classList.remove("hidden");
-      } else {
-        suggestions.classList.add("hidden");
-      }
-    }
-
-    // Función para ocultar sugerencias
-    function hideLocationSuggestions() {
-      setTimeout(() => {
-        document.getElementById("locationSuggestions").classList.add("hidden");
-      }, 200);
-    }
-
-    // Función para seleccionar ubicación
-    function selectLocation(value, displayText) {
-      document.getElementById("locationFilter").value = displayText;
-      selectedLocationValue = value;
-      document.getElementById("locationSuggestions").classList.add("hidden");
-    }
-
-    // Función para formatear entrada de precio
-    function formatPriceInput(input) {
-      let value = input.value.replace(/[^\d]/g, "");
-      if (value) {
-        value = parseInt(value).toLocaleString();
-        input.value = "$" + value;
-      }
-    }
-
-    // Función para limpiar filtros
-    function clearFilters() {
-      // Limpiar filtros básicos
-      document.getElementById("locationFilter").value = "";
-      document.getElementById("conditionFilter").value = "";
-      document.getElementById("typeFilter").value = "";
-      document.getElementById("priceFilter").value = "";
-
-      // Limpiar filtros avanzados
-      document.getElementById("bedroomsFilter").value = "";
-      document.getElementById("bathroomsFilter").value = "";
-      document.getElementById("minAreaFilter").value = "";
-      document.getElementById("maxAreaFilter").value = "";
-      document.getElementById("parkingFilter").value = "";
-
-      // Limpiar checkboxes
-      document.getElementById("balconyFilter").checked = false;
-      document.getElementById("gardenFilter").checked = false;
-      document.getElementById("poolFilter").checked = false;
-      document.getElementById("gymFilter").checked = false;
-      document.getElementById("elevatorFilter").checked = false;
-      document.getElementById("securityFilter").checked = false;
-      document.getElementById("furnishedFilter").checked = false;
-      document.getElementById("petFriendlyFilter").checked = false;
-
-      // Aplicar filtros (mostrar todas las propiedades)
-      applyFilters();
-    }
-
-    // Función para ordenar propiedades
-    function sortProperties() {
-      const sortBy = document.getElementById("sortBy").value;
-
-      switch (sortBy) {
-        case "newest":
-          filteredProperties.sort((a, b) => b.dateAdded - a.dateAdded);
-          break;
-        case "price-low":
-          filteredProperties.sort((a, b) => a.price - b.price);
-          break;
-        case "price-high":
-          filteredProperties.sort((a, b) => b.price - a.price);
-          break;
-        case "area-large":
-          filteredProperties.sort((a, b) => b.area - a.area);
-          break;
-      }
-
-      renderProperties();
-    }
-
-    // Función para renderizar propiedades
-    function renderProperties() {
-      const grid = document.getElementById("propertiesGrid");
-      const startIndex = (currentPage - 1) * propertiesPerPage;
-      const endIndex = startIndex + propertiesPerPage;
-      const currentProperties = filteredProperties.slice(startIndex, endIndex);
-
-      // Actualizar contador de resultados
-      document.getElementById(
-        "resultsCount"
-      ).textContent = `Mostrando ${filteredProperties.length} propiedades`;
-
-      // Generar HTML de propiedades
-      grid.innerHTML = currentProperties
-        .map(
-          (property) => `
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer transform hover:scale-105 duration-300" onclick="viewProperty(${
-                  property.id
-                })">
-                    <div class="h-48 bg-gray-200 relative overflow-hidden">
-                        ${generatePropertySVG(property.id)}
-                        ${
-                          property.featured
-                            ? '<div class="absolute top-3 right-3 bg-primary-red text-white px-2 py-1 rounded text-sm font-medium">Destacada</div>'
-                            : ""
-                        }
-                        ${
-                          property.condition === "alquiler"
-                            ? '<div class="absolute top-3 left-3 bg-blue-500 text-white px-2 py-1 rounded text-sm font-medium">Alquiler</div>'
-                            : ""
-                        }
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">${
-                          property.title
-                        }</h3>
-                        <p class="text-gray-600 text-sm mb-3">📍 ${
-                          property.locationName
-                        }</p>
-                        <p class="text-primary-red font-bold text-xl">${
-                          property.priceText
-                        }</p>
-                        <div class="flex justify-between text-sm text-gray-500 mt-3">
-                            ${
-                              property.bedrooms > 0
-                                ? `<span>🛏️ ${property.bedrooms} hab</span>`
-                                : "<span></span>"
-                            }
-                            ${
-                              property.bathrooms > 0
-                                ? `<span>🚿 ${property.bathrooms} baños</span>`
-                                : "<span></span>"
-                            }
-                            <span>📐 ${property.area} m²</span>
-                        </div>
-                    </div>
-                </div>
-            `
-        )
-        .join("");
-
-      // Actualizar paginación
-      renderPagination();
-    }
-
-    // Función para generar SVG de propiedad
-    function generatePropertySVG(propertyId) {
-      const svgs = {
-        1: `<svg class="w-full h-full" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                    <rect fill="#f8f9fa" width="300" height="200"/>
-                    <rect fill="#e9ecef" x="0" y="120" width="300" height="80"/>
-                    <rect fill="#dee2e6" x="50" y="60" width="80" height="60"/>
-                    <rect fill="#ced4da" x="170" y="80" width="60" height="40"/>
-                    <circle fill="#adb5bd" cx="250" cy="40" r="20"/>
-                </svg>`,
-        2: `<svg class="w-full h-full" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                    <rect fill="#f1f3f4" width="300" height="200"/>
-                    <rect fill="#e8eaed" x="0" y="100" width="300" height="100"/>
-                    <rect fill="#dadce0" x="40" y="40" width="100" height="80"/>
-                    <rect fill="#bdc1c6" x="160" y="60" width="80" height="60"/>
-                    <rect fill="#9aa0a6" x="20" y="140" width="260" height="20"/>
-                </svg>`,
-        3: `<svg class="w-full h-full" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                    <rect fill="#fafafa" width="300" height="200"/>
-                    <rect fill="#f5f5f5" x="0" y="80" width="300" height="120"/>
-                    <rect fill="#eeeeee" x="60" y="30" width="120" height="90"/>
-                    <rect fill="#e0e0e0" x="200" y="50" width="70" height="70"/>
-                    <polygon fill="#bdbdbd" points="60,30 120,10 180,30 180,120 60,120"/>
-                </svg>`,
-      };
-
-      return svgs[propertyId] || svgs[1];
-    }
-
-    // Función para renderizar paginación
-    function renderPagination() {
-      const totalPages = Math.ceil(
-        filteredProperties.length / propertiesPerPage
-      );
-      const pageNumbers = document.getElementById("pageNumbers");
-
-      // Actualizar botones anterior/siguiente
-      document.getElementById("prevPageBtn").disabled = currentPage === 1;
-      document.getElementById("nextPageBtn").disabled =
-        currentPage === totalPages;
-
-      // Generar números de página
-      let paginationHTML = "";
-      for (let i = 1; i <= totalPages; i++) {
-        if (i === currentPage) {
-          paginationHTML += `<button class="px-3 py-2 bg-primary-red text-white rounded-lg">${i}</button>`;
-        } else {
-          paginationHTML += `<button onclick="goToPage(${i})" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">${i}</button>`;
-        }
-      }
-
-      pageNumbers.innerHTML = paginationHTML;
-    }
-
-    // Función para ir a página específica
-    function goToPage(page) {
-      currentPage = page;
-      renderProperties();
-      window.scrollTo(0, 0);
-    }
-
-    // Función para página anterior
-    function previousPage() {
-      if (currentPage > 1) {
-        currentPage--;
-        renderProperties();
-        window.scrollTo(0, 0);
-      }
-    }
-
-    // Función para página siguiente
-    function nextPage() {
-      const totalPages = Math.ceil(
-        filteredProperties.length / propertiesPerPage
-      );
-      if (currentPage < totalPages) {
-        currentPage++;
-        renderProperties();
-        window.scrollTo(0, 0);
-      }
-    }
-
-    // Función para cambiar imagen principal
-    function changeMainImage(imageNumber) {
-      // En una implementación real, aquí cambiarías la imagen principal
-      console.log(`Cambiando a imagen ${imageNumber}`);
-    }
-
-    // Función para enviar formulario de tasación
-    function submitValuation(event) {
-      event.preventDefault();
-      alert(
-        "¡Solicitud enviada exitosamente! Nos contactaremos contigo en las próximas 2 horas para coordinar la tasación gratuita."
-      );
-      event.target.reset();
-    }
-
-    // Función para enviar consulta de propiedad
-    function submitPropertyInquiry(event) {
-      event.preventDefault();
-      alert(
-        "¡Mensaje enviado! Nuestro asesor se contactará contigo en menos de 2 horas."
-      );
-      event.target.reset();
-    }
-
-    // Función para calcular crédito
-    function calculateCredit(initialPaymentPercent = 30) {
-      const propertyValue = 450000000; // Valor de la propiedad
-      const initialPayment = propertyValue * (initialPaymentPercent / 100);
-      const loanAmount = propertyValue - initialPayment;
-      const interestRate = 0.12 / 12; // 12% anual / 12 meses
-      const years = 20;
-      const payments = years * 12;
-
-      const monthlyPayment =
-        (loanAmount * (interestRate * Math.pow(1 + interestRate, payments))) /
-        (Math.pow(1 + interestRate, payments) - 1);
-
-      document.getElementById("initialPaymentPercent").textContent =
-        initialPaymentPercent + "%";
-      document.getElementById("monthlyPayment").textContent =
-        "$" + Math.round(monthlyPayment).toLocaleString();
-    }
-
-    // Variables del carrusel
-    let currentSlide = 0;
-    const totalSlides = 2;
-
-    // Función para ir al siguiente slide
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      updateCarousel();
-    }
-
-    // Función para ir al slide anterior
-    function previousSlide() {
-      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-      updateCarousel();
-    }
-
-    // Función para ir a un slide específico
-    function goToSlide(slideIndex) {
-      currentSlide = slideIndex;
-      updateCarousel();
-    }
-
-    // Función para actualizar la posición del carrusel
-    function updateCarousel() {
-      const carousel = document.getElementById("carousel");
-      const translateX = -currentSlide * 100;
-      carousel.style.transform = `translateX(${translateX}%)`;
-
-      // Actualizar indicadores
-      const indicators = document.querySelectorAll(".carousel-indicator");
-      indicators.forEach((indicator, index) => {
-        if (index === currentSlide) {
-          indicator.classList.remove("bg-gray-300");
-          indicator.classList.add("bg-primary-red");
-        } else {
-          indicator.classList.remove("bg-primary-red");
-          indicator.classList.add("bg-gray-300");
-        }
-      });
-    }
-
-    // Auto-play del carrusel
-    let autoPlayInterval;
-
-    function startAutoPlay() {
-      autoPlayInterval = setInterval(nextSlide, 5000); // Cambia cada 5 segundos
-    }
-
-    function stopAutoPlay() {
-      clearInterval(autoPlayInterval);
-    }
-
-    // Pausar auto-play cuando el usuario interactúa
-    document
-      .getElementById("carousel")
-      .addEventListener("mouseenter", stopAutoPlay);
-    document
-      .getElementById("carousel")
-      .addEventListener("mouseleave", startAutoPlay);
-
-    // Efecto de scroll para la barra superior
-    window.addEventListener("scroll", function () {
-      const header = document.querySelector("header");
-      if (window.scrollY > 100) {
-        header.classList.add("shadow-lg");
-      } else {
-        header.classList.remove("shadow-lg");
-      }
-    });
-
-    // Animación de entrada para las tarjetas de propiedades
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    };
-
-    const observer = new IntersectionObserver(function (entries) {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = "1";
-          entry.target.style.transform = "translateY(0)";
-        }
-      });
-    }, observerOptions);
-
-    // Aplicar animación a las tarjetas cuando se carga la página
-    document.addEventListener("DOMContentLoaded", function () {
-      const propertyCards = document.querySelectorAll(
-        "#properties .grid > div"
-      );
-      propertyCards.forEach((card, index) => {
-        card.style.opacity = "0";
-        card.style.transform = "translateY(20px)";
-        card.style.transition = `opacity 0.6s ease ${
-          index * 0.1
-        }s, transform 0.6s ease ${index * 0.1}s`;
-        observer.observe(card);
+      modalClose.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
       });
 
-      // Inicializar calculadora de crédito
-      calculateCredit();
+      // Auto-advance slides
+      setInterval(() => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      }, 5000);
 
-      // Iniciar auto-play del carrusel
-      startAutoPlay();
-    });
-  </script>
+      // Contact form
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const successMessage = document.getElementById("success-message");
+          successMessage.classList.add("show");
+          e.target.reset();
+
+          setTimeout(() => {
+            successMessage.classList.remove("show");
+          }, 4000);
+        });
+
+      // Smooth scrolling
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'999c58b3351ff1ca',t:'MTc2MjM0NTY1OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
 </html>

@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import CustomSelectInput from '@/components/ui/CustomSelectInput'
 import DualRangeSlider from '@/components/ui/DualRangeSlider'
 
@@ -34,6 +35,13 @@ const PropertyFilters = ({
   const [roomsMin, setRoomsMin] = useState(0)
   const [roomsMax, setRoomsMax] = useState(30)
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
+
+  // Abrir filtros avanzados automáticamente en mobile
+  useEffect(() => {
+    if (isMobile) {
+      setShowAdvancedFilters(true)
+    }
+  }, [isMobile])
 
   const handleApplyFilters = () => {
     onFilterChange?.({
@@ -243,21 +251,33 @@ const PropertyFilters = ({
       </div>
 
       {/* Modal Filtros Avanzados */}
-      {showAdvancedFilters && (
+      {showAdvancedFilters && typeof document !== 'undefined' && createPortal(
         <>
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/50 z-50"
-            onClick={() => setShowAdvancedFilters(false)}
+            className="fixed inset-0 bg-black/50"
+            style={{ zIndex: 9998 }}
+            onClick={() => {
+              setShowAdvancedFilters(false)
+              if (isMobile && onClose) {
+                onClose()
+              }
+            }}
           />
 
           {/* Modal */}
-          <div className="fixed right-0 top-0 bottom-0 w-[90%] max-w-md bg-white z-[60] overflow-y-auto p-6">
+          <div className="fixed right-0 top-0 bottom-0 w-[75%] max-w-sm bg-white overflow-y-auto p-6" style={{ zIndex: 9999 }}>
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
+              
               <h3 className="text-xl font-bold">Todos los Filtros</h3>
               <button
-                onClick={() => setShowAdvancedFilters(false)}
+                onClick={() => {
+                  setShowAdvancedFilters(false)
+                  if (isMobile && onClose) {
+                    onClose()
+                  }
+                }}
                 className="text-gray-600 hover:text-gray-900"
                 aria-label="Cerrar filtros avanzados"
               >
@@ -450,7 +470,8 @@ const PropertyFilters = ({
               </div>
             </div>
           </div>
-        </>
+        </>,
+        document.body
       )}
     </div>
   )

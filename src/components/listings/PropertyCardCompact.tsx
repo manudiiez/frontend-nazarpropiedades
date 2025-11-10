@@ -18,7 +18,7 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
           src={property.image}
           alt={property.title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          className="object-cover group-hover:scale-105 transition-transform duration-300 relative z-0"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
