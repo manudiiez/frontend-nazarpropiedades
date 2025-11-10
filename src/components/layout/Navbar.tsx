@@ -62,19 +62,19 @@ const Navbar = () => {
                 href="/propiedades"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
-                Propiedades
+                Comprar
               </Link>
               <Link
-                href="#servicios"
+                href="/propiedades"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
-                Servicios
+                Alquilar
               </Link>
               <Link
                 href="#contacto"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
-                Contacto
+                Vender
               </Link>
             </nav>
 
