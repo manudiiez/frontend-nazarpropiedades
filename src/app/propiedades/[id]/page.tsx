@@ -9,6 +9,8 @@ const mockProperty = {
   id: 1,
   title: 'Casa Minimalista Palermo',
   location: 'Palermo, Buenos Aires',
+  type: 'Casa',
+  condition: 'Venta',
   price: 850000,
   currency: 'USD',
   bedrooms: 4,
@@ -23,6 +25,20 @@ const mockProperty = {
     { id: 3, title: 'Jardín minimalista', url: '/imagenes/home2.jpg' },
     { id: 4, title: 'Living comedor', url: '/imagenes/home.jpg' },
     { id: 5, title: 'Baño principal', url: '/imagenes/home2.jpg' },
+    { id: 6, title: 'Living comedor', url: '/imagenes/home.jpg' },
+    { id: 7, title: 'Baño principal', url: '/imagenes/home2.jpg' },
+    { id: 8, title: 'Living comedor', url: '/imagenes/home.jpg' },
+    { id: 9, title: 'Baño principal', url: '/imagenes/home2.jpg' },
+    { id: 10, title: 'Living comedor', url: '/imagenes/home.jpg' },
+    { id: 11, title: 'Baño principal', url: '/imagenes/home2.jpg' },
+    { id: 12, title: 'Living comedor', url: '/imagenes/home.jpg' },
+    { id: 13, title: 'Baño principal', url: '/imagenes/home2.jpg' },
+    { id: 14, title: 'Living comedor', url: '/imagenes/home.jpg' },
+    { id: 15, title: 'Baño principal', url: '/imagenes/home2.jpg' },
+    { id: 16, title: 'Living comedor', url: '/imagenes/home.jpg' },
+    { id: 17, title: 'Baño principal', url: '/imagenes/home2.jpg' },
+    { id: 18, title: 'Living comedor', url: '/imagenes/home.jpg' },
+    { id: 19, title: 'Baño principal', url: '/imagenes/home2.jpg' },
   ],
   specs: {
     superficieTotal: 320,
@@ -109,6 +125,8 @@ export default function PropertyDetailPage() {
       {/* Hero Section */}
       <PropertyHero
         title={mockProperty.title}
+        type={mockProperty.type}
+        condition={mockProperty.condition}
         location={mockProperty.location}
         price={mockProperty.price}
         currency={mockProperty.currency}

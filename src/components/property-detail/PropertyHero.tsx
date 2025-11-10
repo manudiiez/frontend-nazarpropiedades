@@ -6,6 +6,8 @@ interface PropertyHeroProps {
   bedrooms: number
   bathrooms: number
   area: number
+  type: string
+  condition: string
 }
 
 export default function PropertyHero({
@@ -16,13 +18,15 @@ export default function PropertyHero({
   bedrooms,
   bathrooms,
   area,
+  type,
+  condition,
 }: PropertyHeroProps) {
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="flex flex-col gap-8">
           <h1 className="text-5xl lg:text-6xl font-light leading-tight text-gray-900">
-            {title}
+            {type} en {condition}
           </h1>
           <div className="text-lg text-gray-600">{location}</div>
           <div className="text-4xl font-semibold text-gray-900">
