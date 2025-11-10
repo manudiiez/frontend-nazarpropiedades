@@ -1,9 +1,9 @@
 import HeroSection from "@/components/sections/HeroSection";
-import PropertyCarousel from "@/components/sections/PropertyCarousel";
+import FeaturedPropertiesSection from "@/components/sections/FeaturedPropertiesSection";
+import NewPropertiesSection from "@/components/sections/NewPropertiesSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import BenefitsStrip from "@/components/sections/BenefitsStrip";
 import CTASection from "@/components/sections/CTASection";
-import { featuredProperties, recentProperties } from "@/data/properties";
 
 export default function Home() {
   return (
@@ -11,18 +11,9 @@ export default function Home() {
       {/* Ajustar para que solo sea client component la parte del filtro */}
       <HeroSection />
 
-      <PropertyCarousel
-        title="Propiedades destacadas"
-        subtitle="Las mejores oportunidades del mercado mendocino"
-        properties={featuredProperties}
-      />
+      <FeaturedPropertiesSection />
 
-      <PropertyCarousel
-        title="Propiedades recién añadidas"
-        subtitle="Las últimas incorporaciones a nuestro catálogo"
-        properties={recentProperties}
-        containerBgColor="bg-white"
-      />
+      <NewPropertiesSection />
 
       <ServicesSection />
 

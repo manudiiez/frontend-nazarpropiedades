@@ -31,12 +31,13 @@ const mockProperty: Property = {
     locationPrivacy: 'approximate',
   },
 
-  // Precio
-  price: {
-    amount: 850000,
-    currency: 'USD',
+  // Características (incluye precio)
+  caracteristics: {
+    price: 850000,
+    currency: 'usd',
+    hasExpenses: 'Si',
     expenses: 15000,
-    expensesCurrency: 'ARS',
+    expensesCurrency: 'ars',
   },
 
   // Medidas (para casa)
@@ -181,7 +182,7 @@ export default function PropertyDetailPage() {
         title={mockProperty.title}
         classification={mockProperty.classification}
         ubication={mockProperty.ubication}
-        price={mockProperty.price}
+        caracteristics={mockProperty.caracteristics}
         features={mockProperty.features}
         measures={mockProperty.measures}
       />

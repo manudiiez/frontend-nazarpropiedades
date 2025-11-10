@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 
 interface Image {
   id: number;
-  title: string;
+  title?: string;
   url: string;
 }
 
@@ -72,7 +72,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
             >
               <Image
                 src={image.url}
-                alt={image.title}
+                alt={image.title || `Imagen ${index + 1}`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1400px) 100vw, 1400px"
@@ -132,7 +132,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
               >
                 <Image
                   src={image.url}
-                  alt={image.title}
+                  alt={image.title || `Imagen ${index + 1}`}
                   width={72}
                   height={64}
                   className="object-cover w-full h-full"

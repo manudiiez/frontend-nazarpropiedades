@@ -1,10 +1,10 @@
-import type { Classification, Ubication, Price, Features, Measures } from '@/types/property'
+import type { Classification, Ubication, Caracteristics, Features, Measures } from '@/types/property'
 
 interface PropertyHeroProps {
   title: string
   classification: Classification
   ubication: Ubication
-  price: Price
+  caracteristics: Caracteristics
   features?: Features
   measures?: Measures
 }
@@ -13,7 +13,7 @@ export default function PropertyHero({
   title,
   classification,
   ubication,
-  price,
+  caracteristics,
   features,
   measures,
 }: PropertyHeroProps) {
@@ -38,7 +38,7 @@ export default function PropertyHero({
           </h1>
           <div className="text-lg text-gray-600">{location}</div>
           <div className="text-4xl font-semibold text-gray-900">
-            {price.currency} {price.amount.toLocaleString()}
+            {caracteristics.currency.toUpperCase()} {caracteristics.price.toLocaleString()}
           </div>
 
           {/* Stats */}

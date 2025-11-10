@@ -2,7 +2,7 @@
 
 export interface PropertyImage {
   id: number
-  title: string
+  title?: string
   url: string
   alt?: string
 }
@@ -23,13 +23,17 @@ export interface Ubication {
     lng: number
   }
   locationPrivacy?: 'exact' | 'approximate' | 'hidden'
+  approximateRadius?: number
 }
 
-export interface Price {
-  amount: number
-  currency: 'USD' | 'ARS'
+export interface Caracteristics {
+  price: number
+  currency: 'usd' | 'ars'
+  hasExpenses?: 'Si' | 'No'
   expenses?: number
-  expensesCurrency?: 'USD' | 'ARS'
+  expensesCurrency?: 'usd' | 'ars'
+  appraisal?: number
+  appraisalCurrency?: 'usd' | 'ars'
 }
 
 export interface Measures {
@@ -142,13 +146,13 @@ export interface Property {
   // Ubicación
   ubication: Ubication
 
-  // Precio
-  price: Price
+  // Características (incluye precio)
+  caracteristics: Caracteristics
 
   // Medidas (opcionales según tipo)
   measures?: Measures
 
-  // Características (opcionales según tipo)
+  // Características adicionales (opcionales según tipo)
   features?: Features
 
   // Amenities (opcionales)
