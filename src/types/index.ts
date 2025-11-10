@@ -6,9 +6,11 @@ export interface Property {
   bedrooms: number
   bathrooms: number
   area: number
+  coveredArea?: number
+  garages?: number
   image: string
-  type: 'Casa' | 'Apartamento' | 'Terreno' | 'Local'
-  condition: 'Venta' | 'Alquiler'
+  type: String
+  condition: String
   features?: string[]
 }
 

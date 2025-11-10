@@ -1,6 +1,7 @@
 import PropertyCarousel from './PropertyCarousel'
 import type { Property } from '@/types'
 import type { Property as ApiProperty } from '@/types/property'
+import { getDepartmentLabel, getLocalityLabel } from '@/utils/propertyLabels'
 
 interface FeaturedPropertiesResponse {
   featuredProperties: ApiProperty[]
@@ -9,31 +10,35 @@ interface FeaturedPropertiesResponse {
 // Función para transformar la propiedad de la API al formato del PropertyCard
 function transformProperty(apiProperty: ApiProperty): Property {
   // Obtener la primera imagen o una imagen por defecto
-  const image = apiProperty.images?.[0]?.url || '/imagenes/home.jpg'
-  console.log('API Property:', apiProperty)
+  const image = apiProperty.images?.coverImage?.sizes?.thumbnail?.url || apiProperty.images?.imagenesExtra[0]?.url ||  '/imagenes/home.jpg'
   // Construir la ubicación
   const locationParts = [
     apiProperty.ubication.neighborhood,
-    apiProperty.ubication.locality,
-    apiProperty.ubication.department,
+    getLocalityLabel(apiProperty.ubication.locality || ''),
+    getDepartmentLabel(apiProperty.ubication.department || ''),
     apiProperty.ubication.province,
   ].filter(Boolean)
+  if(locationParts[1] === locationParts[2]) {
+    locationParts.splice(2, 1)
+  }
   const location = locationParts.join(', ')
 
   // Obtener el área (priorizar coveredArea, luego totalArea)
-  const area = apiProperty.measures?.coveredArea || apiProperty.measures?.totalArea || 0
+  const area = apiProperty.caracteristics?.totalArea || 0
 
   return {
     id: String(apiProperty.id),
     title: apiProperty.title,
     location: location,
     price: apiProperty.caracteristics?.price || 0,
-    bedrooms: apiProperty.features?.bedrooms || 0,
-    bathrooms: apiProperty.features?.bathrooms || 0,
+    bedrooms: apiProperty.environments?.bedrooms || 0,
+    bathrooms: apiProperty.environments?.bathrooms || 0,
     area: area,
+    coveredArea: apiProperty.caracteristics?.coveredArea,
+    garages: apiProperty.environments?.garages,
     image: image,
-    type: apiProperty.classification.type as 'Casa' | 'Apartamento' | 'Terreno' | 'Local',
-    condition: apiProperty.classification.condition as 'Venta' | 'Alquiler',
+    type: apiProperty.classification.type,
+    condition: apiProperty.classification.condition,
   }
 }
 
