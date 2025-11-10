@@ -8,12 +8,14 @@ interface PropertyCarouselProps {
   title: string
   subtitle: string
   properties: Property[]
+  containerBgColor?: string
 }
 
 const PropertyCarousel = ({
   title,
   subtitle,
   properties,
+  containerBgColor = 'bg-gray-ui',
 }: PropertyCarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const propertiesPerSlide = 3
@@ -48,7 +50,7 @@ const PropertyCarousel = ({
   }
 
   return (
-    <section className="py-24 px-6 bg-gray-ui">
+    <section className={`py-24 px-6 ${containerBgColor}`}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-semibold text-gray-900 mb-4">{title}</h2>

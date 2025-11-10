@@ -134,10 +134,10 @@ const mockProperty: Property = {
 
   // Agente responsable
   agent: {
-    name: 'María González',
-    role: 'Agente inmobiliario',
+    name: 'Nazar Propiedades',
+    role: 'Inmobiliaria en Mendoza',
     phone: '+54 11 1234-5678',
-    email: 'maria.gonzalez@nazarpropiedades.com',
+    email: 'nazarpropiedades217@nazarpropiedades.com',
   },
 }
 
@@ -207,11 +207,11 @@ export default function PropertyDetailPage() {
 
       {/* Map Section */}
       <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="bg-white border border-gray-200 rounded-xl p-12">
+        <div className="bg-white border border-gray-200 rounded-sm p-12">
           <h2 className="text-3xl font-semibold text-gray-900 mb-8">
             Ubicación
           </h2>
-          <div className="h-[300px] bg-gray-50 rounded-lg flex flex-col items-center justify-center border border-dashed border-gray-300">
+          <div className="h-[300px] bg-gray-50 rounded-sm flex flex-col items-center justify-center border border-dashed border-gray-300">
             <span className="material-symbols-outlined text-gray-400 text-4xl mb-4">
               location_on
             </span>

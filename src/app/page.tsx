@@ -21,6 +21,7 @@ export default function Home() {
         title="Propiedades recién añadidas"
         subtitle="Las últimas incorporaciones a nuestro catálogo"
         properties={recentProperties}
+        containerBgColor="bg-white"
       />
 
       <ServicesSection />

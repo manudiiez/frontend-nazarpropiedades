@@ -25,7 +25,7 @@ export default function RelatedProperties({
           <Link
             key={property.id}
             href={`/propiedades/${property.id}`}
-            className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all cursor-pointer"
+            className="bg-white border border-gray-200 rounded-sm overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all cursor-pointer"
           >
             <div className="h-48 bg-gray-100 flex items-center justify-center">
               <span className="material-symbols-outlined text-gray-400 text-4xl">
