@@ -15,15 +15,18 @@ interface ImageGalleryProps {
 
 export default function ImageGallery({ images }: ImageGalleryProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const thumbnailsRef = useRef<HTMLDivElement>(null);
 
-  // Auto-advance slides
+  // Auto-advance slides (solo si el usuario no ha interactuado)
   useEffect(() => {
+    if (hasInteracted) return; // No hacer auto-advance si ya interactuó
+
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, [images.length, hasInteracted]);
 
   // Scroll thumbnails to center current image
   useEffect(() => {
@@ -41,11 +44,18 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
   }, [currentSlide]);
 
   const nextSlide = () => {
+    setHasInteracted(true); // Marcar que el usuario interactuó
     setCurrentSlide((prev) => (prev + 1) % images.length);
   };
 
   const prevSlide = () => {
+    setHasInteracted(true); // Marcar que el usuario interactuó
     setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const selectSlide = (index: number) => {
+    setHasInteracted(true); // Marcar que el usuario interactuó
+    setCurrentSlide(index);
   };
 
   return (
@@ -112,7 +122,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
             {images.map((image, index) => (
               <button
                 key={image.id}
-                onClick={() => setCurrentSlide(index)}
+                onClick={() => selectSlide(index)}
                 className={`relative min-w-[72px] h-16 rounded-sm overflow-hidden transition-all flex-shrink-0 ${
                   currentSlide === index
                     ? "ring-2 ring-accent scale-105"
