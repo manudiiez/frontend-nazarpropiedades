@@ -77,7 +77,15 @@ const DualRangeSlider = ({
   const minPercent = getPercentage(valueMin)
   const maxPercent = getPercentage(valueMax)
 
-  const displayMax = valueMax >= max ? `${formatValue(valueMax)} o Más` : formatValue(valueMax)
+  // Determinar el display para mínimo y máximo
+  const formattedMin = formatValue(valueMin)
+  const formattedMax = formatValue(valueMax)
+
+  const displayMin = formattedMin
+  // Si el valor máximo está en el extremo y NO tiene "+" o "Más" ya incluido, agregar " o Más"
+  const displayMax = valueMax >= max && !formattedMax.includes('+') && !formattedMax.includes('Más')
+    ? `${formattedMax} o Más`
+    : formattedMax
 
   return (
     <div>
@@ -85,7 +93,7 @@ const DualRangeSlider = ({
         <div className="flex items-center justify-between mb-3">
           <label className="block text-sm font-medium">{label}</label>
           <span className="text-sm font-medium text-accent">
-            {formatValue(valueMin)} - {displayMax}
+            {displayMin} - {displayMax}
           </span>
         </div>
       )}

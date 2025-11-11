@@ -20,8 +20,8 @@ const PropertyFilters = ({
   const [propertyType, setPropertyType] = useState('any')
   const [condition, setCondition] = useState('any')
   const [currency, setCurrency] = useState<'ARS' | 'USD' | null>('ARS')
-  const [priceMin, setPriceMin] = useState(50000)
-  const [priceMax, setPriceMax] = useState(500000)
+  const [priceMin, setPriceMin] = useState(500000) // ARS mínimo
+  const [priceMax, setPriceMax] = useState(1000000000) // ARS máximo (1000 millones)
   const [bedroomsMin, setBedroomsMin] = useState(0)
   const [bedroomsMax, setBedroomsMax] = useState(10)
   const [bathroomsMin, setBathroomsMin] = useState(0)
@@ -36,6 +36,21 @@ const PropertyFilters = ({
   const [roomsMax, setRoomsMax] = useState(30)
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
 
+  // Rangos de precio según la moneda
+  const priceRanges = {
+    ARS: { min: 500000, max: 1000000000, step: 1000000 },
+    USD: { min: 500, max: 1000000, step: 1000 }
+  }
+
+  // Actualizar rangos de precio cuando cambia la moneda
+  useEffect(() => {
+    if (currency) {
+      const range = priceRanges[currency]
+      setPriceMin(range.min)
+      setPriceMax(range.max)
+    }
+  }, [currency])
+
   // Abrir filtros avanzados automáticamente en mobile
   useEffect(() => {
     if (isMobile) {
@@ -44,17 +59,23 @@ const PropertyFilters = ({
   }, [isMobile])
 
   const handleApplyFilters = () => {
+    const currentPriceRange = currency ? priceRanges[currency] : priceRanges.ARS
+
     onFilterChange?.({
       searchQuery,
       propertyType,
       condition,
       currency,
-      priceMin,
-      priceMax,
+      // No enviar priceMin si está en el extremo inferior (mínimo)
+      priceMin: priceMin > currentPriceRange.min ? priceMin : undefined,
+      // No enviar priceMax si está en el extremo superior (máximo)
+      priceMax: priceMax < currentPriceRange.max ? priceMax : undefined,
       bedroomsMin,
-      bedroomsMax,
+      // No enviar bedroomsMax si está en el extremo superior (10 o más)
+      bedroomsMax: bedroomsMax < 10 ? bedroomsMax : undefined,
       bathroomsMin,
-      bathroomsMax,
+      // No enviar bathroomsMax si está en el extremo superior (10 o más)
+      bathroomsMax: bathroomsMax < 10 ? bathroomsMax : undefined,
       totalAreaMin,
       totalAreaMax,
       coveredAreaMin,
@@ -74,8 +95,8 @@ const PropertyFilters = ({
     setPropertyType('any')
     setCondition('any')
     setCurrency('ARS')
-    setPriceMin(50000)
-    setPriceMax(500000)
+    setPriceMin(500000)
+    setPriceMax(1000000000)
     setBedroomsMin(0)
     setBedroomsMax(10)
     setBathroomsMin(0)
@@ -193,14 +214,36 @@ const PropertyFilters = ({
 
         {/* Dual Range Slider */}
         <DualRangeSlider
-          min={50000}
-          max={500000}
-          step={10000}
+          min={currency === 'USD' ? 500 : 500000}
+          max={currency === 'USD' ? 1000000 : 1000000000}
+          step={currency === 'USD' ? 1000 : 1000000}
           valueMin={priceMin}
           valueMax={priceMax}
           onMinChange={setPriceMin}
           onMaxChange={setPriceMax}
-          formatValue={(val) => `${currency === 'USD' ? 'US$' : currency === 'ARS' ? '$' : ''}${val.toLocaleString('es-AR')}`}
+          formatValue={(val) => {
+            const prefix = currency === 'USD' ? 'US$' : '$'
+            const currentRange = currency ? priceRanges[currency] : priceRanges.ARS
+
+            // Si está en el extremo inferior, mostrar $0
+            if (val <= currentRange.min) {
+              return `${prefix}0`
+            }
+
+            // Para ARS: mostrar "1000 Millo" para 1,000,000,000
+            if (currency === 'ARS' && val >= 1000000000) {
+              return `+ de ${prefix}1000 Millo`
+            }
+            // Para USD: mostrar formato normal
+            if (currency === 'USD') {
+              return `${prefix}${val.toLocaleString('es-AR')}`
+            }
+            // Para ARS: mostrar en millones si es >= 1,000,000
+            if (val >= 1000000) {
+              return `${prefix}${(val / 1000000).toFixed(0)} Millo`
+            }
+            return `${prefix}${val.toLocaleString('es-AR')}`
+          }}
         />
       </div>
 
@@ -365,14 +408,36 @@ const PropertyFilters = ({
                   </button>
                 </div>
                 <DualRangeSlider
-                  min={50000}
-                  max={500000}
-                  step={10000}
+                  min={currency === 'USD' ? 500 : 500000}
+                  max={currency === 'USD' ? 1000000 : 1000000000}
+                  step={currency === 'USD' ? 1000 : 1000000}
                   valueMin={priceMin}
                   valueMax={priceMax}
                   onMinChange={setPriceMin}
                   onMaxChange={setPriceMax}
-                  formatValue={(val) => `${currency === 'USD' ? 'US$' : currency === 'ARS' ? '$' : ''}${val.toLocaleString('es-AR')}`}
+                  formatValue={(val) => {
+                    const prefix = currency === 'USD' ? 'US$' : '$'
+                    const currentRange = currency ? priceRanges[currency] : priceRanges.ARS
+
+                    // Si está en el extremo inferior, mostrar $0
+                    if (val <= currentRange.min) {
+                      return `${prefix}0`
+                    }
+
+                    // Para ARS: mostrar "1000 Millo" para 1,000,000,000
+                    if (currency === 'ARS' && val >= 1000000000) {
+                      return `+ de ${prefix}1000 Millo`
+                    }
+                    // Para USD: mostrar formato normal
+                    if (currency === 'USD') {
+                      return `${prefix}${val.toLocaleString('es-AR')}`
+                    }
+                    // Para ARS: mostrar en millones si es >= 1,000,000
+                    if (val >= 1000000) {
+                      return `${prefix}${(val / 1000000).toFixed(0)} Millo`
+                    }
+                    return `${prefix}${val.toLocaleString('es-AR')}`
+                  }}
                 />
               </div>
 
