@@ -59,18 +59,16 @@ const PropertyFilters = ({
   }, [isMobile])
 
   const handleApplyFilters = () => {
-    const currentPriceRange = currency ? priceRanges[currency] : null
-
     onFilterChange?.({
       searchQuery: searchQuery || undefined,
       propertyType: propertyType !== 'any' ? propertyType : undefined,
       condition: condition !== 'any' ? condition : undefined,
       // Solo enviar currency si está seleccionada
       currency: currency || undefined,
-      // No enviar priceMin si no hay moneda o está en el extremo inferior (mínimo)
-      priceMin: currency && currentPriceRange && priceMin > currentPriceRange.min ? priceMin : undefined,
-      // No enviar priceMax si no hay moneda o está en el extremo superior (máximo)
-      priceMax: currency && currentPriceRange && priceMax < currentPriceRange.max ? priceMax : undefined,
+      // Solo enviar priceMin si hay moneda y tiene un valor
+      priceMin: currency && priceMin && priceMin > 0 ? priceMin : undefined,
+      // Solo enviar priceMax si hay moneda y tiene un valor
+      priceMax: currency && priceMax && priceMax > 0 ? priceMax : undefined,
       // No enviar bedroomsMin si está en 0
       bedroomsMin: bedroomsMin > 0 ? bedroomsMin : undefined,
       // No enviar bedroomsMax si está en el extremo superior (10 o más)
@@ -223,8 +221,8 @@ const PropertyFilters = ({
           </button>
         </div>
 
-        {/* Dual Range Slider - Solo visible cuando hay moneda seleccionada */}
-        {currency && (
+        {/* OPCIÓN 1: Dual Range Slider - COMENTADO PARA PROBAR INPUT NUMBERS */}
+        {/* {currency && (
           <DualRangeSlider
             label="Precio"
             min={currency === 'USD' ? 500 : 500000}
@@ -264,6 +262,31 @@ const PropertyFilters = ({
               return val.toLocaleString('es-AR')
             }}
           />
+        )} */}
+
+        {/* OPCIÓN 2: Input Numbers - NUEVA VERSIÓN PARA PROBAR */}
+        {currency && (
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <input
+                type="number"
+                placeholder="Mín"
+                value={priceMin || ''}
+                onChange={(e) => setPriceMin(Number(e.target.value) || 0)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
+              />
+            </div>
+            <div className="flex items-center text-gray-500">-</div>
+            <div className="flex-1">
+              <input
+                type="number"
+                placeholder="Máx"
+                value={priceMax || ''}
+                onChange={(e) => setPriceMax(Number(e.target.value) || 0)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
+              />
+            </div>
+          </div>
         )}
       </div>
 
@@ -428,8 +451,8 @@ const PropertyFilters = ({
                   </button>
                 </div>
 
-                {/* Dual Range Slider - Solo visible cuando hay moneda seleccionada */}
-                {currency && (
+                {/* OPCIÓN 1: Dual Range Slider - COMENTADO PARA PROBAR INPUT NUMBERS */}
+                {/* {currency && (
                   <DualRangeSlider
                     label="Precio"
                     min={currency === 'USD' ? 500 : 500000}
@@ -469,6 +492,31 @@ const PropertyFilters = ({
                       return val.toLocaleString('es-AR')
                     }}
                   />
+                )} */}
+
+                {/* OPCIÓN 2: Input Numbers - NUEVA VERSIÓN PARA PROBAR */}
+                {currency && (
+                  <div className="flex gap-3">
+                    <div className="flex-1">
+                      <input
+                        type="number"
+                        placeholder="Mín"
+                        value={priceMin || ''}
+                        onChange={(e) => setPriceMin(Number(e.target.value) || 0)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
+                      />
+                    </div>
+                    <div className="flex items-center text-gray-500">-</div>
+                    <div className="flex-1">
+                      <input
+                        type="number"
+                        placeholder="Máx"
+                        value={priceMax || ''}
+                        onChange={(e) => setPriceMax(Number(e.target.value) || 0)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
+                      />
+                    </div>
+                  </div>
                 )}
               </div>
 
