@@ -19,7 +19,7 @@ const PropertyFilters = ({
   const [searchQuery, setSearchQuery] = useState('')
   const [propertyType, setPropertyType] = useState('any')
   const [condition, setCondition] = useState('any')
-  const [currency, setCurrency] = useState<'ARS' | 'USD' | null>('ARS')
+  const [currency, setCurrency] = useState<'ARS' | 'USD' | null>(null)
   const [priceMin, setPriceMin] = useState(500000) // ARS mínimo
   const [priceMax, setPriceMax] = useState(1000000000) // ARS máximo (1000 millones)
   const [bedroomsMin, setBedroomsMin] = useState(0)
@@ -59,31 +59,42 @@ const PropertyFilters = ({
   }, [isMobile])
 
   const handleApplyFilters = () => {
-    const currentPriceRange = currency ? priceRanges[currency] : priceRanges.ARS
+    const currentPriceRange = currency ? priceRanges[currency] : null
 
     onFilterChange?.({
-      searchQuery,
-      propertyType,
-      condition,
-      currency,
-      // No enviar priceMin si está en el extremo inferior (mínimo)
-      priceMin: priceMin > currentPriceRange.min ? priceMin : undefined,
-      // No enviar priceMax si está en el extremo superior (máximo)
-      priceMax: priceMax < currentPriceRange.max ? priceMax : undefined,
-      bedroomsMin,
+      searchQuery: searchQuery || undefined,
+      propertyType: propertyType !== 'any' ? propertyType : undefined,
+      condition: condition !== 'any' ? condition : undefined,
+      // Solo enviar currency si está seleccionada
+      currency: currency || undefined,
+      // No enviar priceMin si no hay moneda o está en el extremo inferior (mínimo)
+      priceMin: currency && currentPriceRange && priceMin > currentPriceRange.min ? priceMin : undefined,
+      // No enviar priceMax si no hay moneda o está en el extremo superior (máximo)
+      priceMax: currency && currentPriceRange && priceMax < currentPriceRange.max ? priceMax : undefined,
+      // No enviar bedroomsMin si está en 0
+      bedroomsMin: bedroomsMin > 0 ? bedroomsMin : undefined,
       // No enviar bedroomsMax si está en el extremo superior (10 o más)
       bedroomsMax: bedroomsMax < 10 ? bedroomsMax : undefined,
-      bathroomsMin,
+      // No enviar bathroomsMin si está en 0
+      bathroomsMin: bathroomsMin > 0 ? bathroomsMin : undefined,
       // No enviar bathroomsMax si está en el extremo superior (10 o más)
       bathroomsMax: bathroomsMax < 10 ? bathroomsMax : undefined,
-      totalAreaMin,
-      totalAreaMax,
-      coveredAreaMin,
-      coveredAreaMax,
-      floorsMin,
-      floorsMax,
-      roomsMin,
-      roomsMax,
+      // No enviar totalAreaMin si está en 0
+      totalAreaMin: totalAreaMin > 0 ? totalAreaMin : undefined,
+      // No enviar totalAreaMax si está en el máximo (1000)
+      totalAreaMax: totalAreaMax < 1000 ? totalAreaMax : undefined,
+      // No enviar coveredAreaMin si está en 0
+      coveredAreaMin: coveredAreaMin > 0 ? coveredAreaMin : undefined,
+      // No enviar coveredAreaMax si está en el máximo (1000)
+      coveredAreaMax: coveredAreaMax < 1000 ? coveredAreaMax : undefined,
+      // No enviar floorsMin si está en 0
+      floorsMin: floorsMin > 0 ? floorsMin : undefined,
+      // No enviar floorsMax si está en el máximo (30)
+      floorsMax: floorsMax < 30 ? floorsMax : undefined,
+      // No enviar roomsMin si está en 0
+      roomsMin: roomsMin > 0 ? roomsMin : undefined,
+      // No enviar roomsMax si está en el máximo (30)
+      roomsMax: roomsMax < 30 ? roomsMax : undefined,
     })
     if (isMobile && onClose) {
       onClose()
@@ -94,7 +105,7 @@ const PropertyFilters = ({
     setSearchQuery('')
     setPropertyType('any')
     setCondition('any')
-    setCurrency('ARS')
+    setCurrency(null)
     setPriceMin(500000)
     setPriceMax(1000000000)
     setBedroomsMin(0)
@@ -212,39 +223,48 @@ const PropertyFilters = ({
           </button>
         </div>
 
-        {/* Dual Range Slider */}
-        <DualRangeSlider
-          min={currency === 'USD' ? 500 : 500000}
-          max={currency === 'USD' ? 1000000 : 1000000000}
-          step={currency === 'USD' ? 1000 : 1000000}
-          valueMin={priceMin}
-          valueMax={priceMax}
-          onMinChange={setPriceMin}
-          onMaxChange={setPriceMax}
-          formatValue={(val) => {
-            const prefix = currency === 'USD' ? 'US$' : '$'
-            const currentRange = currency ? priceRanges[currency] : priceRanges.ARS
+        {/* Dual Range Slider - Solo visible cuando hay moneda seleccionada */}
+        {currency && (
+          <DualRangeSlider
+            label="Precio"
+            min={currency === 'USD' ? 500 : 500000}
+            max={currency === 'USD' ? 1000000 : 1000000000}
+            step={currency === 'USD' ? 1000 : 1000000}
+            valueMin={priceMin}
+            valueMax={priceMax}
+            onMinChange={setPriceMin}
+            onMaxChange={setPriceMax}
+            formatValue={(val) => {
+              const currentRange = priceRanges[currency]
 
-            // Si está en el extremo inferior, mostrar $0
-            if (val <= currentRange.min) {
-              return `${prefix}0`
-            }
+              // Si está en el extremo inferior, mostrar 0
+              if (val <= currentRange.min) {
+                return '0'
+              }
 
-            // Para ARS: mostrar "1000 Millo" para 1,000,000,000
-            if (currency === 'ARS' && val >= 1000000000) {
-              return `+ de ${prefix}1000 Millo`
-            }
-            // Para USD: mostrar formato normal
-            if (currency === 'USD') {
-              return `${prefix}${val.toLocaleString('es-AR')}`
-            }
-            // Para ARS: mostrar en millones si es >= 1,000,000
-            if (val >= 1000000) {
-              return `${prefix}${(val / 1000000).toFixed(0)} Millo`
-            }
-            return `${prefix}${val.toLocaleString('es-AR')}`
-          }}
-        />
+              // Para ARS: mostrar "+1000 Millo" para 1,000,000,000
+              if (currency === 'ARS' && val >= 1000000000) {
+                return '+1000 Millo'
+              }
+
+              // Para USD: mostrar "+1.000.000" para 1,000,000
+              if (currency === 'USD' && val >= 1000000) {
+                return `+${val.toLocaleString('es-AR')}`
+              }
+
+              // Para USD: mostrar formato normal
+              if (currency === 'USD') {
+                return val.toLocaleString('es-AR')
+              }
+
+              // Para ARS: mostrar en millones si es >= 1,000,000
+              if (val >= 1000000) {
+                return `${(val / 1000000).toFixed(0)} Millo`
+              }
+              return val.toLocaleString('es-AR')
+            }}
+          />
+        )}
       </div>
 
       {/* Habitaciones */}
@@ -407,38 +427,49 @@ const PropertyFilters = ({
                     USD
                   </button>
                 </div>
-                <DualRangeSlider
-                  min={currency === 'USD' ? 500 : 500000}
-                  max={currency === 'USD' ? 1000000 : 1000000000}
-                  step={currency === 'USD' ? 1000 : 1000000}
-                  valueMin={priceMin}
-                  valueMax={priceMax}
-                  onMinChange={setPriceMin}
-                  onMaxChange={setPriceMax}
-                  formatValue={(val) => {
-                    const prefix = currency === 'USD' ? 'US$' : '$'
-                    const currentRange = currency ? priceRanges[currency] : priceRanges.ARS
 
-                    // Si está en el extremo inferior, mostrar $0
-                    if (val <= currentRange.min) {
-                      return `${prefix}0`
-                    }
+                {/* Dual Range Slider - Solo visible cuando hay moneda seleccionada */}
+                {currency && (
+                  <DualRangeSlider
+                    label="Precio"
+                    min={currency === 'USD' ? 500 : 500000}
+                    max={currency === 'USD' ? 1000000 : 1000000000}
+                    step={currency === 'USD' ? 1000 : 1000000}
+                    valueMin={priceMin}
+                    valueMax={priceMax}
+                    onMinChange={setPriceMin}
+                    onMaxChange={setPriceMax}
+                    formatValue={(val) => {
+                      const currentRange = priceRanges[currency]
 
-                    // Para ARS: mostrar "1000 Millo" para 1,000,000,000
-                    if (currency === 'ARS' && val >= 1000000000) {
-                      return `+ de ${prefix}1000 Millo`
-                    }
-                    // Para USD: mostrar formato normal
-                    if (currency === 'USD') {
-                      return `${prefix}${val.toLocaleString('es-AR')}`
-                    }
-                    // Para ARS: mostrar en millones si es >= 1,000,000
-                    if (val >= 1000000) {
-                      return `${prefix}${(val / 1000000).toFixed(0)} Millo`
-                    }
-                    return `${prefix}${val.toLocaleString('es-AR')}`
-                  }}
-                />
+                      // Si está en el extremo inferior, mostrar 0
+                      if (val <= currentRange.min) {
+                        return '0'
+                      }
+
+                      // Para ARS: mostrar "+1000 Millo" para 1,000,000,000
+                      if (currency === 'ARS' && val >= 1000000000) {
+                        return '+1000 Millo'
+                      }
+
+                      // Para USD: mostrar "+1.000.000" para 1,000,000
+                      if (currency === 'USD' && val >= 1000000) {
+                        return `+${val.toLocaleString('es-AR')}`
+                      }
+
+                      // Para USD: mostrar formato normal
+                      if (currency === 'USD') {
+                        return val.toLocaleString('es-AR')
+                      }
+
+                      // Para ARS: mostrar en millones si es >= 1,000,000
+                      if (val >= 1000000) {
+                        return `${(val / 1000000).toFixed(0)} Millo`
+                      }
+                      return val.toLocaleString('es-AR')
+                    }}
+                  />
+                )}
               </div>
 
               {/* Habitaciones */}
