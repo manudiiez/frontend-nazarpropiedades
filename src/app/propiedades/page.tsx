@@ -1,12 +1,9 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import PropertyFilters from '@/components/listings/PropertyFilters'
 import PropertyGrid from '@/components/listings/PropertyGrid'
-import Pagination from '@/components/listings/Pagination'
+import PropertyFiltersClient from '@/components/listings/PropertyFiltersClient'
 import type { Property } from '@/types'
 import type { Property as ApiProperty } from '@/types/property'
 import { getDepartmentLabel, getLocalityLabel } from '@/utils/propertyLabels'
+import Link from 'next/link'
 
 interface PropertiesResponse {
   docs: ApiProperty[]
@@ -19,6 +16,28 @@ interface PropertiesResponse {
   hasNextPage: boolean
   prevPage: number | null
   nextPage: number | null
+}
+
+interface SearchParams {
+  page?: string
+  search?: string
+  type?: string
+  condition?: string
+  currency?: string
+  priceMin?: string
+  priceMax?: string
+  bedroomsMin?: string
+  bedroomsMax?: string
+  bathroomsMin?: string
+  bathroomsMax?: string
+  totalAreaMin?: string
+  totalAreaMax?: string
+  coveredAreaMin?: string
+  coveredAreaMax?: string
+  floorsMin?: string
+  floorsMax?: string
+  roomsMin?: string
+  roomsMax?: string
 }
 
 // Función para transformar la propiedad de la API al formato del PropertyCard
@@ -58,165 +77,241 @@ function transformProperty(apiProperty: ApiProperty): Property {
   }
 }
 
-export default function PropertiesPage() {
-  const [showFilters, setShowFilters] = useState(true)
-  const [showMobileFilters, setShowMobileFilters] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [properties, setProperties] = useState<Property[]>([])
-  const [paginationData, setPaginationData] = useState<Omit<PropertiesResponse, 'docs'> | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+// Función para construir la query string con filtros
+function buildQueryString(searchParams: SearchParams): string {
+  const params = new URLSearchParams()
 
-  // Fetch properties cuando cambia la página
-  useEffect(() => {
-    const fetchProperties = async () => {
-      setIsLoading(true)
-      try {
-        const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI
+  // Paginación
+  const page = searchParams.page || '1'
+  params.append('page', page)
+  params.append('limit', '20')
+  params.append('sort', '-createdAt')
 
-        if (!backendUri) {
-          console.error('NEXT_PUBLIC_BACKEND_URI no está definido en .env')
-          setIsLoading(false)
-          return
-        }
+  // Búsqueda por texto
+  if (searchParams.search) {
+    params.append('where[title][like]', searchParams.search)
+  }
 
-        const res = await fetch(
-          `${backendUri}/propiedades?sort=-createdAt&limit=20&page=${currentPage}`,
-          {
-            cache: 'no-store', // Siempre obtener datos frescos
-          }
-        )
+  // Tipo de propiedad
+  if (searchParams.type && searchParams.type !== 'any') {
+    params.append('where[classification.type][equals]', searchParams.type)
+  }
 
-        if (!res.ok) {
-          console.error(`Error al obtener propiedades: ${res.status}`)
-          setIsLoading(false)
-          return
-        }
+  // Condición (venta/alquiler)
+  if (searchParams.condition && searchParams.condition !== 'any') {
+    params.append('where[classification.condition][equals]', searchParams.condition)
+  }
 
-        const data: PropertiesResponse = await res.json()
+  // Moneda
+  if (searchParams.currency) {
+    params.append('where[caracteristics.currency][equals]', searchParams.currency.toLowerCase())
+  }
 
-        // Transformar las propiedades al formato esperado
-        const transformedProperties = data.docs.map(transformProperty)
-        setProperties(transformedProperties)
+  // Precio
+  if (searchParams.priceMin) {
+    params.append('where[caracteristics.price][greater_than_equal]', searchParams.priceMin)
+  }
+  if (searchParams.priceMax) {
+    params.append('where[caracteristics.price][less_than_equal]', searchParams.priceMax)
+  }
 
-        // Guardar datos de paginación
-        setPaginationData({
-          totalDocs: data.totalDocs,
-          limit: data.limit,
-          totalPages: data.totalPages,
-          page: data.page,
-          pagingCounter: data.pagingCounter,
-          hasPrevPage: data.hasPrevPage,
-          hasNextPage: data.hasNextPage,
-          prevPage: data.prevPage,
-          nextPage: data.nextPage,
-        })
-      } catch (error) {
-        console.error('Error al hacer fetch de propiedades:', error)
-      } finally {
-        setIsLoading(false)
-      }
+  // Dormitorios
+  if (searchParams.bedroomsMin) {
+    params.append('where[environments.bedrooms][greater_than_equal]', searchParams.bedroomsMin)
+  }
+  if (searchParams.bedroomsMax) {
+    params.append('where[environments.bedrooms][less_than_equal]', searchParams.bedroomsMax)
+  }
+
+  // Baños
+  if (searchParams.bathroomsMin) {
+    params.append('where[environments.bathrooms][greater_than_equal]', searchParams.bathroomsMin)
+  }
+  if (searchParams.bathroomsMax) {
+    params.append('where[environments.bathrooms][less_than_equal]', searchParams.bathroomsMax)
+  }
+
+  // Área total
+  if (searchParams.totalAreaMin) {
+    params.append('where[caracteristics.totalArea][greater_than_equal]', searchParams.totalAreaMin)
+  }
+  if (searchParams.totalAreaMax) {
+    params.append('where[caracteristics.totalArea][less_than_equal]', searchParams.totalAreaMax)
+  }
+
+  // Área cubierta
+  if (searchParams.coveredAreaMin) {
+    params.append('where[caracteristics.coveredArea][greater_than_equal]', searchParams.coveredAreaMin)
+  }
+  if (searchParams.coveredAreaMax) {
+    params.append('where[caracteristics.coveredArea][less_than_equal]', searchParams.coveredAreaMax)
+  }
+
+  return params.toString()
+}
+
+async function getProperties(searchParams: SearchParams): Promise<{ properties: Property[], pagination: Omit<PropertiesResponse, 'docs'> | null }> {
+  try {
+    const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI
+
+    if (!backendUri) {
+      console.error('NEXT_PUBLIC_BACKEND_URI no está definido en .env')
+      return { properties: [], pagination: null }
     }
 
-    fetchProperties()
-  }, [currentPage])
+    const queryString = buildQueryString(searchParams)
+    const url = `${backendUri}/propiedades?${queryString}`
 
-  const handleFilterChange = (filters: any) => {
-    console.log('Filters changed:', filters)
-    // Aquí implementarías la lógica de filtrado
+    console.log('Fetching properties from:', url)
+
+    const res = await fetch(url, {
+      cache: 'no-store', // Siempre obtener datos frescos
+    })
+
+    if (!res.ok) {
+      console.error(`Error al obtener propiedades: ${res.status}`)
+      return { properties: [], pagination: null }
+    }
+
+    const data: PropertiesResponse = await res.json()
+
+    // Transformar las propiedades al formato esperado
+    const transformedProperties = data.docs.map(transformProperty)
+
+    // Datos de paginación
+    const pagination = {
+      totalDocs: data.totalDocs,
+      limit: data.limit,
+      totalPages: data.totalPages,
+      page: data.page,
+      pagingCounter: data.pagingCounter,
+      hasPrevPage: data.hasPrevPage,
+      hasNextPage: data.hasNextPage,
+      prevPage: data.prevPage,
+      nextPage: data.nextPage,
+    }
+
+    return { properties: transformedProperties, pagination }
+  } catch (error) {
+    console.error('Error al hacer fetch de propiedades:', error)
+    return { properties: [], pagination: null }
+  }
+}
+
+export default async function PropertiesPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>
+}) {
+  // Await searchParams (required in Next.js 15+)
+  const params = await searchParams
+
+  const { properties, pagination } = await getProperties(params)
+  const currentPage = parseInt(params.page || '1')
+
+  // Función helper para construir URL con nueva página manteniendo filtros
+  const buildPageUrl = (page: number): string => {
+    const urlParams = new URLSearchParams()
+
+    // Copiar todos los searchParams excepto 'page'
+    Object.entries(params).forEach(([key, value]) => {
+      if (key !== 'page' && value) {
+        urlParams.set(key, value)
+      }
+    })
+
+    // Agregar el nuevo número de página
+    urlParams.set('page', String(page))
+
+    const queryString = urlParams.toString()
+    return queryString ? `/propiedades?${queryString}` : '/propiedades'
   }
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-10 mt-20">
       <div className="flex flex-col lg:flex-row gap-6">
-        {/* SIDEBAR FILTROS DESKTOP */}
-        {showFilters && (
-          <aside className="hidden lg:block w-1/4 xl:w-1/4">
-            <div className="sticky top-22 bg-gray-ui rounded-md p-6 z-49">
-              <PropertyFilters onFilterChange={handleFilterChange} />
-              <button
-                onClick={() => setShowFilters(false)}
-                className="w-full mt-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Ocultar Filtros
-              </button>
-            </div>
-          </aside>
-        )}
+        {/* SIDEBAR FILTROS - Client Component */}
+        <PropertyFiltersClient searchParams={params} />
 
         {/* CONTENIDO PRINCIPAL */}
-        <div
-          className={`w-full ${
-            showFilters ? 'lg:w-3/4 xl:w-4/5' : 'lg:w-full'
-          } transition-all duration-300`}
-        >
-          {/* Botón Mostrar Filtros (cuando están ocultos) */}
-          {!showFilters && (
-            <button
-              onClick={() => setShowFilters(true)}
-              className="mb-6 flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent-hover transition-colors"
-            >
-              <span className="material-symbols-outlined">filter_list</span>
-              Mostrar Filtros
-            </button>
-          )}
-
-          {/* Botón Filtros Móviles */}
-          <button
-            onClick={() => setShowMobileFilters(true)}
-            className="lg:hidden mb-6 flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent-hover transition-colors w-full justify-center"
-          >
-            <span className="material-symbols-outlined">filter_list</span>
-            Filtros
-          </button>
-
+        <div className="w-full lg:w-3/4 xl:w-4/5">
           {/* Título */}
-          <h1 className="text-3xl font-bold mb-8">Propiedades en Mendoza</h1>
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-3xl font-bold">Propiedades en Mendoza</h1>
+            {pagination && (
+              <p className="text-gray-600">
+                {pagination.totalDocs} propiedades encontradas
+              </p>
+            )}
+          </div>
 
-          {/* Loading State */}
-          {isLoading ? (
-            <div className="flex justify-center items-center py-20">
-              <div className="text-center">
-                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-accent border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
-                <p className="mt-4 text-gray-600">Cargando propiedades...</p>
-              </div>
-            </div>
-          ) : (
+          {/* Grid de Propiedades */}
+          {properties.length > 0 ? (
             <>
-              {/* Grid de Propiedades */}
               <PropertyGrid properties={properties} />
 
               {/* Paginación */}
-              {paginationData && (
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={paginationData.totalPages}
-                  onPageChange={setCurrentPage}
-                />
+              {pagination && pagination.totalPages > 1 && (
+                <div className="mt-12">
+                  <div className="flex justify-center gap-2">
+                    {/* Página anterior */}
+                    {pagination.hasPrevPage && (
+                      <Link
+                        href={buildPageUrl(currentPage - 1)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        Anterior
+                      </Link>
+                    )}
+
+                    {/* Números de página */}
+                    {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
+                      let pageNum
+                      if (pagination.totalPages <= 5) {
+                        pageNum = i + 1
+                      } else if (currentPage <= 3) {
+                        pageNum = i + 1
+                      } else if (currentPage >= pagination.totalPages - 2) {
+                        pageNum = pagination.totalPages - 4 + i
+                      } else {
+                        pageNum = currentPage - 2 + i
+                      }
+
+                      return (
+                        <Link
+                          key={pageNum}
+                          href={buildPageUrl(pageNum)}
+                          className={`px-4 py-2 border rounded-lg transition-colors ${
+                            pageNum === currentPage
+                              ? 'bg-accent text-white border-accent'
+                              : 'border-gray-300 hover:bg-gray-50'
+                          }`}
+                        >
+                          {pageNum}
+                        </Link>
+                      )
+                    })}
+
+                    {/* Página siguiente */}
+                    {pagination.hasNextPage && (
+                      <Link
+                        href={buildPageUrl(currentPage + 1)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        Siguiente
+                      </Link>
+                    )}
+                  </div>
+                </div>
               )}
             </>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-gray-600 text-lg">No se encontraron propiedades con los filtros seleccionados</p>
+            </div>
           )}
         </div>
       </div>
-
-      {/* SIDEBAR FILTROS MÓVIL */}
-      {showMobileFilters && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 bg-black/50 z-50 lg:hidden"
-            onClick={() => setShowMobileFilters(false)}
-          />
-
-          {/* Sidebar */}
-          <div className="fixed right-0 top-0 bottom-0 w-[75%] max-w-sm bg-white z-[60] overflow-y-auto lg:hidden p-6">
-            <PropertyFilters
-              isMobile
-              onClose={() => setShowMobileFilters(false)}
-              onFilterChange={handleFilterChange}
-            />
-          </div>
-        </>
-      )}
     </main>
   )
 }
