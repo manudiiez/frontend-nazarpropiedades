@@ -1,12 +1,15 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import type { Property } from '@/types'
+import Image from "next/image";
+import Link from "next/link";
+import type { Property } from "@/types";
 
 interface PropertyCardCompactProps {
-  property: Property
+  property: Property;
 }
 
 const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
+  const formattedPrice = `${
+    property.currency === "USD" ? "US$" : "ARS$"
+  } ${property.price.toLocaleString("es-AR")}`;
   return (
     <Link
       href={`/propiedades/${property.id}`}
@@ -25,10 +28,15 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
 
       {/* Contenido */}
       <div className="p-4 flex flex-col gap-3">
-        <h3 className="text-md font-bold text-gray-900">{property.location}</h3>
-        <p className="text-lg font-black text-accent">
-          ${property.price.toLocaleString('es-AR')}
-        </p>
+        <div >
+          <h3 className="text-md font-bold text-gray-900">
+            {property.location}
+          </h3>
+          <h4 className="text-sm font-semibold text-text-secondary-light pb-3">
+            <span className="capitalize">{property.type} en {property.condition}</span> {property.neighborhood}
+          </h4>
+          <p className="text-lg font-black text-accent">{formattedPrice}</p>
+        </div>
 
         {/* Estadísticas */}
         <div className="flex justify-between text-xs text-text-secondary-light">
@@ -43,9 +51,7 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
             <span>{property.bedrooms} Hab</span>
           </div>
           <div className="flex items-center">
-            <span className="material-symbols-outlined text-base">
-              bathtub
-            </span>
+            <span className="material-symbols-outlined text-base">bathtub</span>
             <span>{property.bathrooms} Baños</span>
           </div>
         </div>
@@ -56,7 +62,7 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
         </button>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-export default PropertyCardCompact
+export default PropertyCardCompact;

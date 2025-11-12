@@ -47,14 +47,13 @@ function transformProperty(apiProperty: ApiProperty): Property {
 
   // Construir la ubicación
   const locationParts = [
-    apiProperty.ubication.neighborhood,
     getLocalityLabel(apiProperty.ubication.locality || ''),
     getDepartmentLabel(apiProperty.ubication.department || ''),
     apiProperty.ubication.province,
   ].filter(Boolean)
 
-  if (locationParts[1] === locationParts[2]) {
-    locationParts.splice(2, 1)
+  if (locationParts[0] === locationParts[1]) {
+    locationParts.splice(0, 1)
   }
   const location = locationParts.join(', ')
 
@@ -65,7 +64,9 @@ function transformProperty(apiProperty: ApiProperty): Property {
     id: String(apiProperty.id),
     title: apiProperty.title,
     location: location,
+    neighborhood: apiProperty.ubication.neighborhood,
     price: apiProperty.caracteristics?.price || 0,
+    currency: apiProperty.caracteristics?.currency?.toUpperCase() || 'USD',
     bedrooms: apiProperty.environments?.bedrooms || 0,
     bathrooms: apiProperty.environments?.bathrooms || 0,
     area: area,

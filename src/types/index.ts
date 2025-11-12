@@ -2,6 +2,7 @@ export interface Property {
   id: string
   title: string
   location: string
+  neighborhood?: string
   price: number
   currency?: string
   bedrooms: number

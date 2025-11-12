@@ -1,15 +1,17 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import type { Property } from '@/types'
+import Image from "next/image";
+import Link from "next/link";
+import type { Property } from "@/types";
 
 interface PropertyCardWideProps {
-  property: Property
+  property: Property;
 }
 
 const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
-  const tags = ['Para Familias', 'Amplio Espacio', 'Excelente Ubicación']
-  const description = `Esta hermosa propiedad combina elegancia y funcionalidad en uno de los mejores barrios de Mendoza. Con amplios espacios y acabados de primera calidad, es perfecta para familias que buscan comodidad y estilo.`
-
+  const tags = ["Para Familias", "Amplio Espacio", "Excelente Ubicación"];
+  const description = `Esta hermosa propiedad combina elegancia y funcionalidad en uno de los mejores barrios de Mendoza. Con amplios espacios y acabados de primera calidad, es perfecta para familias que buscan comodidad y estilo.`;
+  const formattedPrice = `${
+    property.currency === "USD" ? "US$" : "ARS$"
+  } ${property.price.toLocaleString("es-AR")}`;
   return (
     <Link
       href={`/propiedades/${property.id}`}
@@ -29,10 +31,15 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
       {/* Contenido */}
       <div className="flex-1 p-6 lg:p-8 flex flex-col gap-4">
         <div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">
+          <h3 className="text-2xl font-bold text-gray-900">
             {property.location}
           </h3>
-
+          <h4 className="text-sm font-semibold text-text-secondary-light mb-2">
+            <span className="capitalize">
+              {property.type} en {property.condition}
+            </span>{" "}
+            {property.neighborhood}
+          </h4>
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-3">
             {tags.map((tag, index) => (
@@ -53,7 +60,7 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
 
         <div className="mt-auto">
           <p className="text-3xl font-black text-accent mb-4">
-            ${property.price.toLocaleString('es-AR')}
+            {formattedPrice}
           </p>
 
           {/* Estadísticas */}
@@ -69,9 +76,7 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
               <span>{property.bedrooms} Habitaciones</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-xl">
-                bathtub
-              </span>
+              <span className="material-symbols-outlined text-xl">bathtub</span>
               <span>{property.bathrooms} Baños</span>
             </div>
           </div>
@@ -89,7 +94,7 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
         </div>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-export default PropertyCardWide
+export default PropertyCardWide;

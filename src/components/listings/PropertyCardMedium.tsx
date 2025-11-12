@@ -1,14 +1,16 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import type { Property } from '@/types'
+import Image from "next/image";
+import Link from "next/link";
+import type { Property } from "@/types";
 
 interface PropertyCardMediumProps {
-  property: Property
+  property: Property;
 }
 
 const PropertyCardMedium = ({ property }: PropertyCardMediumProps) => {
-  const description = `Amplia propiedad en una ubicación privilegiada con excelente conectividad y servicios cercanos.`
-
+  const description = `Amplia propiedad en una ubicación privilegiada con excelente conectividad y servicios cercanos.`;
+  const formattedPrice = `${
+    property.currency === "USD" ? "US$" : "ARS$"
+  } ${property.price.toLocaleString("es-AR")}`;
   return (
     <Link
       href={`/propiedades/${property.id}`}
@@ -27,16 +29,26 @@ const PropertyCardMedium = ({ property }: PropertyCardMediumProps) => {
 
       {/* Contenido */}
       <div className="p-5 flex flex-col gap-3">
-        <h3 className="text-lg font-bold text-gray-900">{property.location}</h3>
-
+        <div>
+          <h3 className="text-lg font-bold text-gray-900">
+            {property.location}
+          </h3>
+          <h4 className="text-sm font-semibold text-text-secondary-light pb-3">
+            <span className="capitalize">
+              {property.type} en {property.condition}
+            </span>{" "}
+            {property.neighborhood}
+          </h4>
+          <p className="text-xl font-black text-accent">{formattedPrice}</p>
+        </div>
         {/* Descripción */}
-        <p className="text-sm text-text-secondary-light line-clamp-2">
+        {/* <p className="text-sm text-text-secondary-light line-clamp-2">
           {description}
-        </p>
+        </p> */}
 
-        <p className="text-xl font-black text-accent">
-          ${property.price.toLocaleString('es-AR')}
-        </p>
+        {/* <p className="text-xl font-black text-accent">
+          ${property.price.toLocaleString("es-AR")}
+        </p> */}
 
         {/* Estadísticas */}
         <div className="flex justify-between text-base text-text-secondary-light text-sm">
@@ -51,9 +63,7 @@ const PropertyCardMedium = ({ property }: PropertyCardMediumProps) => {
             <span>{property.bedrooms} Hab</span>
           </div>
           <div className="flex items-center">
-            <span className="material-symbols-outlined text-lg">
-              bathtub
-            </span>
+            <span className="material-symbols-outlined text-lg">bathtub</span>
             <span>{property.bathrooms} Baños</span>
           </div>
         </div>
@@ -64,7 +74,7 @@ const PropertyCardMedium = ({ property }: PropertyCardMediumProps) => {
         </button>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-export default PropertyCardMedium
+export default PropertyCardMedium;
