@@ -36,6 +36,13 @@ const PropertyFilters = ({
   const [roomsMax, setRoomsMax] = useState(30)
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
 
+  // Estados para checkboxes
+  const [barrioPrivado, setBarrioPrivado] = useState(false)
+  const [cochera, setCochera] = useState(false)
+  const [financiacion, setFinanciacion] = useState(false)
+  const [aceptaHipoteca, setAceptaHipoteca] = useState(false)
+  const [recibePermuta, setRecibePermuta] = useState(false)
+
   // Rangos de precio según la moneda
   const priceRanges = {
     ARS: { min: 500000, max: 1000000000, step: 1000000 },
@@ -93,6 +100,12 @@ const PropertyFilters = ({
       roomsMin: roomsMin > 0 ? roomsMin : undefined,
       // No enviar roomsMax si está en el máximo (30)
       roomsMax: roomsMax < 30 ? roomsMax : undefined,
+      // Solo enviar checkboxes si están marcados
+      barrioPrivado: barrioPrivado || undefined,
+      cochera: cochera || undefined,
+      financiacion: financiacion || undefined,
+      aceptaHipoteca: aceptaHipoteca || undefined,
+      recibePermuta: recibePermuta || undefined,
     })
     if (isMobile && onClose) {
       onClose()
@@ -118,6 +131,12 @@ const PropertyFilters = ({
     setFloorsMax(30)
     setRoomsMin(0)
     setRoomsMax(30)
+    // Resetear checkboxes
+    setBarrioPrivado(false)
+    setCochera(false)
+    setFinanciacion(false)
+    setAceptaHipoteca(false)
+    setRecibePermuta(false)
   }
 
   return (
@@ -593,6 +612,69 @@ const PropertyFilters = ({
                 onMaxChange={setRoomsMax}
                 label="Ambientes"
               />
+
+              {/* Características adicionales */}
+              <div className="border-t border-gray-border pt-4">
+                <label className="block text-sm font-medium mb-3">
+                  Características adicionales
+                </label>
+                <div className="flex flex-col gap-3">
+                  {/* Barrio Privado */}
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={barrioPrivado}
+                      onChange={(e) => setBarrioPrivado(e.target.checked)}
+                      className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent focus:ring-2"
+                    />
+                    <span className="text-sm">Barrio Privado</span>
+                  </label>
+
+                  {/* Cochera */}
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={cochera}
+                      onChange={(e) => setCochera(e.target.checked)}
+                      className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent focus:ring-2"
+                    />
+                    <span className="text-sm">Cochera</span>
+                  </label>
+
+                  {/* Financiación */}
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={financiacion}
+                      onChange={(e) => setFinanciacion(e.target.checked)}
+                      className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent focus:ring-2"
+                    />
+                    <span className="text-sm">Financiación</span>
+                  </label>
+
+                  {/* Acepta Hipoteca */}
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={aceptaHipoteca}
+                      onChange={(e) => setAceptaHipoteca(e.target.checked)}
+                      className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent focus:ring-2"
+                    />
+                    <span className="text-sm">Acepta Hipoteca</span>
+                  </label>
+
+                  {/* Recibe Permuta */}
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={recibePermuta}
+                      onChange={(e) => setRecibePermuta(e.target.checked)}
+                      className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent focus:ring-2"
+                    />
+                    <span className="text-sm">¿Recibe Permuta?</span>
+                  </label>
+                </div>
+              </div>
 
               {/* Botones del Modal */}
               <div className="flex flex-col gap-3 pt-4 border-t border-gray-border sticky bottom-0 bg-white pb-4 z-10">

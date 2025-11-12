@@ -59,6 +59,13 @@ export default function PropertyFiltersClient({ searchParams }: PropertyFiltersC
     if (filters.roomsMin) params.set('roomsMin', String(filters.roomsMin))
     if (filters.roomsMax) params.set('roomsMax', String(filters.roomsMax))
 
+    // Filtros checkbox - convertir booleanos a strings
+    if (filters.barrioPrivado) params.set('barrioPrivado', 'true')
+    if (filters.cochera) params.set('cochera', 'true')
+    if (filters.financiacion) params.set('financiacion', 'true')
+    if (filters.aceptaHipoteca) params.set('aceptaHipoteca', 'true')
+    if (filters.recibePermuta) params.set('recibePermuta', 'true')
+
     // Resetear la página a 1 cuando se cambian los filtros
     params.set('page', '1')
 

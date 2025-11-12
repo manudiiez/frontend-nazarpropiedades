@@ -38,6 +38,12 @@ interface SearchParams {
   floorsMax?: string
   roomsMin?: string
   roomsMax?: string
+  // Filtros checkbox
+  barrioPrivado?: string
+  cochera?: string
+  financiacion?: string
+  aceptaHipoteca?: string
+  recibePermuta?: string
 }
 
 // Función para transformar la propiedad de la API al formato del PropertyCard
@@ -146,6 +152,28 @@ function buildQueryString(searchParams: SearchParams): string {
   }
   if (searchParams.coveredAreaMax) {
     params.append('where[caracteristics.coveredArea][less_than_equal]', searchParams.coveredAreaMax)
+  }
+
+  // Filtros checkbox - solo agregar si están marcados (true)
+  if (searchParams.barrioPrivado === 'true') {
+    params.append('where[amenities.barrioPrivado][equals]', 'si')
+  }
+
+  // Cochera: buscar en environments.garageType donde exista un valor y ese valor NO sea "sin_cochera"
+  if (searchParams.cochera === 'true') {
+    params.append('where[environments.garageType][exists]', 'true')
+    params.append('where[environments.garageType][not_equals]', 'sin_cochera')
+  }
+
+  // Financiación, Acepta Hipoteca y Recibe Permuta: buscar en el array amenities.servicios
+  if (searchParams.financiacion === 'true') {
+    params.append('where[amenities.servicios][contains]', 'financiacion')
+  }
+  if (searchParams.aceptaHipoteca === 'true') {
+    params.append('where[amenities.servicios][contains]', 'aceptaHipoteca')
+  }
+  if (searchParams.recibePermuta === 'true') {
+    params.append('where[amenities.servicios][contains]', 'recibePermuta')
   }
 
   return params.toString()
