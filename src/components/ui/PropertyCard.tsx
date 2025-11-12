@@ -62,6 +62,10 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
   // Filtrar características que tienen valor (no son 0, null, o undefined) y tomar solo las primeras 3
   const visibleFeatures = allFeatures.filter(feature => feature.value && feature.value > 0).slice(0, 3)
+  console.log(property)
+  // Formatear el precio con la moneda
+  const currencySymbol = property.currency?.toUpperCase() === 'USD' ? 'US$' : 'ARS$'
+  const formattedPrice = `${currencySymbol} ${property.price.toLocaleString('es-AR')}`
 
   return (
     <div className="flex flex-col overflow-hidden rounded-lg border border-neutral-light bg-white cursor-pointer hover:shadow-lg transition-shadow">
@@ -77,7 +81,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
       <div className="flex flex-1 flex-col p-5">
         <div className="flex-1">
           <p className="text-2xl font-bold text-primary">
-            ${property.price.toLocaleString('es-AR')}
+            {formattedPrice}
           </p>
           <p className="mt-1 text-lg font-semibold text-primary capitalize">
             {property.type} en {property.condition}

@@ -31,6 +31,7 @@ function transformProperty(apiProperty: ApiProperty): Property {
     title: apiProperty.title,
     location: location,
     price: apiProperty.caracteristics?.price || 0,
+    currency: apiProperty.caracteristics?.currency || 'USD',
     bedrooms: apiProperty.environments?.bedrooms || 0,
     bathrooms: apiProperty.environments?.bathrooms || 0,
     area: area,
