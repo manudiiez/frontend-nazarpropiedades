@@ -10,10 +10,14 @@ export interface Property {
   area: number
   coveredArea?: number
   garages?: number
+  garageType?: string
   image: string
   type: String
   condition: String
   features?: string[]
+  barrioPrivado?: string
+  orientation?: string
+  petFriendly?: boolean
 }
 
 export interface PropertyDetail extends Property {

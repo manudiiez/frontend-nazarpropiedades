@@ -59,13 +59,13 @@ const Navbar = () => {
               </Link>
 
               <Link
-                href="/propiedades"
+                href="/propiedades?condition=venta"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Comprar
               </Link>
               <Link
-                href="/propiedades"
+                href="/propiedades?condition=alquiler"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Alquilar
@@ -108,57 +108,21 @@ const Navbar = () => {
         {/* Mobile menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-border relative z-50">
-            <div className="px-6 py-4 space-y-3">
-              {/* Dropdown Inicio Mobile */}
-              <div>
-                <button
-                  onClick={() => setIsInicioOpen(!isInicioOpen)}
-                  className="w-full text-left text-gray-900 font-medium flex items-center justify-between"
-                >
-                  Inicio
-                  <svg
-                    className={`w-4 h-4 transition-transform ${
-                      isInicioOpen ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-                {isInicioOpen && (
-                  <nav className="pl-4 mt-2 space-y-2">
-                    <Link href="/index" className="block text-gray-600 py-1">
-                      Inicio
-                    </Link>
-                    <Link href="/index2" className="block text-gray-600 py-1">
-                      Inicio 2
-                    </Link>
-                    <Link href="/index3" className="block text-gray-600 py-1">
-                      Inicio 3
-                    </Link>
-                  </nav>
-                )}
-              </div>
-              <Link href="/propiedades" className="block text-gray-600">
-                Propiedades
-              </Link>
-              <Link href="#servicios" className="block text-gray-600">
-                Servicios
-              </Link>
-              <Link href="#contacto" className="block text-gray-600">
-                Contacto
-              </Link>
-              <button className="w-full bg-accent text-white px-4 py-2 text-sm font-medium rounded-lg mt-4">
-                Publicar mi propiedad
-              </button>
-            </div>
+            <Link href="/" className="block text-gray-600">
+              Inicio
+            </Link>
+            <Link href="/propiedades?condition=venta" className="block text-gray-600">
+              Comprar
+            </Link>
+            <Link href="/propiedades?condition=alquiler" className="block text-gray-600">
+              Alquilar
+            </Link>
+            <Link href="#contacto" className="block text-gray-600">
+              Vender
+            </Link>
+            <button className="w-full bg-accent text-white px-4 py-2 text-sm font-medium rounded-lg mt-4">
+              Publicar mi propiedad
+            </button>
           </div>
         )}
       </header>

@@ -79,7 +79,7 @@ export default function PropertyFiltersClient({ searchParams }: PropertyFiltersC
       {showFilters && (
         <aside className="hidden lg:block w-1/4 xl:w-1/4">
           <div className="sticky top-22 bg-gray-ui rounded-md p-6 z-49">
-            <PropertyFilters onFilterChange={handleFilterChange} />
+            <PropertyFilters onFilterChange={handleFilterChange} searchParams={searchParams} />
             <button
               onClick={() => setShowFilters(false)}
               className="w-full mt-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
@@ -92,13 +92,15 @@ export default function PropertyFiltersClient({ searchParams }: PropertyFiltersC
 
       {/* Botón Mostrar Filtros (cuando están ocultos) */}
       {!showFilters && (
-        <button
-          onClick={() => setShowFilters(true)}
-          className="mb-6 flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent-hover transition-colors"
-        >
-          <span className="material-symbols-outlined">filter_list</span>
-          Mostrar Filtros
-        </button>
+        <div className="hidden lg:block mb-6">
+          <button
+            onClick={() => setShowFilters(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent-hover transition-colors"
+          >
+            <span className="material-symbols-outlined">filter_list</span>
+            Filtros
+          </button>
+        </div>
       )}
 
       {/* Botón Filtros Móviles */}
@@ -125,6 +127,7 @@ export default function PropertyFiltersClient({ searchParams }: PropertyFiltersC
               isMobile
               onClose={() => setShowMobileFilters(false)}
               onFilterChange={handleFilterChange}
+              searchParams={searchParams}
             />
           </div>
         </>

@@ -113,6 +113,11 @@ export interface Environments {
 export type Features = Environments;
 
 export interface Amenities {
+  // Campos especiales de la API
+  barrioPrivado?: string; // 'si' | 'no' | 'semiprivado'
+  services?: string[]; // Array de servicios: ['financiacion', 'aceptaHipoteca', 'recibePermuta', etc.]
+  nearBy?: string[]; // Array de lugares cercanos
+
   // Servicios básicos
   gas?: boolean;
   water?: boolean;

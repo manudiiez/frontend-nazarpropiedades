@@ -5,43 +5,102 @@ import { createPortal } from 'react-dom'
 import CustomSelectInput from '@/components/ui/CustomSelectInput'
 import DualRangeSlider from '@/components/ui/DualRangeSlider'
 
+interface SearchParams {
+  page?: string
+  search?: string
+  type?: string
+  condition?: string
+  currency?: string
+  priceMin?: string
+  priceMax?: string
+  bedroomsMin?: string
+  bedroomsMax?: string
+  bathroomsMin?: string
+  bathroomsMax?: string
+  totalAreaMin?: string
+  totalAreaMax?: string
+  coveredAreaMin?: string
+  coveredAreaMax?: string
+  floorsMin?: string
+  floorsMax?: string
+  roomsMin?: string
+  roomsMax?: string
+  barrioPrivado?: string
+  cochera?: string
+  financiacion?: string
+  aceptaHipoteca?: string
+  recibePermuta?: string
+}
+
 interface PropertyFiltersProps {
   onFilterChange?: (filters: any) => void
   isMobile?: boolean
   onClose?: () => void
+  searchParams?: SearchParams
 }
 
 const PropertyFilters = ({
   onFilterChange,
   isMobile = false,
   onClose,
+  searchParams,
 }: PropertyFiltersProps) => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [propertyType, setPropertyType] = useState('any')
-  const [condition, setCondition] = useState('any')
-  const [currency, setCurrency] = useState<'ARS' | 'USD' | null>(null)
-  const [priceMin, setPriceMin] = useState(500000) // ARS mínimo
-  const [priceMax, setPriceMax] = useState(1000000000) // ARS máximo (1000 millones)
-  const [bedroomsMin, setBedroomsMin] = useState(0)
-  const [bedroomsMax, setBedroomsMax] = useState(10)
-  const [bathroomsMin, setBathroomsMin] = useState(0)
-  const [bathroomsMax, setBathroomsMax] = useState(10)
-  const [totalAreaMin, setTotalAreaMin] = useState(0)
-  const [totalAreaMax, setTotalAreaMax] = useState(1000)
-  const [coveredAreaMin, setCoveredAreaMin] = useState(0)
-  const [coveredAreaMax, setCoveredAreaMax] = useState(1000)
-  const [floorsMin, setFloorsMin] = useState(0)
-  const [floorsMax, setFloorsMax] = useState(30)
-  const [roomsMin, setRoomsMin] = useState(0)
-  const [roomsMax, setRoomsMax] = useState(30)
+  const [searchQuery, setSearchQuery] = useState(searchParams?.search || '')
+  const [propertyType, setPropertyType] = useState(searchParams?.type || 'any')
+  const [condition, setCondition] = useState(searchParams?.condition || 'any')
+  const [currency, setCurrency] = useState<'ARS' | 'USD' | null>(
+    searchParams?.currency ? (searchParams.currency.toUpperCase() as 'ARS' | 'USD') : null
+  )
+  const [priceMin, setPriceMin] = useState(
+    searchParams?.priceMin ? Number(searchParams.priceMin) : 500000
+  )
+  const [priceMax, setPriceMax] = useState(
+    searchParams?.priceMax ? Number(searchParams.priceMax) : 1000000000
+  )
+  const [bedroomsMin, setBedroomsMin] = useState(
+    searchParams?.bedroomsMin ? Number(searchParams.bedroomsMin) : 0
+  )
+  const [bedroomsMax, setBedroomsMax] = useState(
+    searchParams?.bedroomsMax ? Number(searchParams.bedroomsMax) : 10
+  )
+  const [bathroomsMin, setBathroomsMin] = useState(
+    searchParams?.bathroomsMin ? Number(searchParams.bathroomsMin) : 0
+  )
+  const [bathroomsMax, setBathroomsMax] = useState(
+    searchParams?.bathroomsMax ? Number(searchParams.bathroomsMax) : 10
+  )
+  const [totalAreaMin, setTotalAreaMin] = useState(
+    searchParams?.totalAreaMin ? Number(searchParams.totalAreaMin) : 0
+  )
+  const [totalAreaMax, setTotalAreaMax] = useState(
+    searchParams?.totalAreaMax ? Number(searchParams.totalAreaMax) : 1000
+  )
+  const [coveredAreaMin, setCoveredAreaMin] = useState(
+    searchParams?.coveredAreaMin ? Number(searchParams.coveredAreaMin) : 0
+  )
+  const [coveredAreaMax, setCoveredAreaMax] = useState(
+    searchParams?.coveredAreaMax ? Number(searchParams.coveredAreaMax) : 1000
+  )
+  const [floorsMin, setFloorsMin] = useState(
+    searchParams?.floorsMin ? Number(searchParams.floorsMin) : 0
+  )
+  const [floorsMax, setFloorsMax] = useState(
+    searchParams?.floorsMax ? Number(searchParams.floorsMax) : 30
+  )
+  const [roomsMin, setRoomsMin] = useState(
+    searchParams?.roomsMin ? Number(searchParams.roomsMin) : 0
+  )
+  const [roomsMax, setRoomsMax] = useState(
+    searchParams?.roomsMax ? Number(searchParams.roomsMax) : 30
+  )
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
 
   // Estados para checkboxes
-  const [barrioPrivado, setBarrioPrivado] = useState(false)
-  const [cochera, setCochera] = useState(false)
-  const [financiacion, setFinanciacion] = useState(false)
-  const [aceptaHipoteca, setAceptaHipoteca] = useState(false)
-  const [recibePermuta, setRecibePermuta] = useState(false)
+  const [barrioPrivado, setBarrioPrivado] = useState(searchParams?.barrioPrivado === 'true')
+  const [cochera, setCochera] = useState(searchParams?.cochera === 'true')
+  const [financiacion, setFinanciacion] = useState(searchParams?.financiacion === 'true')
+  const [aceptaHipoteca, setAceptaHipoteca] = useState(searchParams?.aceptaHipoteca === 'true')
+  const [recibePermuta, setRecibePermuta] = useState(searchParams?.recibePermuta === 'true')
 
   // Rangos de precio según la moneda
   const priceRanges = {
@@ -112,6 +171,32 @@ const PropertyFilters = ({
     }
   }
 
+  // Handler para el input de búsqueda
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value
+    const oldValue = searchQuery
+
+    setSearchQuery(newValue)
+
+    // Disparar búsqueda cuando se escribe un espacio (detectar que se agregó un espacio)
+    if (newValue.length > oldValue.length && newValue.endsWith(' ')) {
+      // Usar setTimeout para esperar a que el estado se actualice
+      setTimeout(() => handleApplyFilters(), 0)
+    }
+
+    // Disparar búsqueda cuando se borra todo el texto
+    if (newValue === '' && oldValue !== '') {
+      setTimeout(() => handleApplyFilters(), 0)
+    }
+  }
+
+  // Handler para el evento keyDown en el input de búsqueda
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleApplyFilters()
+    }
+  }
+
   const handleReset = () => {
     setSearchQuery('')
     setPropertyType('any')
@@ -137,6 +222,9 @@ const PropertyFilters = ({
     setFinanciacion(false)
     setAceptaHipoteca(false)
     setRecibePermuta(false)
+
+    // Aplicar filtros vacíos automáticamente
+    onFilterChange?.({})
   }
 
   return (
@@ -166,7 +254,8 @@ const PropertyFilters = ({
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleSearchChange}
+            onKeyDown={handleSearchKeyDown}
             placeholder="Ej: Godoy Cruz, Luján de Cuyo..."
             className="w-full px-4 py-2  border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
           />
@@ -184,7 +273,7 @@ const PropertyFilters = ({
             { value: 'any', label: 'Cualquiera' },
             { value: 'casa', label: 'Casa' },
             { value: 'departamento', label: 'Departamento' },
-            { value: 'terreno', label: 'Terreno' },
+            { value: 'lote', label: 'Lote' },
             { value: 'local', label: 'Local Comercial' },
           ]}
           value={propertyType}
@@ -401,7 +490,8 @@ const PropertyFilters = ({
                   <input
                     type="text"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleSearchKeyDown}
                     placeholder="Ej: Godoy Cruz, Luján de Cuyo..."
                     className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
                   />
@@ -416,7 +506,7 @@ const PropertyFilters = ({
                     { value: 'any', label: 'Cualquiera' },
                     { value: 'casa', label: 'Casa' },
                     { value: 'departamento', label: 'Departamento' },
-                    { value: 'terreno', label: 'Terreno' },
+                    { value: 'lote', label: 'Lote' },
                     { value: 'local', label: 'Local Comercial' },
                   ]}
                   value={propertyType}

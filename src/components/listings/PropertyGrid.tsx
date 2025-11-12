@@ -15,7 +15,7 @@ type LayoutType = 1 | 2 | 3;
 
 const PropertyGrid = ({ properties }: PropertyGridProps) => {
   const [layout, setLayout] = useState<LayoutType>(3);
-  const [sortBy, setSortBy] = useState("price-desc");
+  const [sortBy, setSortBy] = useState("newest");
   const getGridClasses = () => {
     switch (layout) {
       case 3:

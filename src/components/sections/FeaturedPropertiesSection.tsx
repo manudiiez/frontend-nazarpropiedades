@@ -30,6 +30,7 @@ function transformProperty(apiProperty: ApiProperty): Property {
     id: String(apiProperty.id),
     title: apiProperty.title,
     location: location,
+    neighborhood: apiProperty.ubication.neighborhood,
     price: apiProperty.caracteristics?.price || 0,
     currency: apiProperty.caracteristics?.currency || 'USD',
     bedrooms: apiProperty.environments?.bedrooms || 0,
@@ -37,9 +38,13 @@ function transformProperty(apiProperty: ApiProperty): Property {
     area: area,
     coveredArea: apiProperty.caracteristics?.coveredArea,
     garages: apiProperty.environments?.garages,
+    garageType: apiProperty.environments?.garageType,
     image: image,
     type: apiProperty.classification.type,
     condition: apiProperty.classification.condition,
+    barrioPrivado: apiProperty.amenities?.barrioPrivado,
+    orientation: apiProperty.environments?.orientation,
+    petFriendly: apiProperty.amenities?.petFriendly,
   }
 }
 

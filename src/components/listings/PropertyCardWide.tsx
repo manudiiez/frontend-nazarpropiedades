@@ -12,6 +12,72 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
   const formattedPrice = `${
     property.currency === "USD" ? "US$" : "ARS$"
   } ${property.price.toLocaleString("es-AR")}`;
+  console.log(property)
+  // Definir todas las características posibles en orden de prioridad
+  // Orden: Superficie Total, Habitaciones, Baños, Cochera, Barrio Privado, Orientación, Superficie Cubierta, Mascotas
+  const allFeatures = [
+    {
+      key: "area",
+      value: property.area,
+      label: "m²",
+      icon: "square_foot",
+    },
+    {
+      key: "bedrooms",
+      value: property.bedrooms,
+      label: property.bedrooms === 1 ? "Habitación" : "Habitaciones",
+      icon: "bed",
+    },
+    {
+      key: "bathrooms",
+      value: property.bathrooms,
+      label: property.bathrooms === 1 ? "Baño" : "Baños",
+      icon: "bathtub",
+    },
+    {
+      key: "garages",
+      value: property.garages,
+      label: property.garages === 1 ? "Auto" : "Autos",
+      icon: "garage",
+    },
+    {
+      key: "barrioPrivado",
+      value: property.barrioPrivado === "si" ? 1 : 0,
+      label: "",
+      displayLabel: "B. Privado",
+      icon: "holiday_village",
+    },
+    {
+      key: "orientation",
+      value: property.orientation ? 1 : 0,
+      label: property.orientation
+        ? `Orient. ${
+            property.orientation.charAt(0).toUpperCase() +
+            property.orientation.slice(1)
+          }`
+        : "",
+      icon: "explore",
+    },
+    {
+      key: "coveredArea",
+      value: property.coveredArea,
+      label: "m² cubiertos",
+      icon: "roofing",
+    },
+    {
+      key: "petFriendly",
+      value: property.petFriendly ? 1 : 0,
+      label: "",
+      displayLabel: "Acepta Mascotas",
+      icon: "pets",
+    },
+  ];
+
+  // Filtrar características que tienen valor y tomar solo las primeras 6 (2 filas de 3)
+  const visibleFeatures = allFeatures
+    .filter((feature) => feature.value && feature.value > 0)
+    .slice(0, 6);
+
   return (
     <Link
       href={`/propiedades/${property.id}`}
@@ -64,21 +130,19 @@ const PropertyCardWide = ({ property }: PropertyCardWideProps) => {
           </p>
 
           {/* Estadísticas */}
-          <div className="flex gap-6 text-sm text-text-secondary-light mb-6">
-            <div className="flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-xl">
-                square_foot
-              </span>
-              <span>{property.area} m²</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-xl">bed</span>
-              <span>{property.bedrooms} Habitaciones</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-xl">bathtub</span>
-              <span>{property.bathrooms} Baños</span>
-            </div>
+          <div className="grid grid-cols-3 gap-4 text-sm text-text-secondary-light mb-6">
+            {visibleFeatures.map((feature) => (
+              <div key={feature.key} className="flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-xl">
+                  {feature.icon}
+                </span>
+                <span>
+                  {feature.displayLabel
+                    ? feature.displayLabel
+                    : `${feature.value} ${feature.label}`}
+                </span>
+              </div>
+            ))}
           </div>
 
           {/* Botones (solo mobile) */}

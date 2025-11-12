@@ -10,6 +10,65 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
   const formattedPrice = `${
     property.currency === "USD" ? "US$" : "ARS$"
   } ${property.price.toLocaleString("es-AR")}`;
+
+  // Definir todas las características posibles en orden de prioridad
+  // Orden: Superficie Total, Habitaciones, Baños, Cochera, Barrio Privado, Orientación, Superficie Cubierta, Mascotas
+  const allFeatures = [
+    {
+      key: 'area',
+      value: property.area,
+      label: 'm²',
+      icon: 'square_foot'
+    },
+    {
+      key: 'bedrooms',
+      value: property.bedrooms,
+      label: 'Hab',
+      icon: 'bed'
+    },
+    {
+      key: 'bathrooms',
+      value: property.bathrooms,
+      label: 'Baños',
+      icon: 'bathtub'
+    },
+    {
+      key: 'garages',
+      value: property.garages,
+      label: property.garages === 1 ? 'Cochera' : 'Cocheras',
+      icon: 'garage'
+    },
+    {
+      key: 'barrioPrivado',
+      value: property.barrioPrivado === 'si' ? 1 : 0,
+      label: '',
+      displayLabel: 'B. Privado',
+      icon: 'holiday_village'
+    },
+    {
+      key: 'orientation',
+      value: property.orientation ? 1 : 0,
+      label: property.orientation ? property.orientation.charAt(0).toUpperCase() + property.orientation.slice(1) : '',
+      icon: 'explore'
+    },
+    {
+      key: 'coveredArea',
+      value: property.coveredArea,
+      label: 'm² cub.',
+      icon: 'roofing'
+    },
+    {
+      key: 'petFriendly',
+      value: property.petFriendly ? 1 : 0,
+      label: '',
+      displayLabel: 'Mascotas',
+      icon: 'pets'
+    }
+  ];
+
+  // Filtrar características que tienen valor y tomar solo las primeras 3
+  const visibleFeatures = allFeatures.filter(feature => feature.value && feature.value > 0).slice(0, 3);
+
   return (
     <Link
       href={`/propiedades/${property.id}`}
@@ -40,20 +99,16 @@ const PropertyCardCompact = ({ property }: PropertyCardCompactProps) => {
 
         {/* Estadísticas */}
         <div className="flex justify-between text-xs text-text-secondary-light">
-          <div className="flex items-center ">
-            <span className="material-symbols-outlined text-base">
-              square_foot
-            </span>
-            <span>{property.area} m²</span>
-          </div>
-          <div className="flex items-center ">
-            <span className="material-symbols-outlined text-base">bed</span>
-            <span>{property.bedrooms} Hab</span>
-          </div>
-          <div className="flex items-center">
-            <span className="material-symbols-outlined text-base">bathtub</span>
-            <span>{property.bathrooms} Baños</span>
-          </div>
+          {visibleFeatures.map((feature) => (
+            <div key={feature.key} className="flex items-center">
+              <span className="material-symbols-outlined text-base">
+                {feature.icon}
+              </span>
+              <span>
+                {feature.displayLabel ? feature.displayLabel : `${feature.value} ${feature.label}`}
+              </span>
+            </div>
+          ))}
         </div>
 
         {/* Botón (solo mobile) */}
