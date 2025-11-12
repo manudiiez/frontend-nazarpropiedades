@@ -40,7 +40,7 @@ export default function RelatedProperties({
                 {property.location}
               </div>
               <div className="text-xl font-semibold text-gray-900">
-                {property.currency} {property.price.toLocaleString()}
+                {property.currency === 'USD' ? 'US$' : 'ARS$'} {property.price.toLocaleString('es-AR')}
               </div>
             </div>
           </Link>

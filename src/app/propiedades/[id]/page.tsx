@@ -4,187 +4,162 @@ import PropertyDetails from '@/components/property-detail/PropertyDetails'
 import ContactForm from '@/components/property-detail/ContactForm'
 import RelatedProperties from '@/components/property-detail/RelatedProperties'
 import type { Property } from '@/types/property'
+import { notFound } from 'next/navigation'
+import { getDepartmentLabel, getLocalityLabel } from '@/utils/propertyLabels'
 
-// Datos de ejemplo - En producción vendría de una API
-const mockProperty: Property = {
-  id: 1,
-  title: 'Casa Minimalista en Palermo',
-  status: 'activa',
-
-  // Clasificación
-  classification: {
-    type: 'casa',
-    condition: 'venta',
-  },
-
-  // Ubicación
-  ubication: {
-    province: 'Mendoza',
-    department: 'Godoy Cruz',
-    locality: 'Palermo',
-    neighborhood: 'Barrio Privado Los Álamos',
-    address: 'Av. San Martín 1234, Palermo, Godoy Cruz, Mendoza',
-    mapLocation: {
-      lat: -32.9175,
-      lng: -68.8458,
-    },
-    locationPrivacy: 'approximate',
-  },
-
-  // Características (incluye precio)
-  caracteristics: {
-    price: 850000,
-    currency: 'usd',
-    hasExpenses: 'Si',
-    expenses: 15000,
-    expensesCurrency: 'ars',
-  },
-
-  // Medidas (para casa)
-  measures: {
-    totalArea: 320,
-    coveredArea: 280,
-    uncoveredArea: 40,
-    terrainArea: 400,
-    frontMeters: 12,
-    depthMeters: 33,
-    balconyArea: 25,
-    floors: 2,
-  },
-
-  // Características
-  features: {
-    bedrooms: 4,
-    bathrooms: 3,
-    toilets: 1,
-    rooms: 8,
-    livingRooms: 2,
-    diningRooms: 1,
-    kitchens: 1,
-    garages: 2,
-    garageType: 'cubierta',
-    constructionYear: 2022,
-    condition: 'excelente',
-    furnished: false,
-    orientation: 'norte',
-  },
-
-  // Amenities
-  amenities: {
-    gas: true,
-    water: true,
-    electricity: true,
-    sewer: true,
-    internet: true,
-    airConditioning: true,
-    centralHeating: true,
-    security24h: true,
-    alarm: true,
-    cameras: true,
-    gatedCommunity: true,
-    pool: true,
-    gym: true,
-    sauna: true,
-    grill: true,
-    garden: true,
-    terrace: true,
-    balcony: true,
-    laundry: true,
-    storage: true,
-    petFriendly: true,
-  },
-
-  // Descripción
-  description:
-    'Arquitectura contemporánea que abraza la simplicidad. Espacios amplios, líneas limpias y materiales nobles crean un ambiente sereno y sofisticado. Cada detalle ha sido cuidadosamente pensado para maximizar la funcionalidad sin comprometer la estética minimalista. La propiedad cuenta con acabados de primera calidad, pisos de hormigón pulido, ventanales de piso a techo y sistema de domótica integrado.',
-
-  // Imágenes
-  images: [
-    { id: 0, title: 'Fachada principal', url: '/imagenes/home.jpg' },
-    { id: 1, title: 'Dormitorio principal', url: '/imagenes/home2.jpg' },
-    { id: 2, title: 'Cocina integrada', url: '/imagenes/home.jpg' },
-    { id: 3, title: 'Jardín minimalista', url: '/imagenes/home2.jpg' },
-    { id: 4, title: 'Living comedor', url: '/imagenes/home.jpg' },
-    { id: 5, title: 'Baño principal', url: '/imagenes/home2.jpg' },
-    { id: 6, title: 'Dormitorio secundario', url: '/imagenes/home.jpg' },
-    { id: 7, title: 'Baño de visitas', url: '/imagenes/home2.jpg' },
-    { id: 8, title: 'Cocina vista 2', url: '/imagenes/home.jpg' },
-    { id: 9, title: 'Terraza', url: '/imagenes/home2.jpg' },
-    { id: 10, title: 'Piscina', url: '/imagenes/home.jpg' },
-    { id: 11, title: 'Garaje', url: '/imagenes/home2.jpg' },
-    { id: 12, title: 'Jardín trasero', url: '/imagenes/home.jpg' },
-    { id: 13, title: 'Quincho', url: '/imagenes/home2.jpg' },
-    { id: 14, title: 'Lavadero', url: '/imagenes/home.jpg' },
-    { id: 15, title: 'Vestidor principal', url: '/imagenes/home2.jpg' },
-    { id: 16, title: 'Balcón principal', url: '/imagenes/home.jpg' },
-    { id: 17, title: 'Vista nocturna', url: '/imagenes/home2.jpg' },
-    { id: 18, title: 'Entrada principal', url: '/imagenes/home.jpg' },
-    { id: 19, title: 'Vista aérea', url: '/imagenes/home2.jpg' },
-  ],
-
-  // Lugares cercanos
-  nearbyPlaces: {
-    schools: ['Colegio San Patricio (500m)', 'Instituto Belgrano (800m)'],
-    universities: ['Universidad de Palermo (1.2km)'],
-    hospitals: ['Hospital Italiano (1km)', 'Clínica Cuyo (1.5km)'],
-    supermarkets: ['Supermercado Jumbo (200m)', 'Carrefour Express (400m)'],
-    shopping: ['Shopping Palermo (600m)'],
-    parks: ['Parque Tres de Febrero (300m)', 'Plaza San Martín (500m)'],
-    publicTransport: ['Estación Palermo (400m)', 'Parada de colectivo (100m)'],
-  },
-
-  // Agente responsable
-  agent: {
-    name: 'Nazar Propiedades',
-    role: 'Inmobiliaria en Mendoza',
-    phone: '+54 11 1234-5678',
-    email: 'nazarpropiedades217@nazarpropiedades.com',
-  },
+interface TransformedImage {
+  id: number
+  title?: string
+  url: string
 }
 
-const relatedProperties = [
-  {
-    id: 2,
-    title: 'Loft Moderno Belgrano',
-    location: 'Belgrano, Buenos Aires',
-    price: 620000,
-    currency: 'USD',
-  },
-  {
-    id: 3,
-    title: 'Penthouse Minimalista',
-    location: 'Puerto Madero, Buenos Aires',
-    price: 1100000,
-    currency: 'USD',
-  },
-  {
-    id: 4,
-    title: 'Casa Contemporánea',
-    location: 'Recoleta, Buenos Aires',
-    price: 780000,
-    currency: 'USD',
-  },
-]
+// Función para obtener la propiedad desde la API
+async function getProperty(id: string): Promise<Property | null> {
+  try {
+    const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI
 
-export default function PropertyDetailPage() {
-  // En producción, aquí harías un fetch a tu API usando params.id
-  // Example:
-  // export default async function PropertyDetailPage({ params }: { params: { id: string } }) {
-  //   const property = await fetch(`/api/properties/${params.id}`).then(res => res.json())
+    if (!backendUri) {
+      console.error('NEXT_PUBLIC_BACKEND_URI no está definido en .env')
+      return null
+    }
+
+    const url = `${backendUri}/propiedades/${id}`
+    console.log('Fetching property from:', url)
+
+    const res = await fetch(url, {
+      cache: 'no-store', // Siempre obtener datos frescos
+    })
+
+    if (!res.ok) {
+      console.error(`Error al obtener propiedad: ${res.status}`)
+      return null
+    }
+
+    const data: Property = await res.json()
+    console.log('Fetched property data:', data)
+    return data
+  } catch (error) {
+    console.error('Error al hacer fetch de la propiedad:', error)
+    return null
+  }
+}
+
+// Función para transformar las imágenes de la API al formato del componente
+function transformImages(apiImages: any): TransformedImage[] {
+  const images: TransformedImage[] = []
+
+  // Agregar la imagen de portada (coverImage) desde watermark
+  if (apiImages?.coverImage?.sizes?.watermark?.url) {
+    images.push({
+      id: 0,
+      url: apiImages.coverImage.sizes.watermark.url,
+      title: apiImages.coverImage.filename || 'Imagen de portada',
+    })
+  }
+
+  // Agregar las imágenes de la galería desde watermark
+  apiImages?.gallery?.forEach((img: any, index: number) => {
+    if (img?.sizes?.watermark?.url) {
+      images.push({
+        id: index + 1,
+        url: img.sizes.watermark.url,
+        title: img.filename || `Imagen ${index + 1}`,
+      })
+    }
+  })
+
+  return images
+}
+
+// Función para transformar propiedades relacionadas
+function transformRelatedProperty(apiProperty: any) {
+  // Construir la ubicación usando las mismas utilidades que el listado
+  const locationParts = [
+    getLocalityLabel(apiProperty.ubication?.locality || ''),
+    getDepartmentLabel(apiProperty.ubication?.department || ''),
+    apiProperty.ubication?.province,
+  ].filter(Boolean)
+
+  // Eliminar duplicados si locality y department son iguales
+  if (locationParts[0] === locationParts[1]) {
+    locationParts.splice(0, 1)
+  }
+
+  const location = locationParts.join(', ')
+
+  return {
+    id: apiProperty.id,
+    title: apiProperty.title,
+    location: location,
+    price: apiProperty.caracteristics?.price || 0,
+    currency: apiProperty.caracteristics?.currency?.toUpperCase() || 'USD',
+  }
+}
+
+// Función para obtener propiedades relacionadas
+async function getRelatedProperties(currentId: string): Promise<any[]> {
+  try {
+    const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI
+
+    if (!backendUri) {
+      return []
+    }
+
+    // Obtener 3 propiedades aleatorias excluyendo la actual
+    const url = `${backendUri}/propiedades?limit=3&where[id][not_equals]=${currentId}&sort=-createdAt`
+
+    const res = await fetch(url, {
+      cache: 'no-store',
+    })
+
+    if (!res.ok) {
+      return []
+    }
+
+    const data = await res.json()
+    // Transformar las propiedades al formato esperado
+    return (data.docs || []).map(transformRelatedProperty)
+  } catch (error) {
+    console.error('Error al obtener propiedades relacionadas:', error)
+    return []
+  }
+}
+
+export default async function PropertyDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  // Await params (required in Next.js 15+)
+  const { id } = await params
+
+  // Obtener la propiedad desde la API
+  const property = await getProperty(id)
+
+  // Si no se encuentra la propiedad, mostrar página 404
+  if (!property) {
+    notFound()
+  }
+
+  // Obtener propiedades relacionadas
+  const relatedPropertiesData = await getRelatedProperties(id)
+
+  // Transformar las imágenes al formato esperado por ImageGallery
+  const transformedImages = transformImages(property.images)
 
   return (
     <main className="bg-gray-50 mt-20">
       {/* Image Gallery */}
-      <ImageGallery images={mockProperty.images} />
+      <ImageGallery images={transformedImages} />
 
       {/* Hero Section */}
       <PropertyHero
-        title={mockProperty.title}
-        classification={mockProperty.classification}
-        ubication={mockProperty.ubication}
-        caracteristics={mockProperty.caracteristics}
-        features={mockProperty.features}
-        measures={mockProperty.measures}
+        title={property.title}
+        classification={property.classification}
+        ubication={property.ubication}
+        caracteristics={property.caracteristics}
+        features={property.environments}
+        measures={property.caracteristics}
       />
 
       {/* Details Section */}
@@ -192,16 +167,16 @@ export default function PropertyDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Left column - Details */}
           <PropertyDetails
-            description={mockProperty.description}
-            measures={mockProperty.measures}
-            features={mockProperty.features}
-            amenities={mockProperty.amenities}
-            nearbyPlaces={mockProperty.nearbyPlaces}
+            description={property.description}
+            measures={property.caracteristics}
+            features={property.environments}
+            amenities={property.amenities}
+            nearbyPlaces={property.nearbyPlaces}
           />
 
           {/* Right column - Contact Card */}
           <div className="lg:col-span-1">
-            <ContactForm agent={mockProperty.agent} />
+            <ContactForm agent={property.agent} />
           </div>
         </div>
       </section>
@@ -222,7 +197,7 @@ export default function PropertyDetailPage() {
       </section>
 
       {/* Related Properties */}
-      <RelatedProperties properties={relatedProperties} />
+      <RelatedProperties properties={relatedPropertiesData} />
     </main>
   )
 }
