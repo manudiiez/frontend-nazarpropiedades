@@ -260,115 +260,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
           </div>
         </div>
         {/* Modal de imagen en grande */}
-        {/* {isModalOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-[9999] flex flex-col"
-            onClick={closeModal}
-          >
-            <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-gradient-to-b from-black/50 to-transparent pointer-events-none">
-              <div className="text-white text-lg font-medium">
-                {modalSlide + 1} / {images.length}
-              </div>
-              <button
-                onClick={closeModal}
-                className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors pointer-events-auto"
-                aria-label="Cerrar"
-              >
-                <span className="material-symbols-outlined text-white">
-                  close
-                </span>
-              </button>
-            </div>
-
-            <div
-              className="flex-1 relative flex items-center justify-center p-4 md:p-8"
-              onClick={(e) => e.stopPropagation()}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              <div className="w-full max-w-7xl mx-auto h-full relative">
-                {images.map((image, index) => (
-                  <div
-                    key={image.id}
-                    className={`absolute inset-0 transition-opacity duration-300 flex items-center justify-center ${
-                      modalSlide === index
-                        ? "opacity-100"
-                        : "opacity-0 pointer-events-none"
-                    }`}
-                  >
-                    <img
-                      src={image.url}
-                      alt={image.title || `Imagen ${index + 1}`}
-                      className="max-w-full max-h-full w-auto h-auto object-contain"
-                      style={{
-                        objectFit: "contain",
-                      }}
-                    />
-                  </div>
-                ))}
-
-                <button
-                  onClick={prevModalSlide}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors z-10"
-                  aria-label="Imagen anterior"
-                >
-                  <span className="material-symbols-outlined text-white text-3xl">
-                    chevron_left
-                  </span>
-                </button>
-
-                <button
-                  onClick={nextModalSlide}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors z-10"
-                  aria-label="Siguiente imagen"
-                >
-                  <span className="material-symbols-outlined text-white text-3xl">
-                    chevron_right
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            <div
-              className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/50 to-transparent p-4"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div
-                ref={modalThumbnailsRef}
-                className="overflow-x-auto scroll-smooth"
-                style={{
-                  scrollbarWidth: "thin",
-                  scrollbarColor: "rgba(255,255,255,0.3) transparent",
-                }}
-              >
-                <div className="flex gap-2 justify-center">
-                  {images.map((image, index) => (
-                    <button
-                      key={image.id}
-                      onClick={() => selectModalSlide(index)}
-                      className={`relative min-w-[72px] h-16 rounded-sm overflow-hidden transition-all flex-shrink-0 ${
-                        modalSlide === index
-                          ? "ring-2 ring-white scale-105 opacity-100"
-                          : "opacity-50 hover:opacity-80"
-                      }`}
-                      aria-label={`Ver imagen ${index + 1}`}
-                    >
-                      <Image
-                        src={image.url}
-                        alt={image.title || `Imagen ${index + 1}`}
-                        width={72}
-                        height={64}
-                        className="object-cover w-full h-full"
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )} */}
-        {/* {isModalOpen && (
+        {isModalOpen && (
           <div className="fixed inset-0" style={{ zIndex: 9998 }}>
             <div
               className="absolute top-0 left-0 w-full h-full bg-black/50"
@@ -458,7 +350,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
               </div>
             </div>
           </div>
-        )} */}
+        )}
       </div>
     </section>
   );

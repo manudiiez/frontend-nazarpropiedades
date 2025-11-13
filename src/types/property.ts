@@ -71,6 +71,7 @@ export interface Measures {
   floor?: number;
   totalFloors?: number;
   unitsPerFloor?: number;
+  hasExpenses?: "Si" | "No";
   floors?: number;
 }
 

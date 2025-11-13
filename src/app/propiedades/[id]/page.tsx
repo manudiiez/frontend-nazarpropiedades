@@ -1,60 +1,60 @@
-import ImageGallery from '@/components/property-detail/ImageGallery'
-import PropertyHero from '@/components/property-detail/PropertyHero'
-import PropertyDetails from '@/components/property-detail/PropertyDetails'
-import ContactForm from '@/components/property-detail/ContactForm'
-import RelatedProperties from '@/components/property-detail/RelatedProperties'
-import type { Property } from '@/types/property'
-import { notFound } from 'next/navigation'
-import { getDepartmentLabel, getLocalityLabel } from '@/utils/propertyLabels'
+import ImageGallery from "@/components/property-detail/ImageGallery";
+import PropertyHero from "@/components/property-detail/PropertyHero";
+import PropertyDetails from "@/components/property-detail/PropertyDetails";
+import ContactForm from "@/components/property-detail/ContactForm";
+import RelatedProperties from "@/components/property-detail/RelatedProperties";
+import type { Property } from "@/types/property";
+import { notFound } from "next/navigation";
+import { getDepartmentLabel, getLocalityLabel } from "@/utils/propertyLabels";
 
 interface TransformedImage {
-  id: number
-  title?: string
-  url: string
+  id: number;
+  title?: string;
+  url: string;
 }
 
 // Función para obtener la propiedad desde la API
 async function getProperty(id: string): Promise<Property | null> {
   try {
-    const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI
+    const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI;
 
     if (!backendUri) {
-      console.error('NEXT_PUBLIC_BACKEND_URI no está definido en .env')
-      return null
+      console.error("NEXT_PUBLIC_BACKEND_URI no está definido en .env");
+      return null;
     }
 
-    const url = `${backendUri}/propiedades/${id}`
-    console.log('Fetching property from:', url)
+    const url = `${backendUri}/propiedades/${id}`;
+    console.log("Fetching property from:", url);
 
     const res = await fetch(url, {
-      cache: 'no-store', // Siempre obtener datos frescos
-    })
+      cache: "no-store", // Siempre obtener datos frescos
+    });
 
     if (!res.ok) {
-      console.error(`Error al obtener propiedad: ${res.status}`)
-      return null
+      console.error(`Error al obtener propiedad: ${res.status}`);
+      return null;
     }
 
-    const data: Property = await res.json()
-    console.log('Fetched property data:', data)
-    return data
+    const data: Property = await res.json();
+    console.log("Fetched property data:", data);
+    return data;
   } catch (error) {
-    console.error('Error al hacer fetch de la propiedad:', error)
-    return null
+    console.error("Error al hacer fetch de la propiedad:", error);
+    return null;
   }
 }
 
 // Función para transformar las imágenes de la API al formato del componente
 function transformImages(apiImages: any): TransformedImage[] {
-  const images: TransformedImage[] = []
+  const images: TransformedImage[] = [];
 
   // Agregar la imagen de portada (coverImage) desde watermark
   if (apiImages?.coverImage?.sizes?.watermark?.url) {
     images.push({
       id: 0,
       url: apiImages.coverImage.sizes.watermark.url,
-      title: apiImages.coverImage.filename || 'Imagen de portada',
-    })
+      title: apiImages.coverImage.filename || "Imagen de portada",
+    });
   }
 
   // Agregar las imágenes de la galería desde watermark
@@ -64,88 +64,88 @@ function transformImages(apiImages: any): TransformedImage[] {
         id: index + 1,
         url: img.sizes.watermark.url,
         title: img.filename || `Imagen ${index + 1}`,
-      })
+      });
     }
-  })
+  });
 
-  return images
+  return images;
 }
 
 // Función para transformar propiedades relacionadas
 function transformRelatedProperty(apiProperty: any) {
   // Construir la ubicación usando las mismas utilidades que el listado
   const locationParts = [
-    getLocalityLabel(apiProperty.ubication?.locality || ''),
-    getDepartmentLabel(apiProperty.ubication?.department || ''),
+    getLocalityLabel(apiProperty.ubication?.locality || ""),
+    getDepartmentLabel(apiProperty.ubication?.department || ""),
     apiProperty.ubication?.province,
-  ].filter(Boolean)
+  ].filter(Boolean);
 
   // Eliminar duplicados si locality y department son iguales
   if (locationParts[0] === locationParts[1]) {
-    locationParts.splice(0, 1)
+    locationParts.splice(0, 1);
   }
 
-  const location = locationParts.join(', ')
+  const location = locationParts.join(", ");
 
   return {
     id: apiProperty.id,
     title: apiProperty.title,
     location: location,
     price: apiProperty.caracteristics?.price || 0,
-    currency: apiProperty.caracteristics?.currency?.toUpperCase() || 'USD',
-  }
+    currency: apiProperty.caracteristics?.currency?.toUpperCase() || "USD",
+  };
 }
 
 // Función para obtener propiedades relacionadas
 async function getRelatedProperties(currentId: string): Promise<any[]> {
   try {
-    const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI
+    const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI;
 
     if (!backendUri) {
-      return []
+      return [];
     }
 
     // Obtener 3 propiedades aleatorias excluyendo la actual
-    const url = `${backendUri}/propiedades?limit=3&where[id][not_equals]=${currentId}&sort=-createdAt`
+    const url = `${backendUri}/propiedades?limit=3&where[id][not_equals]=${currentId}&sort=-createdAt`;
 
     const res = await fetch(url, {
-      cache: 'no-store',
-    })
+      cache: "no-store",
+    });
 
     if (!res.ok) {
-      return []
+      return [];
     }
 
-    const data = await res.json()
+    const data = await res.json();
     // Transformar las propiedades al formato esperado
-    return (data.docs || []).map(transformRelatedProperty)
+    return (data.docs || []).map(transformRelatedProperty);
   } catch (error) {
-    console.error('Error al obtener propiedades relacionadas:', error)
-    return []
+    console.error("Error al obtener propiedades relacionadas:", error);
+    return [];
   }
 }
 
 export default async function PropertyDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) {
   // Await params (required in Next.js 15+)
-  const { id } = await params
+  const { id } = await params;
 
   // Obtener la propiedad desde la API
-  const property = await getProperty(id)
+  const property = await getProperty(id);
 
   // Si no se encuentra la propiedad, mostrar página 404
   if (!property) {
-    notFound()
+    notFound();
   }
 
   // Obtener propiedades relacionadas
-  const relatedPropertiesData = await getRelatedProperties(id)
+  const relatedPropertiesData = await getRelatedProperties(id);
 
   // Transformar las imágenes al formato esperado por ImageGallery
-  const transformedImages = transformImages(property.images)
+  const transformedImages = transformImages(property.images);
 
   return (
     <main className="bg-gray-50 mt-20">
@@ -160,6 +160,7 @@ export default async function PropertyDetailPage({
         caracteristics={property.caracteristics}
         features={property.environments}
         measures={property.caracteristics}
+        amenities={property.amenities}
       />
 
       {/* Details Section */}
@@ -199,5 +200,5 @@ export default async function PropertyDetailPage({
       {/* Related Properties */}
       <RelatedProperties properties={relatedPropertiesData} />
     </main>
-  )
+  );
 }
