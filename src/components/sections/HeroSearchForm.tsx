@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 const propertyTypes = [
-  { value: '', label: 'Todos los tipos' },
+  { value: '', label: 'Todos' },
   { value: 'casa', label: 'Casa' },
   { value: 'departamento', label: 'Departamento' },
   { value: 'terreno', label: 'Terreno' },
@@ -15,7 +15,7 @@ const propertyTypes = [
 ]
 
 const conditions = [
-  { value: '', label: 'Todas las condiciones' },
+  { value: '', label: 'Todas' },
   { value: 'venta', label: 'Venta' },
   { value: 'alquiler', label: 'Alquiler' },
   { value: 'alquiler_temporario', label: 'Alquiler Temporario' },
@@ -83,7 +83,7 @@ export default function HeroSearchForm() {
   return (
     <div className="mt-8 mb-8 max-w-2xl mx-auto rounded-lg bg-background-light p-3">
       <form onSubmit={handleSearch}>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_auto]">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto]">
           {/* Search Input */}
           <label className="flex flex-col w-full col-span-1 sm:col-span-2 lg:col-span-1">
             <div className="relative flex w-full items-stretch">
