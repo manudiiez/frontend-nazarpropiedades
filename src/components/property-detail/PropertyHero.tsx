@@ -33,7 +33,9 @@ export default function PropertyHero({
     getDepartmentLabel(ubication.department || ""),
     ubication.province,
   ].filter(Boolean);
-  if (locationParts[1] === locationParts[2]) {
+  if (ubication.neighborhood && locationParts[1] === locationParts[2]) {
+    locationParts.splice(1, 1);
+  }else if (!ubication.neighborhood && locationParts[0] === locationParts[1]) {
     locationParts.splice(0, 1);
   }
   const location = locationParts.join(", ");
@@ -82,12 +84,10 @@ export default function PropertyHero({
       label: "TIENE EXPENSAS",
     },
   ];
-  console.log("All Features in PropertyHero:", allFeatures);
   const visibleFeatures = allFeatures
     .filter((camp) => camp.value)
     .slice(0, 3);
 
-  console.log("Visible Features in PropertyHero:", visibleFeatures);
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

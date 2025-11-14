@@ -3,7 +3,7 @@ import PropertyHero from "@/components/property-detail/PropertyHero";
 import PropertyDetails from "@/components/property-detail/PropertyDetails";
 import ContactForm from "@/components/property-detail/ContactForm";
 import RelatedProperties from "@/components/property-detail/RelatedProperties";
-import type { Property } from "@/types/property";
+import type { Agent, Property } from "@/types/property";
 import { notFound } from "next/navigation";
 import { getDepartmentLabel, getLocalityLabel } from "@/utils/propertyLabels";
 
@@ -11,6 +11,12 @@ interface TransformedImage {
   id: number;
   title?: string;
   url: string;
+}
+
+const agent: Agent = {
+  name: "Nazar Propiedades",
+  phone: "+54 9 261 123-4567",
+  email: "nazarpropiedades217@gmail.com"
 }
 
 // Función para obtener la propiedad desde la API
@@ -135,7 +141,7 @@ export default async function PropertyDetailPage({
 
   // Obtener la propiedad desde la API
   const property = await getProperty(id);
-
+  console.log("Property detail page for ID:", id, property);
   // Si no se encuentra la propiedad, mostrar página 404
   if (!property) {
     notFound();
@@ -168,16 +174,17 @@ export default async function PropertyDetailPage({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Left column - Details */}
           <PropertyDetails
-            description={property.description}
+            description={property?.aiContent?.description}
             measures={property.caracteristics}
             features={property.environments}
             amenities={property.amenities}
             nearbyPlaces={property.nearbyPlaces}
+            extra={property.extra}
           />
 
           {/* Right column - Contact Card */}
           <div className="lg:col-span-1">
-            <ContactForm agent={property.agent} />
+            <ContactForm agent={agent} />
           </div>
         </div>
       </section>

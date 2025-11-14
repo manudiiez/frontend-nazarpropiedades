@@ -56,6 +56,7 @@ function transformProperty(apiProperty: ApiProperty): Property {
 
   // Construir la ubicación
   const locationParts = [
+    
     getLocalityLabel(apiProperty.ubication.locality || ""),
     getDepartmentLabel(apiProperty.ubication.department || ""),
     apiProperty.ubication.province,

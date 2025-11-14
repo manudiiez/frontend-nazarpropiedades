@@ -22,9 +22,16 @@ function transformProperty(apiProperty: ApiProperty): Property {
     getDepartmentLabel(apiProperty.ubication.department || ""),
     apiProperty.ubication.province,
   ].filter(Boolean);
-
-  if (locationParts[1] === locationParts[2]) {
+  if (
+    apiProperty.ubication.neighborhood &&
+    locationParts[1] === locationParts[2]
+  ) {
     locationParts.splice(2, 1);
+  } else if (
+    !apiProperty.ubication.neighborhood &&
+    locationParts[0] === locationParts[1]
+  ) {
+    locationParts.splice(0, 1);
   }
   const location = locationParts.join(", ");
 

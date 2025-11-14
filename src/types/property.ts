@@ -46,9 +46,18 @@ export interface Caracteristics {
   coveredArea?: number;
   uncoveredArea?: number;
   terrainArea?: number;
+  landArea?: number; // Campo importante para Mercado Libre (puede ser alias de terrainArea)
   frontMeters?: number;
   depthMeters?: number;
+  deepMeters?: number; // Alias para depthMeters (retrocompatibilidad)
   balconyArea?: number;
+
+  // Campos adicionales de la API
+  orientation?: "norte" | "sur" | "este" | "oeste";
+  antiquity?: string; // Valores como "a_estrenar", "1_ano", "2_anos", etc.
+  conservationStatus?: "excelente" | "muy_bueno" | "bueno" | "regular";
+  pricePerSquareMeterArs?: number;
+  pricePerSquareMeterUsd?: number;
 
   // Para departamentos/edificios
   floor?: number;
@@ -65,31 +74,69 @@ export interface Measures {
   coveredArea?: number;
   uncoveredArea?: number;
   terrainArea?: number;
+  landArea?: number; // Campo importante para Mercado Libre
   frontMeters?: number;
   depthMeters?: number;
+  deepMeters?: number; // Alias para depthMeters (retrocompatibilidad)
   balconyArea?: number;
   floor?: number;
   totalFloors?: number;
   unitsPerFloor?: number;
   hasExpenses?: "Si" | "No";
   floors?: number;
+
+  // Campos adicionales de caracteristics
+  orientation?: "norte" | "sur" | "este" | "oeste";
+  antiquity?: string; // Valores como "a_estrenar", "1_ano", "2_anos", etc.
+  conservationStatus?: "excelente" | "muy_bueno" | "bueno" | "regular";
+  pricePerSquareMeterArs?: number;
+  pricePerSquareMeterUsd?: number;
+}
+
+// Interfaz para campos extra (específicos para integraciones como Mercado Libre)
+export interface Extra {
+  bauleras?: number;
+  numeroCasa?: string;
+  pisoDepartamento?: number;
+  acceso?: "Tierra" | "Arena" | "Asfalto" | "Otro" | "Ripio";
+  guests?: number;
+  minimumStay?: number;
+  camas?: number;
+  checkinTime?: string;
+  checkoutTime?: string;
+  pisosEdificio?: number;
+  departamentosPorPiso?: number;
+  superficieBalcon?: number;
+  disposicion?: "contrafrente" | "frente" | "interno" | "lateral";
+  disposicionTerreno?: "otro" | "perimetral" | "a_rio" | "a_laguna" | "interno";
+  formaTerreno?: "regular" | "irregular" | "plano";
+  tipoCampo?: "otro" | "fruticola" | "agricola" | "chacra" | "criadero" | "tambero" | "floricultura" | "forestal" | "ganadero" | "haras";
+  accesoCochera?: "rampa_fija" | "rampa_movil" | "ascensor" | "horizontal";
+  tipoCochera?: "fija" | "movil";
+  tipoCoverturaCochera?: "semi_cubierta" | "cubierta" | "descubierta";
+  alturaDeposito?: number;
+  banosPiso?: number;
+  cantidadOficinas?: number;
 }
 
 export interface Environments {
-  // Espacios
+  // Espacios (según propertyReadyType.ts)
   bedrooms?: number;
   bathrooms?: number;
+  garages?: number;
+  garageType?: "garage" | "garage_cochera" | "garage_doble" | "cochera_pasante" | "sin_cochera";
+  plantas?: number; // Número de plantas/pisos
+  ambientes?: number; // Número de ambientes
+  furnished?: "si" | "no" | boolean; // API usa "si"/"no" pero soportamos boolean para retrocompatibilidad
+
+  // Legacy: Espacios adicionales (para retrocompatibilidad)
   toilets?: number;
   rooms?: number;
   livingRooms?: number;
   diningRooms?: number;
   kitchens?: number;
 
-  // Estacionamiento
-  garages?: number;
-  garageType?: "cubierta" | "descubierta" | "semicubierta";
-
-  // Estado y características
+  // Legacy: Estado y características (para retrocompatibilidad)
   age?: number;
   constructionYear?: number;
   condition?:
@@ -98,7 +145,6 @@ export interface Environments {
     | "bueno"
     | "a-refaccionar"
     | "a-estrenar";
-  furnished?: boolean;
   orientation?:
     | "norte"
     | "sur"
@@ -114,31 +160,43 @@ export interface Environments {
 export type Features = Environments;
 
 export interface Amenities {
-  // Campos especiales de la API
-  barrioPrivado?: string; // 'si' | 'no' | 'semiprivado'
-  services?: string[]; // Array de servicios: ['financiacion', 'aceptaHipoteca', 'recibePermuta', etc.]
-  nearBy?: string[]; // Array de lugares cercanos
+  // Campos especiales de la API (nuevo formato)
+  mascotas?: "Si" | "No";
+  barrioPrivado?: "si" | "no" | "semi_privado";
+  agua?: "Si" | "No";
+  cloacas?: "Si" | "No";
+  gas?: "Si" | "No";
+  luz?: "Si" | "No";
+  estrellas?: number;
 
-  // Servicios básicos
-  gas?: boolean;
+  // Arrays de servicios, ambientes y zonas cercanas (nuevo formato)
+  servicios?: string[]; // Array de servicios: ['aire_acondicionado', 'financiacion', 'piscina', etc.]
+  ambientes?: string[]; // Array de ambientes: ['parrilla', 'balcon', 'patio', 'gimnasio', etc.]
+  zonasCercanas?: string[]; // Array de zonas cercanas: ['colegios', 'hospitales', 'shopping', etc.]
+
+  // Legacy: para retrocompatibilidad con código existente
+  services?: string[];
+  nearBy?: string[];
+
+  // Legacy: Servicios básicos (boolean)
   water?: boolean;
   electricity?: boolean;
   sewer?: boolean;
   phone?: boolean;
   internet?: boolean;
 
-  // Climatización
+  // Legacy: Climatización
   airConditioning?: boolean;
   heating?: boolean;
   centralHeating?: boolean;
 
-  // Seguridad
+  // Legacy: Seguridad
   security24h?: boolean;
   alarm?: boolean;
   cameras?: boolean;
   gatedCommunity?: boolean;
 
-  // Espacios comunes
+  // Legacy: Espacios comunes
   pool?: boolean;
   gym?: boolean;
   sauna?: boolean;
@@ -149,7 +207,7 @@ export interface Amenities {
   terrace?: boolean;
   balcony?: boolean;
 
-  // Otros
+  // Legacy: Otros
   elevator?: boolean;
   laundry?: boolean;
   storage?: boolean;
@@ -202,6 +260,9 @@ export interface Property {
   // Amenities (opcionales)
   amenities?: Amenities;
 
+  // Campos extra (para integraciones como Mercado Libre)
+  extra?: Extra;
+
   // Descripción e imágenes
   description?: string;
   images: any;
@@ -215,4 +276,7 @@ export interface Property {
   // Metadata
   createdAt?: string;
   updatedAt?: string;
+  aiContent?: {
+    description?: string;
+  };
 }
