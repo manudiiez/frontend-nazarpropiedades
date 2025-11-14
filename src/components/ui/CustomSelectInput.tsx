@@ -24,6 +24,8 @@ interface CustomSelectInputProps {
   iconClassName?: string
   error?: string
   errorClassName?: string
+  searchable?: boolean // Nuevo prop para habilitar búsqueda
+  searchPlaceholder?: string
 }
 
 const CustomSelectInput = ({
@@ -43,12 +45,23 @@ const CustomSelectInput = ({
   iconClassName = '',
   error,
   errorClassName = '',
+  searchable = false,
+  searchPlaceholder = 'Buscar...',
 }: CustomSelectInputProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const containerRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
   // Encontrar la opción seleccionada
   const selectedOption = options.find((opt) => opt.value === value)
+
+  // Filtrar opciones según la búsqueda
+  const filteredOptions = searchable && searchQuery
+    ? options.filter((option) =>
+        option.label.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : options
 
   // Cerrar dropdown al hacer click fuera
   useEffect(() => {
@@ -79,9 +92,21 @@ const CustomSelectInput = ({
     }
   }, [isOpen])
 
+  // Enfocar el input de búsqueda cuando se abre el dropdown
+  useEffect(() => {
+    if (isOpen && searchable && searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+    // Limpiar búsqueda al cerrar
+    if (!isOpen) {
+      setSearchQuery('')
+    }
+  }, [isOpen, searchable])
+
   const handleSelect = (optionValue: string) => {
     onChange(optionValue)
     setIsOpen(false)
+    setSearchQuery('')
   }
 
   const toggleDropdown = () => {
@@ -144,38 +169,62 @@ const CustomSelectInput = ({
           className={`
             absolute z-50 w-full mt-2
             bg-white border border-gray-300 rounded-lg
-            shadow-lg max-h-60 overflow-auto
+            shadow-lg
             ${dropdownClassName}
           `}
           role="listbox"
         >
-          {options.map((option) => {
-            const isSelected = option.value === value
+          {/* Search Input - solo si searchable es true */}
+          {searchable && (
+            <div className="p-2 border-b border-gray-200">
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={searchPlaceholder}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          )}
 
-            return (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => handleSelect(option.value)}
-                className={`
-                  w-full px-4 py-2.5 text-left
-                  hover:bg-gray-100 transition-colors
-                  flex items-center justify-between
-                  ${isSelected ? 'bg-accent/10 text-accent font-medium' : 'text-gray-900'}
-                  ${isSelected ? selectedOptionClassName : optionClassName}
-                `}
-                role="option"
-                aria-selected={isSelected}
-              >
-                <span>{option.label}</span>
-                {isSelected && (
-                  <span className="material-symbols-outlined text-accent">
-                    check
-                  </span>
-                )}
-              </button>
-            )
-          })}
+          {/* Options List */}
+          <div className="max-h-60 overflow-auto">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => {
+                const isSelected = option.value === value
+
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => handleSelect(option.value)}
+                    className={`
+                      w-full px-4 py-2.5 text-left
+                      hover:bg-gray-100 transition-colors
+                      flex items-center justify-between
+                      ${isSelected ? 'bg-accent/10 text-accent font-medium' : 'text-gray-900'}
+                      ${isSelected ? selectedOptionClassName : optionClassName}
+                    `}
+                    role="option"
+                    aria-selected={isSelected}
+                  >
+                    <span>{option.label}</span>
+                    {isSelected && (
+                      <span className="material-symbols-outlined text-accent">
+                        check
+                      </span>
+                    )}
+                  </button>
+                )
+              })
+            ) : (
+              <div className="px-4 py-3 text-sm text-gray-500 text-center">
+                No se encontraron resultados
+              </div>
+            )}
+          </div>
         </div>
       )}
 

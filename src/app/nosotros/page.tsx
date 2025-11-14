@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import CustomSelectInput from '@/components/ui/CustomSelectInput'
+import { propertyTypes } from '@/constants/propertyTypes'
 
 export default function Nosotros() {
   const [serviceType, setServiceType] = useState('')
@@ -21,18 +22,7 @@ export default function Nosotros() {
 
   const propertyOptions = [
     { value: '', label: 'Selecciona el tipo' },
-    { value: 'casa', label: 'Casa' },
-    { value: 'departamento', label: 'Departamento' },
-    { value: 'ph', label: 'PH (Propiedad Horizontal)' },
-    { value: 'loft', label: 'Loft' },
-    { value: 'duplex', label: 'Dúplex' },
-    { value: 'penthouse', label: 'Penthouse' },
-    { value: 'terreno', label: 'Terreno' },
-    { value: 'local-comercial', label: 'Local comercial' },
-    { value: 'oficina', label: 'Oficina' },
-    { value: 'galpon', label: 'Galpón/Depósito' },
-    { value: 'quinta', label: 'Quinta/Chacra' },
-    { value: 'otro', label: 'Otro' },
+    ...propertyTypes.filter(pt => pt.value !== 'any')
   ]
   return (
     <main className="min-h-screen">
@@ -268,6 +258,8 @@ export default function Nosotros() {
                 placeholder="Selecciona el tipo"
                 labelClassName="text-sm font-medium text-gray-900"
                 buttonClassName="px-4 py-3 text-sm bg-white"
+                searchable={true}
+                searchPlaceholder="Buscar tipo de propiedad..."
               />
             </div>
 

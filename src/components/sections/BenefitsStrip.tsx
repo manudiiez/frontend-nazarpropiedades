@@ -29,7 +29,7 @@ const BenefitsStrip = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
-            <div key={index} className="text-center">
+            <div key={`benefit-${index}`} className="text-center">
               <div className="flex justify-center mb-3">
                 <span className="material-symbols-outlined text-accent text-5xl">
                   {benefit.icon}

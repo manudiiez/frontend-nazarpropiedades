@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import CustomSelectInput from '@/components/ui/CustomSelectInput'
 import DualRangeSlider from '@/components/ui/DualRangeSlider'
+import { propertyTypes, conditionTypes } from '@/constants/propertyTypes'
 
 interface SearchParams {
   page?: string
@@ -303,15 +304,11 @@ const PropertyFilters = ({
       <div>
         <CustomSelectInput
           label="Tipo de Propiedad"
-          options={[
-            { value: 'any', label: 'Cualquiera' },
-            { value: 'casa', label: 'Casa' },
-            { value: 'departamento', label: 'Departamento' },
-            { value: 'lote', label: 'Lote' },
-            { value: 'local', label: 'Local Comercial' },
-          ]}
+          options={propertyTypes}
           value={propertyType}
           onChange={setPropertyType}
+          searchable={true}
+          searchPlaceholder="Buscar tipo de propiedad..."
           labelClassName="text-sm font-medium"
           buttonClassName="text-sm rounded-md"
         />
@@ -321,11 +318,7 @@ const PropertyFilters = ({
       <div>
         <CustomSelectInput
           label="Condición"
-          options={[
-            { value: 'any', label: 'Cualquiera' },
-            { value: 'venta', label: 'Venta' },
-            { value: 'alquiler', label: 'Alquiler' },
-          ]}
+          options={conditionTypes}
           value={condition}
           onChange={setCondition}
           labelClassName="text-sm font-medium"

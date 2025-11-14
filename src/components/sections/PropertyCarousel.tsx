@@ -44,12 +44,6 @@ const PropertyCarousel = ({
     return () => clearInterval(interval)
   }, [currentSlide])
 
-  // Obtener propiedades del slide actual
-  const getCurrentProperties = () => {
-    const start = currentSlide * propertiesPerSlide
-    const end = start + propertiesPerSlide
-    return properties.slice(start, end)
-  }
 
   return (
     <section className={`py-24 px-6 ${containerBgColor}`}>

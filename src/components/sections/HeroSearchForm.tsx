@@ -2,23 +2,19 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { propertyTypes as allPropertyTypes, conditionTypes as allConditionTypes } from '@/constants/propertyTypes'
 
+// Para el Hero solo mostramos los tipos más comunes
 const propertyTypes = [
   { value: '', label: 'Todos' },
-  { value: 'casa', label: 'Casa' },
-  { value: 'departamento', label: 'Departamento' },
-  { value: 'terreno', label: 'Terreno' },
-  { value: 'local', label: 'Local' },
-  { value: 'oficina', label: 'Oficina' },
-  { value: 'galpon', label: 'Galpón' },
-  { value: 'campo', label: 'Campo' },
+  ...allPropertyTypes.filter(pt =>
+    ['casa', 'departamento', 'terreno', 'local_comercial', 'oficina', 'galpon', 'campo'].includes(pt.value)
+  )
 ]
 
 const conditions = [
   { value: '', label: 'Todas' },
-  { value: 'venta', label: 'Venta' },
-  { value: 'alquiler', label: 'Alquiler' },
-  { value: 'alquiler_temporario', label: 'Alquiler Temporario' },
+  ...allConditionTypes.filter(ct => ct.value !== 'any')
 ]
 
 export default function HeroSearchForm() {

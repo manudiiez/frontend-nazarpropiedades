@@ -105,6 +105,7 @@ export default async function NewPropertiesSection() {
         title="Propiedades Nuevas"
         subtitle="Las últimas propiedades agregadas a nuestro catálogo"
         properties={properties}
+        keyPrefix="new-properties"
         containerBgColor="bg-gray-ui"
       />
   );
