@@ -279,7 +279,7 @@ export default function PropertyDetails({
               <div className="flex justify-between items-center py-6 border-b border-gray-50">
                 <span className="text-gray-600">Antigüedad</span>
                 <span className="text-gray-900 font-semibold">
-                  {measures.antiquity.replace(/_/g, " ")}
+                  {measures.antiquity.replace(/_/g, " ").replace(/\banos\b/g, "años").replace(/\bano\b/g, "año")}
                 </span>
               </div>
             )}

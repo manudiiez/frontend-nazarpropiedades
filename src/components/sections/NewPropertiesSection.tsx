@@ -13,7 +13,7 @@ interface PropertiesResponse {
 // Función para transformar la propiedad de la API al formato del PropertyCard
 function transformProperty(apiProperty: ApiProperty): Property {
   // Obtener la primera imagen o una imagen por defecto
-  const image = apiProperty.images?.[0]?.url || "/imagenes/home.jpg";
+  const image = apiProperty.images?.coverImage?.sizes?.thumbnail?.url || apiProperty.images?.imagenesExtra[0]?.url ||  '/imagenes/home.jpg'
 
   // Construir la ubicación
   const locationParts = [

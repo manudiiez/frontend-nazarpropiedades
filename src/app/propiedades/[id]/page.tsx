@@ -53,25 +53,43 @@ async function getProperty(id: string): Promise<Property | null> {
 function transformImages(apiImages: any): TransformedImage[] {
   const images: TransformedImage[] = [];
 
-  // Agregar la imagen de portada (coverImage) desde watermark
-  if (apiImages?.coverImage?.sizes?.watermark?.url) {
-    images.push({
-      id: 0,
-      url: apiImages.coverImage.sizes.watermark.url,
-      title: apiImages.coverImage.filename || "Imagen de portada",
-    });
-  }
+  // Verificar si hay imágenes en coverImage y gallery
+  const hasCoverImage = apiImages?.coverImage?.sizes?.watermark?.url;
+  const hasGallery = apiImages?.gallery && apiImages.gallery.length > 0;
 
-  // Agregar las imágenes de la galería desde watermark
-  apiImages?.gallery?.forEach((img: any, index: number) => {
-    if (img?.sizes?.watermark?.url) {
+  // Si hay coverImage o gallery, usar esas imágenes
+  if (hasCoverImage || hasGallery) {
+    // Agregar la imagen de portada (coverImage) desde watermark
+    if (hasCoverImage) {
       images.push({
-        id: index + 1,
-        url: img.sizes.watermark.url,
-        title: img.filename || `Imagen ${index + 1}`,
+        id: 0,
+        url: apiImages.coverImage.sizes.watermark.url,
+        title: apiImages.coverImage.filename || "Imagen de portada",
       });
     }
-  });
+
+    // Agregar las imágenes de la galería desde watermark
+    apiImages?.gallery?.forEach((img: any, index: number) => {
+      if (img?.sizes?.watermark?.url) {
+        images.push({
+          id: index + 1,
+          url: img.sizes.watermark.url,
+          title: img.filename || `Imagen ${index + 1}`,
+        });
+      }
+    });
+  } else {
+    // Si no hay coverImage ni gallery, usar imagenesExtra
+    apiImages?.imagenesExtra?.forEach((img: any, index: number) => {
+      if (img?.url) {
+        images.push({
+          id: index,
+          url: img.url,
+          title: `Imagen ${index + 1}`,
+        });
+      }
+    });
+  }
 
   return images;
 }
