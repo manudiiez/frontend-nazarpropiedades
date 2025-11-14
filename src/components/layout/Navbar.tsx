@@ -79,7 +79,7 @@ const Navbar = () => {
             </nav>
 
             <button className="hidden md:block bg-accent hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors">
-              Publicar mi propiedad
+              Contacto
             </button>
 
             {/* Mobile menu button */}
@@ -107,21 +107,21 @@ const Navbar = () => {
 
         {/* Mobile menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-border relative z-50">
-            <Link href="/" className="block text-gray-600">
+          <div className="md:hidden bg-white border-t border-gray-border relative z-50 px-4 py-4 space-y-4">
+            <Link href="/" className="block text-gray-600 hover:bg-gray-100 px-2 py-1" onClick={() => setIsMobileMenuOpen(false)}>
               Inicio
             </Link>
-            <Link href="/propiedades?condition=venta" className="block text-gray-600">
+            <Link href="/propiedades?condition=venta" className="block text-gray-600 hover:bg-gray-100 px-2 py-1" onClick={() => setIsMobileMenuOpen(false)}>
               Comprar
             </Link>
-            <Link href="/propiedades?condition=alquiler" className="block text-gray-600">
+            <Link href="/propiedades?condition=alquiler" className="block text-gray-600 hover:bg-gray-100 px-2 py-1" onClick={() => setIsMobileMenuOpen(false)}>
               Alquilar
             </Link>
-            <Link href="#contacto" className="block text-gray-600">
+            <Link href="#contacto" className="block text-gray-600 hover:bg-gray-100 px-2 py-1" onClick={() => setIsMobileMenuOpen(false)}>
               Vender
             </Link>
-            <button className="w-full bg-accent text-white px-4 py-2 text-sm font-medium rounded-lg mt-4">
-              Publicar mi propiedad
+            <button className="w-full bg-accent text-white px-4 py-2 text-sm font-medium rounded-lg mt-4 cursor-pointer hover:bg-accent-hover" onClick={() => setIsMobileMenuOpen(false)}>
+              Contacto
             </button>
           </div>
         )}

@@ -5,7 +5,7 @@ const CTASection = () => {
     <section id="contacto" className="my-24 px-6">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl font-bold text-gray-900 mb-6">
-          ¿Listo para Encontrar tu Hogar en Mendoza?
+          ¿Listo para encontrar tu hogar en Mendoza?
         </h2>
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
           Nuestro equipo de expertos está listo para ayudarte a encontrar la

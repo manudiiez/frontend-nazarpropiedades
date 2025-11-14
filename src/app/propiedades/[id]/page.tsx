@@ -31,7 +31,6 @@ async function getProperty(id: string): Promise<Property | null> {
     }
 
     const url = `${backendUri}/propiedades/${id}`;
-    console.log("Fetching property from:", url);
 
     const res = await fetch(url, {
       cache: "no-store", // Siempre obtener datos frescos
@@ -43,7 +42,6 @@ async function getProperty(id: string): Promise<Property | null> {
     }
 
     const data: Property = await res.json();
-    console.log("Fetched property data:", data);
     return data;
   } catch (error) {
     console.error("Error al hacer fetch de la propiedad:", error);
@@ -150,7 +148,6 @@ export default async function PropertyDetailPage({
 
   // Obtener la propiedad desde la API
   const property = await getProperty(id);
-  console.log("Property detail page for ID:", id, property);
   // Si no se encuentra la propiedad, mostrar página 404
   if (!property) {
     notFound();

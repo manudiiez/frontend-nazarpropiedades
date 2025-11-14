@@ -240,8 +240,6 @@ async function getProperties(
     const queryString = buildQueryString(searchParams);
     const url = `${backendUri}/propiedades?${queryString}`;
 
-    console.log("Fetching properties from:", url);
-
     const res = await fetch(url, {
       cache: "no-store", // Siempre obtener datos frescos
     });

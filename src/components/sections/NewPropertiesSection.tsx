@@ -101,11 +101,11 @@ export default async function NewPropertiesSection() {
   }
 
   return (
-    <PropertyCarousel
-      title="Propiedades Nuevas"
-      subtitle="Las últimas propiedades agregadas a nuestro catálogo"
-      properties={properties}
-      containerBgColor="bg-gray-ui"
-    />
+      <PropertyCarousel
+        title="Propiedades Nuevas"
+        subtitle="Las últimas propiedades agregadas a nuestro catálogo"
+        properties={properties}
+        containerBgColor="bg-gray-ui"
+      />
   );
 }
