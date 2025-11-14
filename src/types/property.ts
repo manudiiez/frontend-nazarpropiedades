@@ -27,8 +27,11 @@ export interface Ubication {
   neighborhood?: string;
   address: string;
   mapLocation?: {
-    lat: number;
-    lng: number;
+    lat?: number;
+    lng?: number;
+    latitude?: number;
+    longitude?: number;
+    [key: string]: any;
   };
   locationPrivacy?: "exact" | "approximate" | "hidden";
   approximateRadius?: number;

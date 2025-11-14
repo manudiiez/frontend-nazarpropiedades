@@ -3,6 +3,7 @@ import PropertyHero from "@/components/property-detail/PropertyHero";
 import PropertyDetails from "@/components/property-detail/PropertyDetails";
 import ContactForm from "@/components/property-detail/ContactForm";
 import RelatedProperties from "@/components/property-detail/RelatedProperties";
+import PropertyMap from "@/components/property-detail/PropertyMap";
 import type { Agent, Property } from "@/types/property";
 import { notFound } from "next/navigation";
 import { getDepartmentLabel, getLocalityLabel } from "@/utils/propertyLabels";
@@ -190,19 +191,31 @@ export default async function PropertyDetailPage({
       </section>
 
       {/* Map Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="bg-white border border-gray-200 rounded-sm p-12">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-8">
-            Ubicación
-          </h2>
-          <div className="h-[300px] bg-gray-50 rounded-sm flex flex-col items-center justify-center border border-dashed border-gray-300">
-            <span className="material-symbols-outlined text-gray-400 text-4xl mb-4">
-              location_on
-            </span>
-            <div className="text-gray-600 text-sm">Mapa interactivo</div>
+      {property.ubication?.mapLocation &&
+       property.ubication?.locationPrivacy !== "hidden" && (
+        <section className="max-w-7xl mx-auto px-6 py-24">
+          <div className="bg-white border border-gray-200 rounded-sm p-12">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-8">
+              Ubicación
+            </h2>
+            <PropertyMap
+              latitude={
+                property.ubication.mapLocation.lat ||
+                property.ubication.mapLocation.latitude ||
+                0
+              }
+              longitude={
+                property.ubication.mapLocation.lng ||
+                property.ubication.mapLocation.longitude ||
+                0
+              }
+              title={property.title}
+              locationPrivacy={property.ubication.locationPrivacy}
+              approximateRadius={property.ubication.approximateRadius}
+            />
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Related Properties */}
       <RelatedProperties properties={relatedPropertiesData} />

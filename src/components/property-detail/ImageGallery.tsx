@@ -158,7 +158,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
     <section className="py-8">
       <div className="max-w-7xl mx-auto px-6">
         {/* Main Carousel */}
-        <div className="relative h-[70vh] min-h-[500px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden mb-4 cursor-pointer group ">
+        <div className="relative h-[70vh] min-h-[500px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden mb-4 cursor-pointer group">
           {images.map((image, index) => (
             <div
               key={image.id}
