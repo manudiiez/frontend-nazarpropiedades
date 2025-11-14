@@ -71,14 +71,14 @@ const Navbar = () => {
                 Alquilar
               </Link>
               <Link
-                href="#contacto"
+                href="/nosotros#contacto"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Vender
               </Link>
             </nav>
 
-            <button className="hidden md:block bg-accent hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors">
+            <button className="hidden md:block bg-accent hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer">
               Contacto
             </button>
 
@@ -117,10 +117,10 @@ const Navbar = () => {
             <Link href="/propiedades?condition=alquiler" className="block text-gray-600 hover:bg-gray-100 px-2 py-1" onClick={() => setIsMobileMenuOpen(false)}>
               Alquilar
             </Link>
-            <Link href="#contacto" className="block text-gray-600 hover:bg-gray-100 px-2 py-1" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/nosotros#contacto" className="block text-gray-600 hover:bg-gray-100 px-2 py-1" onClick={() => setIsMobileMenuOpen(false)}>
               Vender
             </Link>
-            <button className="w-full bg-accent text-white px-4 py-2 text-sm font-medium rounded-lg mt-4 cursor-pointer hover:bg-accent-hover" onClick={() => setIsMobileMenuOpen(false)}>
+            <button className="w-full bg-accent text-white px-4 py-2 text-sm font-medium rounded-lg mt-4 cursor-pointer hover:bg-accent-hover cursor-pointer" onClick={() => setIsMobileMenuOpen(false)}>
               Contacto
             </button>
           </div>

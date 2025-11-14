@@ -9,6 +9,7 @@ interface PropertyCarouselProps {
   subtitle: string
   properties: Property[]
   containerBgColor?: string
+  keyPrefix?: string
 }
 
 const PropertyCarousel = ({
@@ -16,6 +17,7 @@ const PropertyCarousel = ({
   subtitle,
   properties,
   containerBgColor = 'bg-gray-ui',
+  keyPrefix = '',
 }: PropertyCarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const propertiesPerSlide = 3
@@ -87,7 +89,7 @@ const PropertyCarousel = ({
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               {Array.from({ length: totalSlides }).map((_, slideIndex) => (
-                <div key={slideIndex} className="w-full flex-shrink-0">
+                <div key={`${keyPrefix}-slide-${slideIndex}`} className="w-full flex-shrink-0">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-2">
                     {properties
                       .slice(
@@ -95,7 +97,7 @@ const PropertyCarousel = ({
                         (slideIndex + 1) * propertiesPerSlide
                       )
                       .map((property) => (
-                        <PropertyCard key={property.id} property={property} />
+                        <PropertyCard key={`${keyPrefix}-${property.id}`} property={property} />
                       ))}
                   </div>
                 </div>
@@ -128,7 +130,7 @@ const PropertyCarousel = ({
           <div className="flex justify-center mt-8 gap-2">
             {Array.from({ length: totalSlides }).map((_, index) => (
               <button
-                key={index}
+                key={`${keyPrefix}-dot-${index}`}
                 onClick={() => goToSlide(index)}
                 className={`h-3 rounded-full transition-all duration-300 ${
                   currentSlide === index

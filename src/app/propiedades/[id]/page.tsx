@@ -16,7 +16,7 @@ interface TransformedImage {
 
 const agent: Agent = {
   name: "Nazar Propiedades",
-  phone: "+54 9 261 123-4567",
+  phone: "+54 9 261 419-7323",
   email: "nazarpropiedades217@gmail.com"
 }
 

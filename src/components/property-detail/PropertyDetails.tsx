@@ -170,7 +170,6 @@ export default function PropertyDetails({
     if (nearbyPlaces.publicTransport)
       nearbyPlacesArray.push(...nearbyPlaces.publicTransport);
   }
-
   // Combinar zonas cercanas del nuevo formato con las legacy
   const allZonasArray = [...zonasArray, ...nearbyPlacesArray];
   return (
@@ -621,7 +620,7 @@ export default function PropertyDetails({
           <h3 className="text-xl font-semibold text-gray-900 mb-6 pb-3 border-b border-gray-100">
             Descripción
           </h3>
-          <p className="text-lg text-gray-600 leading-relaxed">{description}</p>
+          <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-wrap">{description}</p>
         </div>
       )}
     </div>

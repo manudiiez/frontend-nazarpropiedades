@@ -32,7 +32,7 @@ const Footer = () => {
                   href="/propiedades"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Propiedades
+                  Comprar
                 </Link>
               </li>
               <li>
@@ -40,7 +40,7 @@ const Footer = () => {
                   href="#servicios"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Servicios
+                  Alquilar
                 </Link>
               </li>
               <li>
@@ -62,7 +62,7 @@ const Footer = () => {
                 <span className="material-symbols-outlined text-accent">
                   phone
                 </span>
-                <span>+54 261 123-4567</span>
+                <span>+54 9 261 419-7323</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-accent">
@@ -74,7 +74,7 @@ const Footer = () => {
                 <span className="material-symbols-outlined text-accent">
                   location_on
                 </span>
-                <span>Av. San Martín 1234, Mendoza</span>
+                <span>Av. San Martín Sur 2875, Mendoza.</span>
               </li>
             </ul>
           </div>
