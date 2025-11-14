@@ -161,7 +161,6 @@ export default async function PropertyDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  // Await params (required in Next.js 15+)
   const { id } = await params;
 
   // Obtener la propiedad desde la API
