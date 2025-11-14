@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Property } from "@/types";
+import Link from "next/link";
 
 interface PropertyCardProps {
   property: Property;
@@ -52,7 +53,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
   )}`;
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-lg border border-neutral-light bg-white cursor-pointer hover:shadow-lg transition-shadow">
+    <Link href={`/propiedades/${property.id}`} className="flex flex-col overflow-hidden rounded-lg border border-neutral-light bg-white cursor-pointer hover:shadow-lg transition-shadow">
       <div className="relative aspect-video w-full">
         <Image
           src={property.image}
@@ -86,7 +87,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
