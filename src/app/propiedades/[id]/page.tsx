@@ -82,29 +82,37 @@ function transformImages(apiImages: any): TransformedImage[] {
 function transformRelatedProperty(apiProperty: any) {
   // Construir la ubicación usando las mismas utilidades que el listado
   const locationParts = [
+    apiProperty.ubication?.neighborhood,
     getLocalityLabel(apiProperty.ubication?.locality || ""),
     getDepartmentLabel(apiProperty.ubication?.department || ""),
     apiProperty.ubication?.province,
   ].filter(Boolean);
 
-  // Eliminar duplicados si locality y department son iguales
-  if (locationParts[0] === locationParts[1]) {
+  if (apiProperty.ubication.neighborhood && locationParts[1] === locationParts[2]) {
+    locationParts.splice(1, 1);
+  }else if (!apiProperty.ubication.neighborhood && locationParts[0] === locationParts[1]) {
     locationParts.splice(0, 1);
   }
-
   const location = locationParts.join(", ");
+
+  // Obtener la imagen usando la misma lógica que en el listado
+  const image =
+    apiProperty.images?.coverImage?.sizes?.thumbnail?.url ||
+    apiProperty.images?.imagenesExtra?.[0]?.url ||
+    "/imagenes/home.jpg";
 
   return {
     id: apiProperty.id,
-    title: apiProperty.title,
+    title: `${apiProperty.classification.type} en ${apiProperty.classification.condition}`,
     location: location,
     price: apiProperty.caracteristics?.price || 0,
     currency: apiProperty.caracteristics?.currency?.toUpperCase() || "USD",
+    image: image,
   };
 }
 
 // Función para obtener propiedades relacionadas
-async function getRelatedProperties(currentId: string): Promise<any[]> {
+async function getRelatedProperties(currentId: string, type: string, condition: string, department: string): Promise<any[]> {
   try {
     const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI;
 
@@ -113,7 +121,7 @@ async function getRelatedProperties(currentId: string): Promise<any[]> {
     }
 
     // Obtener 3 propiedades aleatorias excluyendo la actual
-    const url = `${backendUri}/propiedades?limit=3&where[id][not_equals]=${currentId}&sort=-createdAt`;
+    const url = `${backendUri}/propiedades?limit=3&where[id][not_equals]=${currentId}&sort=-createdAt&where[classification.type][equals]=${type}&where[classification.condition][equals]=${condition}&where[ubication.department][equals]=${department}`;
 
     const res = await fetch(url, {
       cache: "no-store",
@@ -149,7 +157,7 @@ export default async function PropertyDetailPage({
   }
 
   // Obtener propiedades relacionadas
-  const relatedPropertiesData = await getRelatedProperties(id);
+  const relatedPropertiesData = await getRelatedProperties(id, property.classification.type, property.classification.condition, property.ubication?.department || "any");
 
   // Transformar las imágenes al formato esperado por ImageGallery
   const transformedImages = transformImages(property.images);

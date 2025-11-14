@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 interface RelatedProperty {
@@ -6,6 +7,7 @@ interface RelatedProperty {
   location: string
   price: number
   currency: string
+  image: string
 }
 
 interface RelatedPropertiesProps {
@@ -15,6 +17,9 @@ interface RelatedPropertiesProps {
 export default function RelatedProperties({
   properties,
 }: RelatedPropertiesProps) {
+
+  
+
   return (
     <section className="max-w-7xl mx-auto px-6 py-24">
       <h2 className="text-3xl font-semibold text-gray-900 mb-12">
@@ -27,17 +32,21 @@ export default function RelatedProperties({
             href={`/propiedades/${property.id}`}
             className="bg-white border border-gray-200 rounded-sm overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all cursor-pointer"
           >
-            <div className="h-48 bg-gray-100 flex items-center justify-center">
-              <span className="material-symbols-outlined text-gray-400 text-4xl">
-                home
-              </span>
+            <div className="relative h-48 bg-gray-100">
+              <Image
+                src={property.image}
+                alt={property.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
             </div>
             <div className="p-6">
               <div className="text-base font-semibold text-gray-900 mb-2">
-                {property.title}
+                {property.location}
               </div>
               <div className="text-sm text-gray-600 mb-4">
-                {property.location}
+                {property.title}
               </div>
               <div className="text-xl font-semibold text-gray-900">
                 {property.currency === 'USD' ? 'US$' : 'ARS$'} {property.price.toLocaleString('es-AR')}
