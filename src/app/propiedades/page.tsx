@@ -44,6 +44,7 @@ interface SearchParams {
   financiacion?: string;
   aceptaHipoteca?: string;
   recibePermuta?: string;
+  amoblado?: string;
 }
 
 // Función para transformar la propiedad de la API al formato del PropertyCard
@@ -218,6 +219,11 @@ function buildQueryString(searchParams: SearchParams): string {
   }
   if (searchParams.recibePermuta === "true") {
     params.append("where[amenities.servicios][contains]", "recibe_permuta");
+  }
+
+  // Amoblado: buscar en environments.furnished
+  if (searchParams.amoblado === "true") {
+    params.append("where[environments.furnished][equals]", "si");
   }
 
   return params.toString();

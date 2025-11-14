@@ -65,6 +65,7 @@ export default function PropertyFiltersClient({ searchParams }: PropertyFiltersC
     if (filters.financiacion) params.set('financiacion', 'true')
     if (filters.aceptaHipoteca) params.set('aceptaHipoteca', 'true')
     if (filters.recibePermuta) params.set('recibePermuta', 'true')
+    if (filters.amoblado) params.set('amoblado', 'true')
 
     // Resetear la página a 1 cuando se cambian los filtros
     params.set('page', '1')

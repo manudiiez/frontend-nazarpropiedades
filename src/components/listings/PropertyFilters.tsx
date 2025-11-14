@@ -30,6 +30,7 @@ interface SearchParams {
   financiacion?: string
   aceptaHipoteca?: string
   recibePermuta?: string
+  amoblado?: string
 }
 
 interface PropertyFiltersProps {
@@ -101,6 +102,7 @@ const PropertyFilters = ({
   const [financiacion, setFinanciacion] = useState(searchParams?.financiacion === 'true')
   const [aceptaHipoteca, setAceptaHipoteca] = useState(searchParams?.aceptaHipoteca === 'true')
   const [recibePermuta, setRecibePermuta] = useState(searchParams?.recibePermuta === 'true')
+  const [amoblado, setAmoblado] = useState(searchParams?.amoblado === 'true')
 
   // Rangos de precio según la moneda
   const priceRanges = {
@@ -123,6 +125,36 @@ const PropertyFilters = ({
       setShowAdvancedFilters(true)
     }
   }, [isMobile])
+
+  // Actualizar estados cuando cambien los searchParams (para navegación del menú)
+  useEffect(() => {
+    if (searchParams) {
+      setSearchQuery(searchParams.search || '')
+      setPropertyType(searchParams.type || 'any')
+      setCondition(searchParams.condition || 'any')
+      setCurrency(searchParams.currency ? (searchParams.currency.toUpperCase() as 'ARS' | 'USD') : null)
+      setPriceMin(searchParams.priceMin ? Number(searchParams.priceMin) : 500000)
+      setPriceMax(searchParams.priceMax ? Number(searchParams.priceMax) : 1000000000)
+      setBedroomsMin(searchParams.bedroomsMin ? Number(searchParams.bedroomsMin) : 0)
+      setBedroomsMax(searchParams.bedroomsMax ? Number(searchParams.bedroomsMax) : 10)
+      setBathroomsMin(searchParams.bathroomsMin ? Number(searchParams.bathroomsMin) : 0)
+      setBathroomsMax(searchParams.bathroomsMax ? Number(searchParams.bathroomsMax) : 10)
+      setTotalAreaMin(searchParams.totalAreaMin ? Number(searchParams.totalAreaMin) : 0)
+      setTotalAreaMax(searchParams.totalAreaMax ? Number(searchParams.totalAreaMax) : 1000)
+      setCoveredAreaMin(searchParams.coveredAreaMin ? Number(searchParams.coveredAreaMin) : 0)
+      setCoveredAreaMax(searchParams.coveredAreaMax ? Number(searchParams.coveredAreaMax) : 1000)
+      setFloorsMin(searchParams.floorsMin ? Number(searchParams.floorsMin) : 0)
+      setFloorsMax(searchParams.floorsMax ? Number(searchParams.floorsMax) : 30)
+      setRoomsMin(searchParams.roomsMin ? Number(searchParams.roomsMin) : 0)
+      setRoomsMax(searchParams.roomsMax ? Number(searchParams.roomsMax) : 30)
+      setBarrioPrivado(searchParams.barrioPrivado === 'true')
+      setCochera(searchParams.cochera === 'true')
+      setFinanciacion(searchParams.financiacion === 'true')
+      setAceptaHipoteca(searchParams.aceptaHipoteca === 'true')
+      setRecibePermuta(searchParams.recibePermuta === 'true')
+      setAmoblado(searchParams.amoblado === 'true')
+    }
+  }, [searchParams])
 
   const handleApplyFilters = () => {
     onFilterChange?.({
@@ -165,6 +197,7 @@ const PropertyFilters = ({
       financiacion: financiacion || undefined,
       aceptaHipoteca: aceptaHipoteca || undefined,
       recibePermuta: recibePermuta || undefined,
+      amoblado: amoblado || undefined,
     })
     if (isMobile && onClose) {
       onClose()
@@ -222,6 +255,7 @@ const PropertyFilters = ({
     setFinanciacion(false)
     setAceptaHipoteca(false)
     setRecibePermuta(false)
+    setAmoblado(false)
 
     // Aplicar filtros vacíos automáticamente
     onFilterChange?.({})
@@ -762,6 +796,17 @@ const PropertyFilters = ({
                       className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent focus:ring-2"
                     />
                     <span className="text-sm">¿Recibe Permuta?</span>
+                  </label>
+
+                  {/* Amoblado */}
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={amoblado}
+                      onChange={(e) => setAmoblado(e.target.checked)}
+                      className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent focus:ring-2"
+                    />
+                    <span className="text-sm">Amoblado/a</span>
                   </label>
                 </div>
               </div>
