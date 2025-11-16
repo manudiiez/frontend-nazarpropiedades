@@ -94,6 +94,51 @@ function transformImages(apiImages: any): TransformedImage[] {
   return images;
 }
 
+// Función para transformar las thumbnails de la API
+function transformThumbnails(apiImages: any): TransformedImage[] {
+  const thumbnails: TransformedImage[] = [];
+
+  // Verificar si hay imágenes en coverImage y gallery
+  const hasCoverImage = apiImages?.coverImage?.sizes?.thumbnail?.url;
+  const hasGallery = apiImages?.gallery && apiImages.gallery.length > 0;
+
+  // Si hay coverImage o gallery, usar esas imágenes
+  if (hasCoverImage || hasGallery) {
+    // Agregar la imagen de portada (coverImage) desde thumbnail
+    if (hasCoverImage) {
+      thumbnails.push({
+        id: 0,
+        url: apiImages.coverImage.sizes.thumbnail.url,
+        title: apiImages.coverImage.filename || "Imagen de portada",
+      });
+    }
+
+    // Agregar las imágenes de la galería desde thumbnail
+    apiImages?.gallery?.forEach((img: any, index: number) => {
+      if (img?.sizes?.thumbnail?.url) {
+        thumbnails.push({
+          id: index + 1,
+          url: img.sizes.thumbnail.url,
+          title: img.filename || `Imagen ${index + 1}`,
+        });
+      }
+    });
+  } else {
+    // Si no hay coverImage ni gallery, usar imagenesExtra
+    apiImages?.imagenesExtra?.forEach((img: any, index: number) => {
+      if (img?.url) {
+        thumbnails.push({
+          id: index,
+          url: img.url,
+          title: `Imagen ${index + 1}`,
+        });
+      }
+    });
+  }
+
+  return thumbnails;
+}
+
 // Función para transformar propiedades relacionadas
 function transformRelatedProperty(apiProperty: any) {
   // Construir la ubicación usando las mismas utilidades que el listado
@@ -175,11 +220,12 @@ export default async function PropertyDetailPage({
 
   // Transformar las imágenes al formato esperado por ImageGallery
   const transformedImages = transformImages(property.images);
+  const transformedThumbnails = transformThumbnails(property.images);
 
   return (
     <main className="bg-gray-50 mt-20">
       {/* Image Gallery */}
-      <ImageGallery images={transformedImages} />
+      <ImageGallery images={transformedImages} thumbnails={transformedThumbnails} />
 
       {/* Hero Section */}
       <PropertyHero

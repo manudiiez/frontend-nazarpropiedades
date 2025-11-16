@@ -11,9 +11,10 @@ interface Image {
 
 interface ImageGalleryProps {
   images: Image[];
+  thumbnails: Image[];
 }
 
-export default function ImageGallery({ images }: ImageGalleryProps) {
+export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -229,14 +230,14 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
           {/* Previsualizaciones a la derecha - solo en desktop */}
           <div className="hidden md:grid grid-rows-2 gap-3">
             {/* Primera previsualización */}
-            {images[(currentSlide + 1) % images.length] && (
+            {thumbnails[(currentSlide + 1) % thumbnails.length] && (
               <div
                 onClick={() => selectSlide((currentSlide + 1) % images.length)}
                 className="relative h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
               >
                 <Image
-                  src={images[(currentSlide + 1) % images.length].url}
-                  alt={images[(currentSlide + 1) % images.length].title || "Vista previa"}
+                  src={thumbnails[(currentSlide + 1) % thumbnails.length].url}
+                  alt={thumbnails[(currentSlide + 1) % thumbnails.length].title || "Vista previa"}
                   fill
                   className="object-cover"
                   sizes="300px"
@@ -244,14 +245,14 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
               </div>
             )}
             {/* Segunda previsualización */}
-            {images[(currentSlide + 2) % images.length] && (
+            {thumbnails[(currentSlide + 2) % thumbnails.length] && (
               <div
                 onClick={() => selectSlide((currentSlide + 2) % images.length)}
                 className="relative h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
               >
                 <Image
-                  src={images[(currentSlide + 2) % images.length].url}
-                  alt={images[(currentSlide + 2) % images.length].title || "Vista previa"}
+                  src={thumbnails[(currentSlide + 2) % thumbnails.length].url}
+                  alt={thumbnails[(currentSlide + 2) % thumbnails.length].title || "Vista previa"}
                   fill
                   className="object-cover"
                   sizes="300px"
@@ -271,9 +272,9 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
           }}
         >
           <div className="flex gap-2 pb-2">
-            {images.map((image, index) => (
+            {thumbnails.map((thumbnail, index) => (
               <button
-                key={image.id}
+                key={thumbnail.id}
                 onClick={() => selectSlide(index)}
                 className={`relative min-w-[72px] h-16 rounded-sm overflow-hidden transition-all flex-shrink-0 ${
                   currentSlide === index
@@ -283,8 +284,8 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                 aria-label={`Ver imagen ${index + 1}`}
               >
                 <Image
-                  src={image.url}
-                  alt={image.title || `Imagen ${index + 1}`}
+                  src={thumbnail.url}
+                  alt={thumbnail.title || `Imagen ${index + 1}`}
                   width={72}
                   height={64}
                   className="object-cover w-full h-full"
@@ -360,9 +361,9 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                 }}
               >
                 <div className="flex gap-2 justify-center">
-                  {images.map((image, index) => (
+                  {thumbnails.map((thumbnail, index) => (
                     <button
-                      key={image.id}
+                      key={thumbnail.id}
                       onClick={() => selectModalSlide(index)}
                       className={`relative min-w-[72px] h-16 rounded-sm overflow-hidden transition-all flex-shrink-0 ${
                         modalSlide === index
@@ -372,8 +373,8 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                       aria-label={`Ver imagen ${index + 1}`}
                     >
                       <Image
-                        src={image.url}
-                        alt={image.title || `Imagen ${index + 1}`}
+                        src={thumbnail.url}
+                        alt={thumbnail.title || `Imagen ${index + 1}`}
                         width={72}
                         height={64}
                         className="object-cover w-full h-full"
