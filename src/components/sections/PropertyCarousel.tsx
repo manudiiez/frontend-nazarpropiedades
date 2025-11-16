@@ -42,6 +42,7 @@ const PropertyCarousel = ({
     }, 5000)
 
     return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSlide])
 
 
@@ -91,7 +92,7 @@ const PropertyCarousel = ({
                         (slideIndex + 1) * propertiesPerSlide
                       )
                       .map((property) => (
-                        <PropertyCard key={`${keyPrefix}-${property.id}`} property={property} />
+                        <PropertyCard key={`${keyPrefix}-${property.id}`} property={property} keyPrefix={keyPrefix} />
                       ))}
                   </div>
                 </div>

@@ -6,9 +6,9 @@ import { propertyTypes as allPropertyTypes, conditionTypes as allConditionTypes 
 
 // Para el Hero solo mostramos los tipos más comunes
 const propertyTypes = [
-  { value: '', label: 'Todos' },
+  { value: '', label: 'Todos los tipos' },
   ...allPropertyTypes.filter(pt =>
-    ['casa', 'departamento', 'terreno', 'local_comercial', 'oficina', 'galpon', 'campo'].includes(pt.value)
+    ['casa', 'departamento', 'lote', 'local_comercial', 'oficina', 'galpon', 'campo'].includes(pt.value)
   )
 ]
 

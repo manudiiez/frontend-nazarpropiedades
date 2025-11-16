@@ -4,9 +4,10 @@ import Link from "next/link";
 
 interface PropertyCardProps {
   property: Property;
+  keyPrefix?: string;
 }
 
-const PropertyCard = ({ property }: PropertyCardProps) => {
+const PropertyCard = ({ property, keyPrefix = '' }: PropertyCardProps) => {
   // Definir todas las características posibles en orden de prioridad
   const allFeatures = [
     {
@@ -73,10 +74,9 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
         </div>
         <div className="mt-4 flex items-center justify-between border-t border-neutral-light pt-4 text-sm text-gray-600">
           {visibleFeatures.map((feature) => (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5" key={`${keyPrefix}-feature-${feature.key}`}>
               <span
                 className="material-symbols-outlined text-lg"
-                key={feature.key}
               >
                 {feature.icon}
               </span>
