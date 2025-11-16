@@ -157,70 +157,107 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
   return (
     <section className="py-8">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Main Carousel */}
-        <div className="relative h-[50vh] sm:h-[60vh] min-h-[400px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden mb-4 cursor-pointer group border-red-500">
-          {images.map((image, index) => (
-            <div
-              key={image.id}
-              onClick={() => openModal(index)}
-              className={`absolute inset-0 transition-opacity duration-600 ${
-                currentSlide === index ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <Image
-                src={image.url}
-                alt={image.title || `Imagen ${index + 1}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1400px) 100vw, 1400px"
-                priority={index === 0}
-              />
-            </div>
-          ))}
+        {/* Grid principal con imagen grande y previsualizaciones */}
+        <div className="grid grid-cols-1  lg:grid-cols-[900px_1fr] gap-3 mb-4">
+          {/* Imagen principal */}
+          <div className="relative h-[500px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer group">
+            {images.map((image, index) => (
+              <div
+                key={image.id}
+                onClick={() => openModal(index)}
+                className={`absolute inset-0 transition-opacity duration-600 ${
+                  currentSlide === index ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <Image
+                  src={image.url}
+                  alt={image.title || `Imagen ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="700px"
+                  priority={index === 0}
+                />
+              </div>
+            ))}
 
-          {/* Overlay para indicar que es clickeable */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 px-4 py-2 rounded-full flex items-center gap-2">
-              <span className="material-symbols-outlined text-gray-900">
-                zoom_in
+            {/* Overlay para indicar que es clickeable */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 px-4 py-2 rounded-full flex items-center gap-2">
+                <span className="material-symbols-outlined text-gray-900">
+                  zoom_in
+                </span>
+                <span className="text-sm font-medium text-gray-900">
+                  Ver en grande
+                </span>
+              </div>
+            </div>
+
+            {/* Previous Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                prevSlide();
+              }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10"
+              aria-label="Imagen anterior"
+            >
+              <span className="material-symbols-outlined text-gray-900 text-xl">
+                chevron_left
               </span>
-              <span className="text-sm font-medium text-gray-900">
-                Ver en grande
+            </button>
+
+            {/* Next Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                nextSlide();
+              }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10"
+              aria-label="Siguiente imagen"
+            >
+              <span className="material-symbols-outlined text-gray-900 text-xl">
+                chevron_right
               </span>
+            </button>
+
+            {/* Counter */}
+            <div className="absolute top-4 right-4 text-white text-sm font-medium bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-md">
+              {currentSlide + 1} / {images.length}
             </div>
           </div>
 
-          {/* Previous Button */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              prevSlide();
-            }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10"
-            aria-label="Imagen anterior"
-          >
-            <span className="material-symbols-outlined text-gray-900">
-              chevron_left
-            </span>
-          </button>
-
-          {/* Next Button */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              nextSlide();
-            }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10"
-            aria-label="Siguiente imagen"
-          >
-            <span className="material-symbols-outlined text-gray-900">
-              chevron_right
-            </span>
-          </button>
-
-          {/* Counter */}
-          <div className="absolute top-8 right-8 text-white text-sm font-medium bg-black/40 px-4 py-2 rounded-full backdrop-blur-md">
-            {currentSlide + 1} / {images.length}
+          {/* Previsualizaciones a la derecha - solo en desktop */}
+          <div className="hidden md:grid grid-rows-2 gap-3">
+            {/* Primera previsualización */}
+            {images[(currentSlide + 1) % images.length] && (
+              <div
+                onClick={() => selectSlide((currentSlide + 1) % images.length)}
+                className="relative h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+              >
+                <Image
+                  src={images[(currentSlide + 1) % images.length].url}
+                  alt={images[(currentSlide + 1) % images.length].title || "Vista previa"}
+                  fill
+                  className="object-cover"
+                  sizes="300px"
+                />
+              </div>
+            )}
+            {/* Segunda previsualización */}
+            {images[(currentSlide + 2) % images.length] && (
+              <div
+                onClick={() => selectSlide((currentSlide + 2) % images.length)}
+                className="relative h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+              >
+                <Image
+                  src={images[(currentSlide + 2) % images.length].url}
+                  alt={images[(currentSlide + 2) % images.length].title || "Vista previa"}
+                  fill
+                  className="object-cover"
+                  sizes="300px"
+                />
+              </div>
+            )}
           </div>
         </div>
 
