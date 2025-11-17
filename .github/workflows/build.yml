@@ -1,61 +1,60 @@
-name: build-and-push
+name: Deploy Next.js to VPS
 
 on:
   push:
-    branches: ['main']
-    tags: ['v*.*.*']
-
-permissions:
-  contents: read
-  packages: write
+    branches: ["main"]
 
 jobs:
-  docker:
+  build-and-push:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Set up Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to GHCR
-        uses: docker/login-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Genera tags según si es push a main o push de tag semántico
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ghcr.io/${{ github.repository_owner }}/frontend-nazarpropiedades
-          tags: |
-            # Staging cuando es push a main
-            type=raw,value=staging,enable=${{ github.ref == 'refs/heads/main' }}
-            # Tag por commit largo (útil para debug en staging)
-            type=sha,format=long,enable=${{ github.ref == 'refs/heads/main' }}
-            # Release cuando es push de tag (ej: v1.2.3)
-            type=ref,event=tag
-
-      - name: Build & Push
-        uses: docker/build-push-action@v6
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
         with:
           context: .
-          platforms: linux/amd64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            NODE_ENV=production
-            NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/mi-app-next:latest
+          # Cache layers para builds más rápidos en el futuro
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/mi-app-next:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/mi-app-next:buildcache,mode=max
 
-      - name: Trigger staging deploy (webhook)
-        if: github.ref == 'refs/heads/main'
-        run: |
-          curl -fsSL -X POST "${{ secrets.EASYPANEL_DEPLOY_HOOK_STAGING }}"
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Parar y borrar el contenedor actual (si existe)
+            docker stop mi-app-container || true
+            docker rm mi-app-container || true
+
+            # Borrar imágenes viejas para ahorrar espacio (Housekeeping)
+            docker image prune -f
+
+            # Descargar la nueva imagen
+            docker pull ${{ secrets.DOCKER_USERNAME }}/mi-app-next:latest
+
+            # Correr el nuevo contenedor
+            # Restart policy asegura que la app reviva si el servidor se reinicia
+            docker run -d \
+              --name mi-app-container \
+              --restart unless-stopped \
+              -p 3000:3000 \
+              ${{ secrets.DOCKER_USERNAME }}/mi-app-next:latest
