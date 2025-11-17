@@ -1,10 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import type { Agent } from '@/types/property'
+import type { Agent, Property } from '@/types/property'
+import {
+  getPropertyTypeLabel,
+  getConditionLabel,
+  getDepartmentLabel,
+  getLocalityLabel,
+  getCurrencyLabel,
+} from '@/utils/propertyLabels'
 
 interface ContactFormProps {
   agent?: Agent
+  property?: Property
 }
 
 interface FormData {
@@ -14,7 +22,7 @@ interface FormData {
   mensaje: string
 }
 
-export default function ContactForm({ agent }: ContactFormProps) {
+export default function ContactForm({ agent, property }: ContactFormProps) {
   // Si no hay agente, no mostrar el componente
   if (!agent) return null
 
@@ -36,13 +44,60 @@ export default function ContactForm({ agent }: ContactFormProps) {
       mensaje: (form.elements.namedItem('mensaje') as HTMLTextAreaElement).value,
     }
 
-    // Agregar información del agente al envío
+    // Convertir los valores a labels legibles
+    const tipoLabel = property?.classification?.type
+      ? getPropertyTypeLabel(property.classification.type)
+      : ''
+    const condicionLabel = property?.classification?.condition
+      ? getConditionLabel(property.classification.condition)
+      : ''
+    const departamentoLabel = property?.ubication?.department
+      ? getDepartmentLabel(property.ubication.department)
+      : ''
+    const localidadLabel = property?.ubication?.locality
+      ? getLocalityLabel(property.ubication.locality)
+      : ''
+    const monedaLabel = property?.caracteristics?.currency
+      ? getCurrencyLabel(property.caracteristics.currency)
+      : ''
+
+    // Construir la ubicación completa con labels
+    const ubicacionParts = [
+      property?.ubication?.neighborhood,
+      localidadLabel,
+      departamentoLabel,
+      property?.ubication?.province,
+    ].filter(Boolean)
+
+    // Agregar información del agente y de la propiedad al envío
     const dataToSend = {
       ...formData,
       agente: {
         nombre: agent.name,
         telefono: agent.phone,
         rol: agent.role,
+      },
+      propiedad: {
+        id: property?.id,
+        titulo: property?.title,
+        tipo: tipoLabel,
+        condicion: condicionLabel,
+        precio: property?.caracteristics?.price,
+        moneda: monedaLabel,
+        ubicacion: {
+          completa: ubicacionParts.join(', '),
+          barrio: property?.ubication?.neighborhood,
+          localidad: localidadLabel,
+          departamento: departamentoLabel,
+          provincia: property?.ubication?.province,
+          direccion: property?.ubication?.address,
+        },
+        caracteristicas: {
+          dormitorios: property?.environments?.bedrooms,
+          banos: property?.environments?.bathrooms,
+          superficieTotal: property?.caracteristics?.totalArea,
+          superficieCubierta: property?.caracteristics?.coveredArea,
+        },
       },
     }
 

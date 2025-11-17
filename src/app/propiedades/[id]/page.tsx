@@ -253,7 +253,7 @@ export default async function PropertyDetailPage({
 
           {/* Right column - Contact Card */}
           <div className="lg:col-span-1">
-            <ContactForm agent={agent} />
+            <ContactForm agent={agent} property={property} />
           </div>
         </div>
       </section>
