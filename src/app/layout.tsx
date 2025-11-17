@@ -11,6 +11,7 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
+
 export const metadata: Metadata = {
   title: "Nazar Propiedades - Inmobiliaria en Mendoza",
   description:
