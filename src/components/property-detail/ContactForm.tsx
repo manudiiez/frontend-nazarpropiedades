@@ -7,16 +7,72 @@ interface ContactFormProps {
   agent?: Agent
 }
 
+interface FormData {
+  nombre: string
+  email: string
+  telefono: string
+  mensaje: string
+}
+
 export default function ContactForm({ agent }: ContactFormProps) {
   // Si no hay agente, no mostrar el componente
   if (!agent) return null
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setShowSuccessMessage(true)
-    ;(e.target as HTMLFormElement).reset()
-    setTimeout(() => setShowSuccessMessage(false), 4000)
+    setIsLoading(true)
+    setShowSuccessMessage(false)
+    setShowErrorMessage(false)
+
+    const form = e.currentTarget
+    const formData: FormData = {
+      nombre: (form.elements.namedItem('nombre') as HTMLInputElement).value,
+      email: (form.elements.namedItem('email') as HTMLInputElement).value,
+      telefono: (form.elements.namedItem('telefono') as HTMLInputElement).value,
+      mensaje: (form.elements.namedItem('mensaje') as HTMLTextAreaElement).value,
+    }
+
+    // Agregar información del agente al envío
+    const dataToSend = {
+      ...formData,
+      agente: {
+        nombre: agent.name,
+        telefono: agent.phone,
+        rol: agent.role,
+      },
+    }
+
+    try {
+      const response = await fetch(
+        'https://myn8n-n8n.jzdhpp.easypanel.host/webhook/92657ce7-8a99-4922-b320-fee467773dbe',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataToSend),
+        },
+      )
+
+      if (response.ok) {
+        setShowSuccessMessage(true)
+        form.reset()
+        setTimeout(() => setShowSuccessMessage(false), 4000)
+      } else {
+        setShowErrorMessage(true)
+        setTimeout(() => setShowErrorMessage(false), 4000)
+      }
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error)
+      setShowErrorMessage(true)
+      setTimeout(() => setShowErrorMessage(false), 4000)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -41,45 +97,61 @@ export default function ContactForm({ agent }: ContactFormProps) {
         </div>
       )}
 
+      {/* Error message */}
+      {showErrorMessage && (
+        <div className="bg-red-50 text-red-800 p-4 rounded-lg text-center text-sm mb-6">
+          Ocurrió un error al enviar el mensaje. Por favor, intenta nuevamente.
+        </div>
+      )}
+
       {/* Contact form */}
       <form onSubmit={handleFormSubmit} className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium text-gray-900">Nombre</label>
           <input
             type="text"
+            name="nombre"
             required
-            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-gray-900 transition-colors"
+            disabled={isLoading}
+            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-gray-900 transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
           />
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium text-gray-900">Email</label>
           <input
             type="email"
+            name="email"
             required
-            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-gray-900 transition-colors"
+            disabled={isLoading}
+            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-gray-900 transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
           />
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium text-gray-900">Teléfono</label>
           <input
             type="tel"
+            name="telefono"
             required
-            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-gray-900 transition-colors"
+            disabled={isLoading}
+            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-gray-900 transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
           />
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium text-gray-900">Mensaje</label>
           <textarea
+            name="mensaje"
             required
+            disabled={isLoading}
             placeholder="Me interesa conocer más detalles..."
-            className="px-3 py-2 border border-gray-200 rounded-lg text-sm min-h-[100px] resize-y focus:outline-none focus:border-gray-900 transition-colors"
+            className="px-3 py-2 border border-gray-200 rounded-lg text-sm min-h-[100px] resize-y focus:outline-none focus:border-gray-900 transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
           />
         </div>
         <button
           type="submit"
-          className="bg-accent text-white py-3 rounded-sm font-medium hover:bg-accent-hover transition-all hover:-translate-y-0.5"
+          disabled={isLoading}
+          className="bg-accent text-white py-3 rounded-sm font-medium hover:bg-accent-hover transition-all hover:-translate-y-0.5 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
-          Enviar consulta
+          {isLoading ? 'Enviando...' : 'Enviar consulta'}
         </button>
       </form>
 

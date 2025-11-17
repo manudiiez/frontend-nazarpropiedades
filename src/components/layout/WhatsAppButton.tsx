@@ -1,7 +1,7 @@
 'use client'
 
 const WhatsAppButton = () => {
-  const phoneNumber = '5492611234567'
+  const phoneNumber = '542614197323'
   const message = encodeURIComponent(
     'Hola, me interesa obtener más información sobre sus propiedades.'
   )

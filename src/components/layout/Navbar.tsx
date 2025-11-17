@@ -78,9 +78,9 @@ const Navbar = () => {
               </Link>
             </nav>
 
-            <button className="hidden md:block bg-accent hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer">
+            <Link href={'/nosotros'} className="hidden md:block bg-accent hover:bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer">
               Contacto
-            </button>
+            </Link>
 
             {/* Mobile menu button */}
             <button
@@ -120,9 +120,9 @@ const Navbar = () => {
             <Link href="/nosotros#contacto" className="block text-gray-600 hover:bg-gray-100 px-2 py-1" onClick={() => setIsMobileMenuOpen(false)}>
               Vender
             </Link>
-            <button className="w-full bg-accent text-white px-4 py-2 text-sm font-medium rounded-lg mt-4 cursor-pointer hover:bg-accent-hover cursor-pointer" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href={'/nosotros'} className="w-full bg-accent text-white px-4 py-2 text-sm font-medium rounded-lg mt-4 cursor-pointer hover:bg-accent-hover cursor-pointer" onClick={() => setIsMobileMenuOpen(false)}>
               Contacto
-            </button>
+            </Link>
           </div>
         )}
       </header>
