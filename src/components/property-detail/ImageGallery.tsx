@@ -161,11 +161,13 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
         {/* Grid principal con imagen grande y previsualizaciones */}
         <div className="grid grid-cols-1  lg:grid-cols-[900px_1fr] gap-3 mb-4">
           {/* Imagen principal */}
-          <div className="relative h-[500px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer group">
+          <div
+            className="relative h-[500px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer group"
+            onClick={() => openModal(currentSlide)}
+          >
             {images.map((image, index) => (
               <div
                 key={image.id}
-                onClick={() => openModal(index)}
                 className={`absolute inset-0 transition-opacity duration-600 ${
                   currentSlide === index ? "opacity-100" : "opacity-0"
                 }`}
