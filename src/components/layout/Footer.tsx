@@ -1,6 +1,9 @@
 import Link from "next/link";
 
 const Footer = () => {
+
+  const currentYear = new Date().getFullYear();
+  console.log(currentYear);
   return (
     <footer className="bg-gray-900 text-white py-16 px-6">
       <div className="max-w-7xl mx-auto">
@@ -68,7 +71,7 @@ const Footer = () => {
                 <span className="material-symbols-outlined text-accent">
                   mail
                 </span>
-                <span>info@nazarpropiedades.com</span>
+                <span>nazarpropiedades217@gmail.com</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-accent">
@@ -84,22 +87,9 @@ const Footer = () => {
         <div className="pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © 2024 Nazar Propiedades. Todos los derechos reservados.
+              © {currentYear} Nazar Propiedades. Todos los derechos reservados.
             </p>
-            <div className="flex gap-6 text-sm">
-              <Link
-                href="/terminos"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Términos y condiciones
-              </Link>
-              <Link
-                href="/privacidad"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Política de privacidad
-              </Link>
-            </div>
+           
           </div>
         </div>
       </div>
