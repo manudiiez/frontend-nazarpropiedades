@@ -6,6 +6,7 @@ import BenefitsStrip from "@/components/sections/BenefitsStrip";
 import CTASection from "@/components/sections/CTASection";
 
 export default function Home() {
+  console.log("Rendering Home Page");
   return (
     <main className="min-h-screen bg-white">
       {/* Ajustar para que solo sea client component la parte del filtro */}
