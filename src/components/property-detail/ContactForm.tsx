@@ -1,66 +1,71 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import type { Agent, Property } from '@/types/property'
+import { useState } from "react";
+import type { Agent, Property } from "@/types/property";
 import {
   getPropertyTypeLabel,
   getConditionLabel,
   getDepartmentLabel,
   getLocalityLabel,
   getCurrencyLabel,
-} from '@/utils/propertyLabels'
+} from "@/utils/propertyLabels";
 
 interface ContactFormProps {
-  agent?: Agent
-  property?: Property
-  n8nUri?: string
+  agent?: Agent;
+  property?: Property;
+  n8nUri?: string;
 }
 
 interface FormData {
-  nombre: string
-  email: string
-  telefono: string
-  mensaje: string
+  nombre: string;
+  email: string;
+  telefono: string;
+  mensaje: string;
 }
 
-export default function ContactForm({ agent, property, n8nUri }: ContactFormProps) {
+export default function ContactForm({
+  agent,
+  property,
+  n8nUri,
+}: ContactFormProps) {
   // Si no hay agente, no mostrar el componente
-  if (!agent) return null
+  if (!agent) return null;
 
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
-  const [showErrorMessage, setShowErrorMessage] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setShowSuccessMessage(false)
-    setShowErrorMessage(false)
+    e.preventDefault();
+    setIsLoading(true);
+    setShowSuccessMessage(false);
+    setShowErrorMessage(false);
 
-    const form = e.currentTarget
+    const form = e.currentTarget;
     const formData: FormData = {
-      nombre: (form.elements.namedItem('nombre') as HTMLInputElement).value,
-      email: (form.elements.namedItem('email') as HTMLInputElement).value,
-      telefono: (form.elements.namedItem('telefono') as HTMLInputElement).value,
-      mensaje: (form.elements.namedItem('mensaje') as HTMLTextAreaElement).value,
-    }
+      nombre: (form.elements.namedItem("nombre") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      telefono: (form.elements.namedItem("telefono") as HTMLInputElement).value,
+      mensaje: (form.elements.namedItem("mensaje") as HTMLTextAreaElement)
+        .value,
+    };
 
     // Convertir los valores a labels legibles
     const tipoLabel = property?.classification?.type
       ? getPropertyTypeLabel(property.classification.type)
-      : ''
+      : "";
     const condicionLabel = property?.classification?.condition
       ? getConditionLabel(property.classification.condition)
-      : ''
+      : "";
     const departamentoLabel = property?.ubication?.department
       ? getDepartmentLabel(property.ubication.department)
-      : ''
+      : "";
     const localidadLabel = property?.ubication?.locality
       ? getLocalityLabel(property.ubication.locality)
-      : ''
+      : "";
     const monedaLabel = property?.caracteristics?.currency
       ? getCurrencyLabel(property.caracteristics.currency)
-      : ''
+      : "";
 
     // Construir la ubicación completa con labels
     const ubicacionParts = [
@@ -68,7 +73,7 @@ export default function ContactForm({ agent, property, n8nUri }: ContactFormProp
       localidadLabel,
       departamentoLabel,
       property?.ubication?.province,
-    ].filter(Boolean)
+    ].filter(Boolean);
 
     // Agregar información del agente y de la propiedad al envío
     const dataToSend = {
@@ -86,7 +91,7 @@ export default function ContactForm({ agent, property, n8nUri }: ContactFormProp
         precio: property?.caracteristics?.price,
         moneda: monedaLabel,
         ubicacion: {
-          completa: ubicacionParts.join(', '),
+          completa: ubicacionParts.join(", "),
           barrio: property?.ubication?.neighborhood,
           localidad: localidadLabel,
           departamento: departamentoLabel,
@@ -100,36 +105,36 @@ export default function ContactForm({ agent, property, n8nUri }: ContactFormProp
           superficieCubierta: property?.caracteristics?.coveredArea,
         },
       },
-    }
+    };
 
     try {
-      const response = await fetch(
-        n8nUri || '',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(dataToSend),
+      if (!n8nUri) {
+        throw new Error("n8nUri is not defined");
+      }
+      const response = await fetch(n8nUri, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      )
+        body: JSON.stringify(dataToSend),
+      });
 
       if (response.ok) {
-        setShowSuccessMessage(true)
-        form.reset()
-        setTimeout(() => setShowSuccessMessage(false), 4000)
+        setShowSuccessMessage(true);
+        form.reset();
+        setTimeout(() => setShowSuccessMessage(false), 4000);
       } else {
-        setShowErrorMessage(true)
-        setTimeout(() => setShowErrorMessage(false), 4000)
+        setShowErrorMessage(true);
+        setTimeout(() => setShowErrorMessage(false), 4000);
       }
     } catch (error) {
-      console.error('Error al enviar el formulario:', error)
-      setShowErrorMessage(true)
-      setTimeout(() => setShowErrorMessage(false), 4000)
+      console.error("Error al enviar el formulario:", error);
+      setShowErrorMessage(true);
+      setTimeout(() => setShowErrorMessage(false), 4000);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="bg-white border border-gray-200 rounded-sm p-8 sticky top-32">
@@ -143,7 +148,9 @@ export default function ContactForm({ agent, property, n8nUri }: ContactFormProp
         <div className="text-lg font-semibold text-gray-900 mb-1">
           {agent.name}
         </div>
-        {agent.role && <div className="text-sm text-gray-600">{agent.role}</div>}
+        {agent.role && (
+          <div className="text-sm text-gray-600">{agent.role}</div>
+        )}
       </div>
 
       {/* Success message */}
@@ -207,7 +214,7 @@ export default function ContactForm({ agent, property, n8nUri }: ContactFormProp
           disabled={isLoading}
           className="bg-accent text-white py-3 rounded-sm font-medium hover:bg-accent-hover transition-all hover:-translate-y-0.5 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
-          {isLoading ? 'Enviando...' : 'Enviar consulta'}
+          {isLoading ? "Enviando..." : "Enviar consulta"}
         </button>
       </form>
 
@@ -217,5 +224,5 @@ export default function ContactForm({ agent, property, n8nUri }: ContactFormProp
         <div className="text-sm text-gray-600">Llamada directa</div>
       </div>
     </div>
-  )
+  );
 }

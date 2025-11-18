@@ -48,6 +48,9 @@ export default function ContactFormNosotros({ n8nUri }: { n8nUri?: string }) {
     };
 
     try {
+      if (!n8nUri) {
+        throw new Error("n8nUri is not defined");
+      }
       const response = await fetch(n8nUri, {
         method: "POST",
         headers: {
