@@ -13,7 +13,10 @@ interface PropertiesResponse {
 // Función para transformar la propiedad de la API al formato del PropertyCard
 function transformProperty(apiProperty: ApiProperty): Property {
   // Obtener la primera imagen o una imagen por defecto
-  const image = apiProperty.images?.coverImage?.sizes?.thumbnail?.url || apiProperty.images?.imagenesExtra[0]?.url ||  '/imagenes/home.jpg'
+  const image =
+    apiProperty.images?.coverImage?.sizes?.thumbnail?.url ||
+    apiProperty.images?.imagenesExtra[0]?.url ||
+    "/imagenes/home.jpg";
 
   // Construir la ubicación
   const locationParts = [
@@ -72,7 +75,7 @@ async function getNewProperties(): Promise<Property[]> {
     const res = await fetch(
       `${backendUri}/propiedades?sort=-createdAt&limit=6`,
       {
-        next: { revalidate: 60 }, // Revalidar cada 60 segundos
+        cache: "no-store",
       }
     );
 
@@ -101,12 +104,12 @@ export default async function NewPropertiesSection() {
   }
 
   return (
-      <PropertyCarousel
-        title="Propiedades Nuevas"
-        subtitle="Las últimas propiedades agregadas a nuestro catálogo"
-        properties={properties}
-        keyPrefix="new-properties"
-        containerBgColor="bg-gray-ui"
-      />
+    <PropertyCarousel
+      title="Propiedades Nuevas"
+      subtitle="Las últimas propiedades agregadas a nuestro catálogo"
+      properties={properties}
+      keyPrefix="new-properties"
+      containerBgColor="bg-gray-ui"
+    />
   );
 }
