@@ -4,7 +4,7 @@ import NewPropertiesSection from "@/components/sections/NewPropertiesSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import BenefitsStrip from "@/components/sections/BenefitsStrip";
 import CTASection from "@/components/sections/CTASection";
-
+export const dynamic = 'force-dynamic';
 export default function Home() {
   console.log("Rendering Home Page");
   return (
