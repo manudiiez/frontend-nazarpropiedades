@@ -71,6 +71,7 @@ async function getNewProperties(): Promise<Property[]> {
       console.error("NEXT_PUBLIC_BACKEND_URI no está definido en .env");
       return [];
     }
+    console.log('Iniciando fetch')
 
     const res = await fetch(
       `${backendUri}/propiedades?sort=-createdAt&limit=6`,
@@ -78,6 +79,8 @@ async function getNewProperties(): Promise<Property[]> {
         cache: "no-store",
       }
     );
+
+    console.log('Fetch completado:', res);
 
     if (!res.ok) {
       console.error(`Error al obtener propiedades nuevas: ${res.status}`);
