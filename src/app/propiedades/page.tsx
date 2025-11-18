@@ -4,6 +4,7 @@ import type { Property } from "@/types";
 import type { Property as ApiProperty } from "@/types/property";
 import { getDepartmentLabel, getLocalityLabel } from "@/utils/propertyLabels";
 import Link from "next/link";
+import { getBackendUrl } from "@/utils/utils";
 
 interface PropertiesResponse {
   docs: ApiProperty[];
@@ -241,7 +242,7 @@ async function getProperties(
   pagination: Omit<PropertiesResponse, "docs"> | null;
 }> {
   try {
-    const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI;
+    const backendUri = getBackendUrl();
 
     if (!backendUri) {
       console.error("NEXT_PUBLIC_BACKEND_URI no está definido en .env");
