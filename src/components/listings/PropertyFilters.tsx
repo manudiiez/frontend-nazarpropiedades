@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import CustomSelectInput from '@/components/ui/CustomSelectInput'
 import DualRangeSlider from '@/components/ui/DualRangeSlider'
@@ -47,6 +47,8 @@ const PropertyFilters = ({
   onClose,
   searchParams,
 }: PropertyFiltersProps) => {
+  const isUserTyping = useRef(false)
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [searchQuery, setSearchQuery] = useState(searchParams?.search || '')
   const [propertyType, setPropertyType] = useState(searchParams?.type || 'any')
   const [condition, setCondition] = useState(searchParams?.condition || 'any')
@@ -127,10 +129,22 @@ const PropertyFilters = ({
     }
   }, [isMobile])
 
+  // Limpiar timeout cuando se desmonte el componente
+  useEffect(() => {
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current)
+      }
+    }
+  }, [])
+
   // Actualizar estados cuando cambien los searchParams (para navegación del menú)
   useEffect(() => {
     if (searchParams) {
-      setSearchQuery(searchParams.search || '')
+      // Solo actualizar searchQuery si el usuario NO está escribiendo
+      if (!isUserTyping.current) {
+        setSearchQuery(searchParams.search || '')
+      }
       setPropertyType(searchParams.type || 'any')
       setCondition(searchParams.condition || 'any')
       setCurrency(searchParams.currency ? (searchParams.currency.toUpperCase() as 'ARS' | 'USD') : null)
@@ -158,6 +172,7 @@ const PropertyFilters = ({
   }, [searchParams])
 
   const handleApplyFilters = () => {
+    // NO cambiar isUserTyping aquí, se manejará en cada caso específico
     onFilterChange?.({
       searchQuery: searchQuery || undefined,
       propertyType: propertyType !== 'any' ? propertyType : undefined,
@@ -208,27 +223,45 @@ const PropertyFilters = ({
   // Handler para el input de búsqueda
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
-    const oldValue = searchQuery
-
+    isUserTyping.current = true
     setSearchQuery(newValue)
 
-    // Disparar búsqueda cuando se escribe un espacio (detectar que se agregó un espacio)
-    if (newValue.length > oldValue.length && newValue.endsWith(' ')) {
-      // Usar setTimeout para esperar a que el estado se actualice
-      setTimeout(() => handleApplyFilters(), 0)
+    // Limpiar timeout anterior
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current)
     }
 
-    // Disparar búsqueda cuando se borra todo el texto
-    if (newValue === '' && oldValue !== '') {
-      setTimeout(() => handleApplyFilters(), 0)
-    }
+    // Desmarcar el flag después de un tiempo de inactividad
+    searchTimeoutRef.current = setTimeout(() => {
+      isUserTyping.current = false
+    }, 1000)
   }
 
   // Handler para el evento keyDown en el input de búsqueda
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      // Limpiar cualquier timeout pendiente
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current)
+      }
       handleApplyFilters()
+      // Desmarcar después de aplicar para permitir que la URL actualice el input
+      setTimeout(() => {
+        isUserTyping.current = false
+      }, 300)
     }
+  }
+
+  // Handler cuando el input pierde el foco
+  const handleSearchBlur = () => {
+    // Limpiar timeout si existe
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current)
+    }
+    // Desmarcar que el usuario está escribiendo después de un delay
+    setTimeout(() => {
+      isUserTyping.current = false
+    }, 300)
   }
 
   const handleReset = () => {
@@ -291,6 +324,7 @@ const PropertyFilters = ({
             value={searchQuery}
             onChange={handleSearchChange}
             onKeyDown={handleSearchKeyDown}
+            onBlur={handleSearchBlur}
             placeholder="Ej: Godoy Cruz, Luján de Cuyo..."
             className="w-full px-4 py-2  border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
           />
@@ -519,6 +553,7 @@ const PropertyFilters = ({
                     value={searchQuery}
                     onChange={handleSearchChange}
                     onKeyDown={handleSearchKeyDown}
+                    onBlur={handleSearchBlur}
                     placeholder="Ej: Godoy Cruz, Luján de Cuyo..."
                     className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
                   />

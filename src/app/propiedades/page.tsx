@@ -103,9 +103,14 @@ function buildQueryString(searchParams: SearchParams): string {
   params.append("limit", "18");
   params.append("sort", "-createdAt");
 
-  // Búsqueda por texto
+  // Búsqueda por texto - buscar en title y todos los campos de ubicación con OR
   if (searchParams.search) {
-    params.append("where[title][like]", searchParams.search);
+    params.append("where[or][0][title][like]", searchParams.search);
+    params.append("where[or][1][ubication.address][like]", searchParams.search);
+    params.append("where[or][2][ubication.neighborhood][like]", searchParams.search);
+    params.append("where[or][3][ubication.locality][like]", searchParams.search);
+    params.append("where[or][4][ubication.department][like]", searchParams.search);
+    params.append("where[or][5][ubication.province][like]", searchParams.search);
   }
 
   // Tipo de propiedad
