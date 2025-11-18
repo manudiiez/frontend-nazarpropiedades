@@ -67,11 +67,11 @@ async function getFeaturedProperties(): Promise<Property[]> {
       console.error("NEXT_PUBLIC_BACKEND_URI no está definido en .env");
       return [];
     }
-
+ 
     const res = await fetch(
       `${backendUri}/globals/featured?depth=2&draft=false&locale=undefined&trash=false`,
       {
-        next: { revalidate: 60 }, // Revalidar cada 60 segundos
+         cache: "no-store", 
       }
     );
 
