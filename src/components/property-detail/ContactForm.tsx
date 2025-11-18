@@ -13,6 +13,7 @@ import {
 interface ContactFormProps {
   agent?: Agent
   property?: Property
+  n8nUri?: string
 }
 
 interface FormData {
@@ -22,7 +23,7 @@ interface FormData {
   mensaje: string
 }
 
-export default function ContactForm({ agent, property }: ContactFormProps) {
+export default function ContactForm({ agent, property, n8nUri }: ContactFormProps) {
   // Si no hay agente, no mostrar el componente
   if (!agent) return null
 
@@ -103,7 +104,7 @@ export default function ContactForm({ agent, property }: ContactFormProps) {
 
     try {
       const response = await fetch(
-        'https://myn8n-n8n.jzdhpp.easypanel.host/webhook/92657ce7-8a99-4922-b320-fee467773dbe',
+        n8nUri || '',
         {
           method: 'POST',
           headers: {

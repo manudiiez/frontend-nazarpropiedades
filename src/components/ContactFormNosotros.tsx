@@ -1,95 +1,95 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import CustomSelectInput from '@/components/ui/CustomSelectInput'
-import { propertyTypes } from '@/constants/propertyTypes'
+import { useState } from "react";
+import CustomSelectInput from "@/components/ui/CustomSelectInput";
+import { propertyTypes } from "@/constants/propertyTypes";
 
-export default function ContactFormNosotros() {
-  const [serviceType, setServiceType] = useState('')
-  const [propertyType, setPropertyType] = useState('')
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
-  const [showErrorMessage, setShowErrorMessage] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+export default function ContactFormNosotros({ n8nUri }: { n8nUri?: string }) {
+  const [serviceType, setServiceType] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const serviceOptions = [
-    { value: '', label: 'Selecciona un servicio' },
-    { value: 'comprar', label: 'Comprar un inmueble' },
-    { value: 'vender', label: 'Vender mi propiedad' },
-    { value: 'alquilar', label: 'Alquilar un inmueble' },
-    { value: 'poner-alquiler', label: 'Poner mi propiedad en alquiler' },
-    { value: 'tasacion', label: 'Solicitar tasación' },
-    { value: 'administracion', label: 'Administración de alquileres' },
-    { value: 'asesoria', label: 'Asesoría legal inmobiliaria' },
-    { value: 'otro', label: 'Otro servicio' },
-  ]
+    { value: "", label: "Selecciona un servicio" },
+    { value: "comprar", label: "Comprar un inmueble" },
+    { value: "vender", label: "Vender mi propiedad" },
+    { value: "alquilar", label: "Alquilar un inmueble" },
+    { value: "poner-alquiler", label: "Poner mi propiedad en alquiler" },
+    { value: "tasacion", label: "Solicitar tasación" },
+    { value: "administracion", label: "Administración de alquileres" },
+    { value: "asesoria", label: "Asesoría legal inmobiliaria" },
+    { value: "otro", label: "Otro servicio" },
+  ];
 
   const propertyOptions = [
-    { value: '', label: 'Selecciona el tipo' },
-    ...propertyTypes.filter((pt) => pt.value !== 'any'),
-  ]
+    { value: "", label: "Selecciona el tipo" },
+    ...propertyTypes.filter((pt) => pt.value !== "any"),
+  ];
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setShowSuccessMessage(false)
-    setShowErrorMessage(false)
+    e.preventDefault();
+    setIsLoading(true);
+    setShowSuccessMessage(false);
+    setShowErrorMessage(false);
 
-    const form = e.currentTarget
+    const form = e.currentTarget;
 
     const formData = {
-      desde: 'nosotros',
+      desde: "nosotros",
       servicio: serviceType,
       tipoPropiedad: propertyType,
-      nombre: (form.elements.namedItem('name') as HTMLInputElement).value,
-      telefono: (form.elements.namedItem('phone') as HTMLInputElement).value,
-      email: (form.elements.namedItem('email') as HTMLInputElement).value,
-      mensaje: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
-    }
+      nombre: (form.elements.namedItem("name") as HTMLInputElement).value,
+      telefono: (form.elements.namedItem("phone") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      mensaje: (form.elements.namedItem("message") as HTMLTextAreaElement)
+        .value,
+    };
 
     try {
-      const response = await fetch(
-        'https://myn8n-n8n.jzdhpp.easypanel.host/webhook/92657ce7-8a99-4922-b320-fee467773dbe',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
+      const response = await fetch(n8nUri, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      )
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
-        setShowSuccessMessage(true)
-        form.reset()
-        setServiceType('')
-        setPropertyType('')
-        setTimeout(() => setShowSuccessMessage(false), 6000)
+        setShowSuccessMessage(true);
+        form.reset();
+        setServiceType("");
+        setPropertyType("");
+        setTimeout(() => setShowSuccessMessage(false), 6000);
       } else {
-        setShowErrorMessage(true)
-        setTimeout(() => setShowErrorMessage(false), 6000)
+        setShowErrorMessage(true);
+        setTimeout(() => setShowErrorMessage(false), 6000);
       }
     } catch (error) {
-      console.error('Error al enviar el formulario:', error)
-      setShowErrorMessage(true)
-      setTimeout(() => setShowErrorMessage(false), 6000)
+      console.error("Error al enviar el formulario:", error);
+      setShowErrorMessage(true);
+      setTimeout(() => setShowErrorMessage(false), 6000);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div>
       {/* Success message */}
       {showSuccessMessage && (
         <div className="bg-green-50 text-green-800 p-4 rounded-lg text-center text-sm mb-6 border border-green-200">
-          ✅ Mensaje enviado correctamente. Nos pondremos en contacto contigo pronto.
+          ✅ Mensaje enviado correctamente. Nos pondremos en contacto contigo
+          pronto.
         </div>
       )}
 
       {/* Error message */}
       {showErrorMessage && (
         <div className="bg-red-50 text-red-800 p-4 rounded-lg text-center text-sm mb-6 border border-red-200">
-          ❌ Ocurrió un error al enviar el mensaje. Por favor, intenta nuevamente.
+          ❌ Ocurrió un error al enviar el mensaje. Por favor, intenta
+          nuevamente.
         </div>
       )}
 
@@ -140,7 +140,10 @@ export default function ContactFormNosotros() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="phone" className="text-sm font-medium text-gray-900">
+            <label
+              htmlFor="phone"
+              className="text-sm font-medium text-gray-900"
+            >
               Teléfono
             </label>
             <input
@@ -171,7 +174,10 @@ export default function ContactFormNosotros() {
         </div>
 
         <div className="flex flex-col gap-2 mb-6">
-          <label htmlFor="message" className="text-sm font-medium text-gray-900">
+          <label
+            htmlFor="message"
+            className="text-sm font-medium text-gray-900"
+          >
             Mensaje
           </label>
           <textarea
@@ -189,7 +195,7 @@ export default function ContactFormNosotros() {
           disabled={isLoading}
           className="w-full bg-accent text-white px-8 py-4 rounded-lg font-medium text-base hover:bg-accent-hover transition-all hover:-translate-y-0.5 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
-          {isLoading ? 'Enviando...' : 'Enviar consulta'}
+          {isLoading ? "Enviando..." : "Enviar consulta"}
         </button>
 
         {!showSuccessMessage && !showErrorMessage && (
@@ -199,5 +205,5 @@ export default function ContactFormNosotros() {
         )}
       </form>
     </div>
-  )
+  );
 }

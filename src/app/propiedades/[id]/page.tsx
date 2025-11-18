@@ -17,8 +17,8 @@ interface TransformedImage {
 const agent: Agent = {
   name: "Nazar Propiedades",
   phone: "+54 9 261 419-7323",
-  email: "nazarpropiedades217@gmail.com"
-}
+  email: "nazarpropiedades217@gmail.com",
+};
 
 // Función para obtener la propiedad desde la API
 async function getProperty(id: string): Promise<Property | null> {
@@ -149,9 +149,15 @@ function transformRelatedProperty(apiProperty: any) {
     apiProperty.ubication?.province,
   ].filter(Boolean);
 
-  if (apiProperty.ubication.neighborhood && locationParts[1] === locationParts[2]) {
+  if (
+    apiProperty.ubication.neighborhood &&
+    locationParts[1] === locationParts[2]
+  ) {
     locationParts.splice(1, 1);
-  }else if (!apiProperty.ubication.neighborhood && locationParts[0] === locationParts[1]) {
+  } else if (
+    !apiProperty.ubication.neighborhood &&
+    locationParts[0] === locationParts[1]
+  ) {
     locationParts.splice(0, 1);
   }
   const location = locationParts.join(", ");
@@ -173,7 +179,12 @@ function transformRelatedProperty(apiProperty: any) {
 }
 
 // Función para obtener propiedades relacionadas
-async function getRelatedProperties(currentId: string, type: string, condition: string, department: string): Promise<any[]> {
+async function getRelatedProperties(
+  currentId: string,
+  type: string,
+  condition: string,
+  department: string
+): Promise<any[]> {
   try {
     const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI;
 
@@ -207,6 +218,7 @@ export default async function PropertyDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const n8nUri = process.env.NEXT_PUBLIC_N8NFORM_URI;
 
   // Obtener la propiedad desde la API
   const property = await getProperty(id);
@@ -216,7 +228,12 @@ export default async function PropertyDetailPage({
   }
 
   // Obtener propiedades relacionadas
-  const relatedPropertiesData = await getRelatedProperties(id, property.classification.type, property.classification.condition, property.ubication?.department || "any");
+  const relatedPropertiesData = await getRelatedProperties(
+    id,
+    property.classification.type,
+    property.classification.condition,
+    property.ubication?.department || "any"
+  );
 
   // Transformar las imágenes al formato esperado por ImageGallery
   const transformedImages = transformImages(property.images);
@@ -225,7 +242,10 @@ export default async function PropertyDetailPage({
   return (
     <main className="bg-gray-50 mt-20">
       {/* Image Gallery */}
-      <ImageGallery images={transformedImages} thumbnails={transformedThumbnails} />
+      <ImageGallery
+        images={transformedImages}
+        thumbnails={transformedThumbnails}
+      />
 
       {/* Hero Section */}
       <PropertyHero
@@ -253,37 +273,37 @@ export default async function PropertyDetailPage({
 
           {/* Right column - Contact Card */}
           <div className="lg:col-span-1">
-            <ContactForm agent={agent} property={property} />
+            <ContactForm agent={agent} property={property} n8nUri={n8nUri} />
           </div>
         </div>
       </section>
 
       {/* Map Section */}
       {property.ubication?.mapLocation &&
-       property.ubication?.locationPrivacy !== "hidden" && (
-        <section className="max-w-7xl mx-auto px-6 py-24">
-          <div className="bg-white border border-gray-200 rounded-sm p-12">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-8">
-              Ubicación
-            </h2>
-            <PropertyMap
-              latitude={
-                property.ubication.mapLocation.lat ||
-                property.ubication.mapLocation.latitude ||
-                0
-              }
-              longitude={
-                property.ubication.mapLocation.lng ||
-                property.ubication.mapLocation.longitude ||
-                0
-              }
-              title={property.title}
-              locationPrivacy={property.ubication.locationPrivacy}
-              approximateRadius={property.ubication.approximateRadius}
-            />
-          </div>
-        </section>
-      )}
+        property.ubication?.locationPrivacy !== "hidden" && (
+          <section className="max-w-7xl mx-auto px-6 py-24">
+            <div className="bg-white border border-gray-200 rounded-sm p-12">
+              <h2 className="text-3xl font-semibold text-gray-900 mb-8">
+                Ubicación
+              </h2>
+              <PropertyMap
+                latitude={
+                  property.ubication.mapLocation.lat ||
+                  property.ubication.mapLocation.latitude ||
+                  0
+                }
+                longitude={
+                  property.ubication.mapLocation.lng ||
+                  property.ubication.mapLocation.longitude ||
+                  0
+                }
+                title={property.title}
+                locationPrivacy={property.ubication.locationPrivacy}
+                approximateRadius={property.ubication.approximateRadius}
+              />
+            </div>
+          </section>
+        )}
 
       {/* Related Properties */}
       <RelatedProperties properties={relatedPropertiesData} />
