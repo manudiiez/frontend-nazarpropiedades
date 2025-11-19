@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { GoogleMap, useJsApiLoader, Marker, Circle } from "@react-google-maps/api";
+import { useMemo } from "react";
 
 interface PropertyMapProps {
   latitude: number;
@@ -17,103 +18,95 @@ export default function PropertyMap({
   locationPrivacy = "exact",
   approximateRadius = 500,
 }: PropertyMapProps) {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<google.maps.Map | null>(null);
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
+  });
 
-  useEffect(() => {
-    // Verificar que el API key esté disponible
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const center = useMemo(() => ({ lat: latitude, lng: longitude }), [latitude, longitude]);
 
-    if (!apiKey) {
-      console.error("Google Maps API key no está configurada");
-      return;
-    }
-
-    // Cargar el script de Google Maps si no está cargado
-    if (!window.google) {
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
-      script.async = true;
-      script.defer = true;
-      script.onload = initMap;
-      document.head.appendChild(script);
-    } else {
-      initMap();
-    }
-
-    function initMap() {
-      if (!mapRef.current) return;
-
-      const position = { lat: latitude, lng: longitude };
-
-      // Configurar zoom según el tipo de privacidad
-      let initialZoom = 15;
-      if (locationPrivacy === "approximate") {
-        // Ajustar zoom según el radio
-        if (approximateRadius >= 1000) {
-          initialZoom = 13;
-        } else if (approximateRadius >= 500) {
-          initialZoom = 14;
-        } else {
-          initialZoom = 15;
-        }
-      }
-
-      // Crear el mapa
-      const map = new google.maps.Map(mapRef.current, {
-        zoom: initialZoom,
-        center: position,
-        mapTypeControl: true,
-        streetViewControl: locationPrivacy === "exact", // Solo mostrar street view en ubicación exacta
-        fullscreenControl: true,
-        zoomControl: true,
-      });
-
-      mapInstanceRef.current = map;
-
-      if (locationPrivacy === "exact") {
-        // Mostrar marcador exacto
-        new google.maps.Marker({
-          position: position,
-          map: map,
-          title: title || "Ubicación de la propiedad",
-        });
-      } else if (locationPrivacy === "approximate") {
-        // Mostrar círculo de área aproximada
-        new google.maps.Circle({
-          strokeColor: "#d24e3b",
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: "#d24e3b",
-          fillOpacity: 0.2,
-          map: map,
-          center: position,
-          radius: approximateRadius, // Radio en metros
-        });
-
-        // Opcional: Agregar un marcador en el centro del círculo
-        new google.maps.Marker({
-          position: position,
-          map: map,
-          title: "Área aproximada",
-          icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 8,
-            fillColor: "#d24e3b",
-            fillOpacity: 0.8,
-            strokeColor: "#ffffff",
-            strokeWeight: 2,
-          },
-        });
+  // Configurar zoom según el tipo de privacidad
+  const initialZoom = useMemo(() => {
+    if (locationPrivacy === "approximate") {
+      if (approximateRadius >= 1000) {
+        return 13;
+      } else if (approximateRadius >= 500) {
+        return 14;
+      } else {
+        return 15;
       }
     }
-  }, [latitude, longitude, title, locationPrivacy, approximateRadius]);
+    return 15;
+  }, [locationPrivacy, approximateRadius]);
+
+  const mapOptions = useMemo(() => ({
+    mapTypeControl: true,
+    streetViewControl: locationPrivacy === "exact",
+    fullscreenControl: true,
+    zoomControl: true,
+  }), [locationPrivacy]);
+
+  const circleOptions = useMemo(() => ({
+    strokeColor: "#d24e3b",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#d24e3b",
+    fillOpacity: 0.2,
+  }), []);
+
+  const approximateMarkerIcon = useMemo(() => ({
+    path: google?.maps?.SymbolPath?.CIRCLE || 0,
+    scale: 8,
+    fillColor: "#d24e3b",
+    fillOpacity: 0.8,
+    strokeColor: "#ffffff",
+    strokeWeight: 2,
+  }), []);
+
+  if (loadError) {
+    return (
+      <div className="w-full h-[400px] rounded-sm bg-gray-100 flex items-center justify-center">
+        <p className="text-gray-500">Error al cargar el mapa</p>
+      </div>
+    );
+  }
+
+  if (!isLoaded) {
+    return (
+      <div className="w-full h-[400px] rounded-sm bg-gray-100 flex items-center justify-center">
+        <p className="text-gray-500">Cargando mapa...</p>
+      </div>
+    );
+  }
 
   return (
-    <div
-      ref={mapRef}
-      className="w-full h-[400px] rounded-sm"
-      style={{ minHeight: "400px" }}
-    />
+    <GoogleMap
+      mapContainerClassName="w-full h-[400px] rounded-sm"
+      mapContainerStyle={{ minHeight: "400px" }}
+      center={center}
+      zoom={initialZoom}
+      options={mapOptions}
+    >
+      {locationPrivacy === "exact" && (
+        <Marker
+          position={center}
+          title={title || "Ubicación de la propiedad"}
+        />
+      )}
+
+      {locationPrivacy === "approximate" && (
+        <>
+          <Circle
+            center={center}
+            radius={approximateRadius}
+            options={circleOptions}
+          />
+          <Marker
+            position={center}
+            title="Área aproximada"
+            icon={approximateMarkerIcon}
+          />
+        </>
+      )}
+    </GoogleMap>
   );
 }
