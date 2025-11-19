@@ -72,7 +72,7 @@ async function getNewProperties(): Promise<Property[]> {
       console.error("NEXT_PUBLIC_BACKEND_URI no está definido en .env");
       return [];
     }
-    console.log('Iniciando fetch')
+    console.log("Iniciando fetch");
 
     const res = await fetch(
       `${backendUri}/propiedades?sort=-createdAt&limit=6`,
@@ -81,7 +81,7 @@ async function getNewProperties(): Promise<Property[]> {
       }
     );
 
-    console.log('Fetch completado:', res);
+    console.log("Fetch completado:", res);
 
     if (!res.ok) {
       console.error(`Error al obtener propiedades nuevas: ${res.status}`);
@@ -104,11 +104,7 @@ export default async function NewPropertiesSection() {
 
   // Si no hay propiedades, no mostrar la sección
   if (properties.length === 0) {
-    return <div className="container mx-auto px-4">
-      <div className="text-center text-2xl font-bold text-gray-800">
-        No hay propiedades nuevas
-      </div>
-    </div>;
+    return null;
   }
 
   return (
