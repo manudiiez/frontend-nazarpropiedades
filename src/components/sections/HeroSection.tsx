@@ -14,7 +14,7 @@ const HeroSection = () => {
         <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
           Inmobiliaria en{' '}
           <span className="underline decoration-accent underline-offset-4">
-            Mendoza.
+            Mendoza...
           </span>
         </h1>
         <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
