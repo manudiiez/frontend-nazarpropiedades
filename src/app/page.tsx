@@ -1,5 +1,5 @@
 export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 import HeroSection from "@/components/sections/HeroSection";
 import FeaturedPropertiesSection from "@/components/sections/FeaturedPropertiesSection";
 import NewPropertiesSection from "@/components/sections/NewPropertiesSection";
