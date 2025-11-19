@@ -104,7 +104,11 @@ export default async function NewPropertiesSection() {
 
   // Si no hay propiedades, no mostrar la sección
   if (properties.length === 0) {
-    return null;
+    return <div className="container mx-auto px-4">
+      <div className="text-center text-2xl font-bold text-gray-800">
+        No hay propiedades nuevas
+      </div>
+    </div>;
   }
 
   return (
