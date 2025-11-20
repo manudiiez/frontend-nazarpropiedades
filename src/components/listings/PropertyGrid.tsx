@@ -6,6 +6,7 @@ import PropertyCardCompact from "./PropertyCardCompact";
 import PropertyCardMedium from "./PropertyCardMedium";
 import PropertyCardWide from "./PropertyCardWide";
 import CustomSelectInput from "@/components/ui/CustomSelectInput";
+import Link from "next/link";
 
 interface PropertyGridProps {
   properties: Property[];
@@ -81,6 +82,9 @@ const PropertyGrid = ({ properties }: PropertyGridProps) => {
           >
             <span className="material-symbols-outlined">view_list</span>
           </button>
+          <Link className="flex items-center border border-accent text-accent hover:bg-accent hover:text-white px-4 py-2 rounded-md transition-colors" href="/mapa">
+            Ver en mapa
+          </Link>
         </div>
 
         {/* Sort By */}
