@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import ContactFormNosotros from "@/components/ContactFormNosotros";
 
 export default function Nosotros() {
