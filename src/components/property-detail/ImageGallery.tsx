@@ -356,7 +356,7 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
             >
               <div
                 ref={modalThumbnailsRef}
-                className="overflow-x-auto scroll-smooth"
+                className="overflow-x-auto scroll-smooth overflow-y-hidden"
                 style={{
                   scrollbarWidth: "thin",
                   scrollbarColor: "rgba(255,255,255,0.3) transparent",

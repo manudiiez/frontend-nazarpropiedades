@@ -20,7 +20,7 @@ interface FormData {
   nombre: string;
   email: string;
   telefono: string;
-  mensaje: string;
+  mensaje: string; 
 }
 
 export default function ContactForm({
