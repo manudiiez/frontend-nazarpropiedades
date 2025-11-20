@@ -218,7 +218,7 @@ export default async function PropertyDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const n8nUri = process.env.NEXT_PUBLIC_N8NFORM_URI;
+  const n8nUri = process.env.N8NFORM_URI;
 
   // Obtener la propiedad desde la API
   const property = await getProperty(id);

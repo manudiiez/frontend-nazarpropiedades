@@ -1,7 +1,7 @@
 import ContactFormNosotros from "@/components/ContactFormNosotros";
 
 export default function Nosotros() {
-  const n8nUri = process.env.NEXT_PUBLIC_N8NFORM_URI;
+  const n8nUri = process.env.N8NFORM_URI;
 
   return (
     <main className="min-h-screen">
