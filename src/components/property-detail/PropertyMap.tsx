@@ -19,6 +19,7 @@ export default function PropertyMap({
   approximateRadius = 500,
 }: PropertyMapProps) {
   const { isLoaded, loadError } = useJsApiLoader({
+    id: 'google-map-script', // Buena práctica: añadir ID
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   });
 
@@ -53,14 +54,21 @@ export default function PropertyMap({
     fillOpacity: 0.2,
   }), []);
 
-  const approximateMarkerIcon = useMemo(() => ({
-    path: google?.maps?.SymbolPath?.CIRCLE || 0,
-    scale: 8,
-    fillColor: "#d24e3b",
-    fillOpacity: 0.8,
-    strokeColor: "#ffffff",
-    strokeWeight: 2,
-  }), []);
+  // 🚨 CORRECCIÓN AQUÍ:
+  // 1. Dependemos de [isLoaded] para que se recalcule cuando llegue el script.
+  // 2. Verificamos typeof google para evitar el ReferenceError.
+  const approximateMarkerIcon = useMemo(() => {
+    if (!isLoaded || typeof google === "undefined") return null;
+
+    return {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 8,
+      fillColor: "#d24e3b",
+      fillOpacity: 0.8,
+      strokeColor: "#ffffff",
+      strokeWeight: 2,
+    };
+  }, [isLoaded]); // <--- Importante: recalcular cuando cargue
 
   if (loadError) {
     return (
@@ -93,7 +101,8 @@ export default function PropertyMap({
         />
       )}
 
-      {locationPrivacy === "approximate" && (
+      {/* Verificamos que approximateMarkerIcon exista antes de renderizar */}
+      {locationPrivacy === "approximate" && approximateMarkerIcon && (
         <>
           <Circle
             center={center}
