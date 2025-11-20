@@ -75,7 +75,7 @@ export default function Nosotros() {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gray-50" id="servicios-nosotros">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-4xl font-semibold text-gray-900 text-center mb-12">
             Nuestros Servicios

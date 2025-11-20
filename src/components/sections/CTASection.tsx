@@ -12,7 +12,7 @@ const CTASection = () => {
           propiedad perfecta que se ajuste a tus necesidades y presupuesto.
         </p>
         <Link
-          href="#contacto"
+          href="/nosotros#contacto"
           className="inline-block bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors"
         >
           Contáctanos

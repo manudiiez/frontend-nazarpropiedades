@@ -32,7 +32,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/propiedades"
+                  href="/propiedades?condition=venta"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Comprar
@@ -40,7 +40,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#servicios"
+                  href="/propiedades?condition=alquiler"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Alquilar
@@ -48,7 +48,23 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#contacto"
+                  href="/nosotros"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Nosotros
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/nosotros#contacto"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Contacto

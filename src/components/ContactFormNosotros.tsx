@@ -1,15 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import CustomSelectInput from "@/components/ui/CustomSelectInput";
 import { propertyTypes } from "@/constants/propertyTypes";
- 
+
 export default function ContactFormNosotros({ n8nUri }: { n8nUri?: string }) {
+  const searchParams = useSearchParams();
   const [serviceType, setServiceType] = useState("");
   const [propertyType, setPropertyType] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Detectar query params y preseleccionar el servicio
+  useEffect(() => {
+    const servicio = searchParams.get("servicio");
+    if (servicio === "tasacion") {
+      setServiceType("tasacion");
+    }
+  }, [searchParams]);
 
   const serviceOptions = [
     { value: "", label: "Selecciona un servicio" },
