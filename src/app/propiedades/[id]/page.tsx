@@ -246,6 +246,7 @@ export default async function PropertyDetailPage({
       <ImageGallery
         images={transformedImages}
         thumbnails={transformedThumbnails}
+        youtubeUrl={property.images.videoUrl}
       />
 
       {/* Hero Section */}

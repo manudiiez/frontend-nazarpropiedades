@@ -7,14 +7,31 @@ interface Image {
   id: number;
   title?: string;
   url: string;
+  isVideo?: boolean;
+  videoUrl?: string;
 }
 
 interface ImageGalleryProps {
   images: Image[];
   thumbnails: Image[];
+  youtubeUrl?: string;
 }
 
-export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) {
+export default function ImageGallery({ images, thumbnails, youtubeUrl }: ImageGalleryProps) {
+  // Helper function para extraer el video ID de YouTube
+  const getYoutubeEmbedUrl = (url: string) => {
+    try {
+      const videoId = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/)?.[1];
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    } catch {
+      return null;
+    }
+  };
+
+  // Preparar imágenes incluyendo el video si existe
+  const allImages = youtubeUrl ? [{ id: -1, url: '', isVideo: true, videoUrl: getYoutubeEmbedUrl(youtubeUrl) || '', title: 'Video' }, ...images] : images;
+  const allThumbnails = youtubeUrl ? [{ id: -1, url: '', isVideo: true, videoUrl: getYoutubeEmbedUrl(youtubeUrl) || '', title: 'Video' }, ...thumbnails] : thumbnails;
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,10 +46,10 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
     if (hasInteracted) return; // No hacer auto-advance si ya interactuó
 
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length);
+      setCurrentSlide((prev) => (prev + 1) % allImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [images.length, hasInteracted]);
+  }, [allImages.length, hasInteracted]);
 
   // Scroll thumbnails to center current image
   useEffect(() => {
@@ -51,12 +68,12 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
 
   const nextSlide = () => {
     setHasInteracted(true); // Marcar que el usuario interactuó
-    setCurrentSlide((prev) => (prev + 1) % images.length);
+    setCurrentSlide((prev) => (prev + 1) % allImages.length);
   };
 
   const prevSlide = () => {
     setHasInteracted(true); // Marcar que el usuario interactuó
-    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentSlide((prev) => (prev - 1 + allImages.length) % allImages.length);
   };
 
   const selectSlide = (index: number) => {
@@ -66,6 +83,10 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
 
   // Funciones para el modal
   const openModal = (index: number) => {
+    // No abrir el modal si es un video
+    if (allImages[index]?.isVideo) {
+      return;
+    }
     setModalSlide(index);
     setIsModalOpen(true);
     document.body.style.overflow = "hidden"; // Prevenir scroll del body
@@ -77,11 +98,11 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
   };
 
   const nextModalSlide = () => {
-    setModalSlide((prev) => (prev + 1) % images.length);
+    setModalSlide((prev) => (prev + 1) % allImages.length);
   };
 
   const prevModalSlide = () => {
-    setModalSlide((prev) => (prev - 1 + images.length) % images.length);
+    setModalSlide((prev) => (prev - 1 + allImages.length) % allImages.length);
   };
 
   const selectModalSlide = (index: number) => {
@@ -160,40 +181,55 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
       <div className="max-w-7xl mx-auto px-6">
         {/* Grid principal con imagen grande y previsualizaciones */}
         <div className="grid grid-cols-1  lg:grid-cols-[900px_1fr] gap-3 mb-4">
-          {/* Imagen principal */}
+          {/* Imagen principal o video */}
           <div
-            className="relative h-[500px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer group"
+            className={`relative h-[500px] bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden group ${
+              !allImages[currentSlide]?.isVideo ? 'cursor-pointer' : 'pointer-events-none'
+            }`}
             onClick={() => openModal(currentSlide)}
           >
-            {images.map((image, index) => (
+            {allImages.map((image, index) => (
               <div
                 key={image.id}
                 className={`absolute inset-0 transition-opacity duration-600 ${
-                  currentSlide === index ? "opacity-100" : "opacity-0"
+                  currentSlide === index ? "opacity-100 z-10" : "opacity-0"
                 }`}
               >
-                <Image
-                  src={image.url}
-                  alt={image.title || `Imagen ${index + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="700px"
-                  priority={index === 0}
-                />
+                {image.isVideo && image.videoUrl ? (
+                  <iframe
+                    src={image.videoUrl}
+                    className="w-full h-full relative z-20 pointer-events-auto"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title="Video de la propiedad"
+                  />
+                ) : (
+                  <Image
+                    src={image.url}
+                    alt={image.title || `Imagen ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="700px"
+                    priority={index === 0}
+                  />
+                )}
               </div>
             ))}
 
-            {/* Overlay para indicar que es clickeable */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
-              <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 px-4 py-2 rounded-full flex items-center gap-2">
-                <span className="material-symbols-outlined text-gray-900">
-                  zoom_in
-                </span>
-                <span className="text-sm font-medium text-gray-900">
-                  Ver en grande
-                </span>
+            {/* Overlay para indicar que es clickeable - solo para imágenes */}
+            {!allImages[currentSlide]?.isVideo && (
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 px-4 py-2 rounded-full flex items-center gap-2">
+                  <span className="material-symbols-outlined text-gray-900">
+                    zoom_in
+                  </span>
+                  <span className="text-sm font-medium text-gray-900">
+                    Ver en grande
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Previous Button */}
             <button
@@ -201,7 +237,7 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
                 e.stopPropagation();
                 prevSlide();
               }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10"
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10 pointer-events-auto"
               aria-label="Imagen anterior"
             >
               <span className="material-symbols-outlined text-gray-900 text-xl">
@@ -215,7 +251,7 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
                 e.stopPropagation();
                 nextSlide();
               }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10"
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10 pointer-events-auto"
               aria-label="Siguiente imagen"
             >
               <span className="material-symbols-outlined text-gray-900 text-xl">
@@ -225,40 +261,52 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
 
             {/* Counter */}
             <div className="absolute top-4 right-4 text-white text-sm font-medium bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-md">
-              {currentSlide + 1} / {images.length}
+              {currentSlide + 1} / {allImages.length}
             </div>
           </div>
 
           {/* Previsualizaciones a la derecha - solo en desktop */}
           <div className="hidden md:grid grid-rows-2 gap-3">
             {/* Primera previsualización */}
-            {thumbnails[(currentSlide + 1) % thumbnails.length] && (
+            {allThumbnails[(currentSlide + 1) % allThumbnails.length] && (
               <div
-                onClick={() => selectSlide((currentSlide + 1) % images.length)}
+                onClick={() => selectSlide((currentSlide + 1) % allImages.length)}
                 className="relative h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
               >
-                <Image
-                  src={thumbnails[(currentSlide + 1) % thumbnails.length].url}
-                  alt={thumbnails[(currentSlide + 1) % thumbnails.length].title || "Vista previa"}
-                  fill
-                  className="object-cover"
-                  sizes="300px"
-                />
+                {allThumbnails[(currentSlide + 1) % allThumbnails.length].isVideo ? (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-800">
+                    <span className="material-symbols-outlined text-white text-6xl">play_circle</span>
+                  </div>
+                ) : (
+                  <Image
+                    src={allThumbnails[(currentSlide + 1) % allThumbnails.length].url}
+                    alt={allThumbnails[(currentSlide + 1) % allThumbnails.length].title || "Vista previa"}
+                    fill
+                    className="object-cover"
+                    sizes="300px"
+                  />
+                )}
               </div>
             )}
             {/* Segunda previsualización */}
-            {thumbnails[(currentSlide + 2) % thumbnails.length] && (
+            {allThumbnails[(currentSlide + 2) % allThumbnails.length] && (
               <div
-                onClick={() => selectSlide((currentSlide + 2) % images.length)}
+                onClick={() => selectSlide((currentSlide + 2) % allImages.length)}
                 className="relative h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-sm overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
               >
-                <Image
-                  src={thumbnails[(currentSlide + 2) % thumbnails.length].url}
-                  alt={thumbnails[(currentSlide + 2) % thumbnails.length].title || "Vista previa"}
-                  fill
-                  className="object-cover"
-                  sizes="300px"
-                />
+                {allThumbnails[(currentSlide + 2) % allThumbnails.length].isVideo ? (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-800">
+                    <span className="material-symbols-outlined text-white text-6xl">play_circle</span>
+                  </div>
+                ) : (
+                  <Image
+                    src={allThumbnails[(currentSlide + 2) % allThumbnails.length].url}
+                    alt={allThumbnails[(currentSlide + 2) % allThumbnails.length].title || "Vista previa"}
+                    fill
+                    className="object-cover"
+                    sizes="300px"
+                  />
+                )}
               </div>
             )}
           </div>
@@ -274,7 +322,7 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
           }}
         >
           <div className="flex gap-2 pb-2">
-            {thumbnails.map((thumbnail, index) => (
+            {allThumbnails.map((thumbnail, index) => (
               <button
                 key={thumbnail.id}
                 onClick={() => selectSlide(index)}
@@ -283,15 +331,21 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
                     ? "ring-2 ring-accent scale-105"
                     : "opacity-60 hover:opacity-100"
                 }`}
-                aria-label={`Ver imagen ${index + 1}`}
+                aria-label={thumbnail.isVideo ? "Ver video" : `Ver imagen ${index + 1}`}
               >
-                <Image
-                  src={thumbnail.url}
-                  alt={thumbnail.title || `Imagen ${index + 1}`}
-                  width={72}
-                  height={64}
-                  className="object-cover w-full h-full"
-                />
+                {thumbnail.isVideo ? (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-800">
+                    <span className="material-symbols-outlined text-white text-3xl">play_circle</span>
+                  </div>
+                ) : (
+                  <Image
+                    src={thumbnail.url}
+                    alt={thumbnail.title || `Imagen ${index + 1}`}
+                    width={72}
+                    height={64}
+                    className="object-cover w-full h-full"
+                  />
+                )}
                 {currentSlide === index && (
                   <div className="absolute inset-0 border-2 border-accent pointer-events-none" />
                 )}
@@ -309,7 +363,7 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
             {/* Header del modal */}
             <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-gradient-to-b from-black/50 to-transparent pointer-events-none">
               <div className="text-white text-lg font-medium">
-                {modalSlide + 1} / {images.length}
+                {modalSlide + 1} / {allImages.length}
               </div>
               <button
                 onClick={closeModal}
@@ -322,9 +376,9 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
               </button>
             </div>
 
-            {/* Contenedor de la imagen */}
+            {/* Contenedor de la imagen (videos no se muestran en el modal) */}
             <div className="w-full max-w-7xl mx-auto h-full relative flex items-center justify-center p-4 md:p-8 pointer-events-none">
-              {images.map((image, index) => (
+              {allImages.map((image, index) => (
                 <div
                   key={image.id}
                   className={`transition-opacity duration-300 ${
@@ -333,18 +387,20 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
                       : "opacity-0 absolute pointer-events-none"
                   }`}
                 >
-                  <img
-                    src={image.url}
-                    alt={image.title || `Imagen ${index + 1}`}
-                    className="max-w-full max-h-[80vh] w-auto h-auto object-contain pointer-events-auto cursor-default"
-                    style={{
-                      objectFit: "contain",
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                  />
+                  {!image.isVideo && (
+                    <img
+                      src={image.url}
+                      alt={image.title || `Imagen ${index + 1}`}
+                      className="max-w-full max-h-[80vh] w-auto h-auto object-contain pointer-events-auto cursor-default"
+                      style={{
+                        objectFit: "contain",
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                      onTouchStart={handleTouchStart}
+                      onTouchMove={handleTouchMove}
+                      onTouchEnd={handleTouchEnd}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -363,7 +419,7 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
                 }}
               >
                 <div className="flex gap-2 justify-center">
-                  {thumbnails.map((thumbnail, index) => (
+                  {allThumbnails.map((thumbnail, index) => (
                     <button
                       key={thumbnail.id}
                       onClick={() => selectModalSlide(index)}
@@ -372,15 +428,21 @@ export default function ImageGallery({ images, thumbnails }: ImageGalleryProps) 
                           ? "ring-2 ring-white scale-105 opacity-100"
                           : "opacity-50 hover:opacity-80"
                       }`}
-                      aria-label={`Ver imagen ${index + 1}`}
+                      aria-label={thumbnail.isVideo ? "Ver video" : `Ver imagen ${index + 1}`}
                     >
-                      <Image
-                        src={thumbnail.url}
-                        alt={thumbnail.title || `Imagen ${index + 1}`}
-                        width={72}
-                        height={64}
-                        className="object-cover w-full h-full"
-                      />
+                      {thumbnail.isVideo ? (
+                        <div className="w-full h-full flex items-center justify-center bg-gray-800">
+                          <span className="material-symbols-outlined text-white text-3xl">play_circle</span>
+                        </div>
+                      ) : (
+                        <Image
+                          src={thumbnail.url}
+                          alt={thumbnail.title || `Imagen ${index + 1}`}
+                          width={72}
+                          height={64}
+                          className="object-cover w-full h-full"
+                        />
+                      )}
                     </button>
                   ))}
                 </div>
