@@ -23,7 +23,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Lógica para definir el TAG exacto
+      # Lógica para definir el TAG exacto, ej. v1.0.0
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
