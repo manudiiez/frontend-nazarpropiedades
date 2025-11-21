@@ -120,6 +120,7 @@ export interface Extra {
   alturaDeposito?: number;
   banosPiso?: number;
   cantidadOficinas?: number;
+  virtualTourUrl?: string; // URL del recorrido virtual (Matterport u otro)
 }
 
 export interface Environments {

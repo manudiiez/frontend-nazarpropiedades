@@ -4,6 +4,7 @@ import PropertyDetails from "@/components/property-detail/PropertyDetails";
 import ContactForm from "@/components/property-detail/ContactForm";
 import RelatedProperties from "@/components/property-detail/RelatedProperties";
 import PropertyMap from "@/components/property-detail/PropertyMap";
+import VirtualTour from "@/components/property-detail/VirtualTour";
 import type { Agent, Property } from "@/types/property";
 import { notFound } from "next/navigation";
 import { getDepartmentLabel, getLocalityLabel } from "@/utils/propertyLabels";
@@ -281,7 +282,7 @@ export default async function PropertyDetailPage({
       {/* Map Section */}
       {property.ubication?.mapLocation &&
         property.ubication?.locationPrivacy !== "hidden" && (
-          <section className="max-w-7xl mx-auto px-6 py-24">
+          <section className="max-w-7xl mx-auto px-6 pt-24">
             <div className="bg-white border border-gray-200 rounded-sm p-12">
               <h2 className="text-3xl font-semibold text-gray-900 mb-8">
                 Ubicación
@@ -304,6 +305,9 @@ export default async function PropertyDetailPage({
             </div>
           </section>
         )}
+
+      {/* Virtual Tour Section */}
+      <VirtualTour virtualTourUrl={property.images.virtualTourUrl} />
 
       {/* Related Properties */}
       <RelatedProperties properties={relatedPropertiesData} />
