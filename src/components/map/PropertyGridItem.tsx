@@ -1,5 +1,6 @@
 "use client";
 
+import { getDepartmentLabel, getLocalityLabel } from "@/utils/propertyLabels";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -34,16 +35,27 @@ export default function PropertyGridItem({
   onClick,
 }: PropertyGridItemProps) {
   // Construir la ubicación en texto
+
   const locationParts = [
-    property.ubication?.neighborhood,
-    property.ubication?.locality,
-    property.ubication?.department,
+    property?.ubication?.neighborhood,
+    getLocalityLabel(property?.ubication?.locality || ""),
+    getDepartmentLabel(property?.ubication?.department || ""),
+    property?.ubication?.province,
   ].filter(Boolean);
 
-  const locationText =
-    locationParts.length > 0
-      ? locationParts.join(", ")
-      : "Ubicación no especificada";
+  if (
+    property?.ubication?.neighborhood &&
+    locationParts[1] === locationParts[2]
+  ) {
+    locationParts.splice(1, 1);
+  } else if (
+    !property?.ubication?.neighborhood &&
+    locationParts[0] === locationParts[1]
+  ) {
+    locationParts.splice(0, 1);
+  }
+  const locationText = locationParts.join(", ");
+  
 
   // Formatear precio
   const formattedPrice = new Intl.NumberFormat("es-AR", {
@@ -88,7 +100,7 @@ export default function PropertyGridItem({
 
         {/* Título */}
         <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 min-h-[48px]">
-          {property.title}
+          {locationText}
         </h3>
 
         {/* Ubicación */}

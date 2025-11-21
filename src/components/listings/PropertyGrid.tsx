@@ -82,9 +82,9 @@ const PropertyGrid = ({ properties }: PropertyGridProps) => {
           >
             <span className="material-symbols-outlined">view_list</span>
           </button>
-          <Link className="flex items-center border border-accent text-accent hover:bg-accent hover:text-white px-4 py-2 rounded-md transition-colors" href="/mapa">
+          {/* <Link className="flex items-center border border-accent text-accent hover:bg-accent hover:text-white px-4 py-2 rounded-md transition-colors" href="/mapa">
             Ver en mapa
-          </Link>
+          </Link> */}
         </div>
 
         {/* Sort By */}

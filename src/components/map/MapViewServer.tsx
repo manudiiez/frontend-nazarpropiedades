@@ -29,6 +29,7 @@ interface Filters {
   locality: string;
   type: string;
   condition: string;
+  search: string;
 }
 
 interface MapViewServerProps {
@@ -37,33 +38,47 @@ interface MapViewServerProps {
     locality?: string;
     type?: string;
     condition?: string;
+    search?: string;
     north?: string;
     south?: string;
     east?: string;
     west?: string;
+    page?: string;
   };
 }
 
 async function fetchInitialProperties(
   filters: Filters,
-  bounds?: { north: string; south: string; east: string; west: string }
-): Promise<Property[]> {
+  bounds?: { north: string; south: string; east: string; west: string },
+  page: number = 1
+): Promise<{ properties: Property[]; pagination: any }> {
   try {
     const backendUri = process.env.NEXT_PUBLIC_BACKEND_URI;
     if (!backendUri) {
       console.error("NEXT_PUBLIC_BACKEND_URI no está definido");
-      return [];
+      return { properties: [], pagination: { totalDocs: 0, limit: 20, totalPages: 0, page: 1, hasPrevPage: false, hasNextPage: false } };
     }
 
     // Construir query params en formato Payload API
     const queryParams = new URLSearchParams();
 
-    // Límite de resultados
+    // Límite de resultados y página
     queryParams.append("limit", "20");
+    queryParams.append("page", page.toString());
     queryParams.append("depth", "2");
 
     // Filtro: solo propiedades activas
     queryParams.append("where[status][equals]", "activa");
+
+    // Búsqueda por texto - buscar en title y todos los campos de ubicación con OR
+    if (filters.search) {
+      queryParams.append("where[or][0][title][like]", filters.search);
+      queryParams.append("where[or][1][ubication.address][like]", filters.search);
+      queryParams.append("where[or][2][ubication.neighborhood][like]", filters.search);
+      queryParams.append("where[or][3][ubication.locality][like]", filters.search);
+      queryParams.append("where[or][4][ubication.department][like]", filters.search);
+      queryParams.append("where[or][5][ubication.province][like]", filters.search);
+    }
 
     // Viewport - usar bounds de la URL o viewport inicial de Mendoza
     const north = bounds?.north || "-32.5";
@@ -97,11 +112,11 @@ async function fetchInitialProperties(
         next: { revalidate: 0 },
       }
     );
-
+    console.log("Fetch URL:", `${backendUri}/propiedades?${queryParams}`);
 
     if (!response.ok) {
       console.error(`HTTP error! status: ${response.status}`);
-      return [];
+      return { properties: [], pagination: { totalDocs: 0, limit: 20, totalPages: 0, page: 1, hasPrevPage: false, hasNextPage: false } };
     }
 
     const data = await response.json();
@@ -136,10 +151,20 @@ async function fetchInitialProperties(
       })
     );
 
-    return transformedProperties;
+    // Extraer información de paginación de la respuesta
+    const pagination = {
+      totalDocs: data.totalDocs || 0,
+      limit: data.limit || 20,
+      totalPages: data.totalPages || 0,
+      page: data.page || 1,
+      hasPrevPage: data.hasPrevPage || false,
+      hasNextPage: data.hasNextPage || false,
+    };
+
+    return { properties: transformedProperties, pagination };
   } catch (error) {
     console.error("Error al obtener propiedades iniciales:", error);
-    return [];
+    return { properties: [], pagination: { totalDocs: 0, limit: 20, totalPages: 0, page: 1, hasPrevPage: false, hasNextPage: false } };
   }
 }
 
@@ -152,6 +177,7 @@ export default async function MapViewServer({
     locality: searchParams.locality || "",
     type: searchParams.type || "",
     condition: searchParams.condition || "",
+    search: searchParams.search || "",
   };
 
   // Extraer bounds si existen
@@ -165,8 +191,11 @@ export default async function MapViewServer({
         }
       : undefined;
 
+  // Extraer página
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+
   // Fetch inicial de propiedades desde el servidor
-  const initialProperties = await fetchInitialProperties(filters, bounds);
+  const { properties, pagination } = await fetchInitialProperties(filters, bounds, page);
 
   return (
     <div className="w-full">
@@ -175,8 +204,9 @@ export default async function MapViewServer({
 
       {/* Mapa y grid (componente cliente) */}
       <MapViewClient
-        initialProperties={initialProperties}
+        initialProperties={properties}
         initialFilters={filters}
+        initialPagination={pagination}
       />
     </div>
   );

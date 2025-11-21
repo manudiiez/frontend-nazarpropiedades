@@ -14,6 +14,7 @@ interface Filters {
   locality: string;
   type: string;
   condition: string;
+  search: string;
 }
 
 interface MapFiltersProps {
@@ -72,6 +73,9 @@ export default function MapFilters({ filters }: MapFiltersProps) {
     // Construir query params para la URL
     const params = new URLSearchParams();
 
+    if (localFilters.search) {
+      params.set("search", localFilters.search);
+    }
     if (localFilters.department) {
       params.set("department", localFilters.department);
     }
@@ -95,6 +99,7 @@ export default function MapFilters({ filters }: MapFiltersProps) {
       locality: "",
       type: "",
       condition: "",
+      search: "",
     };
     setLocalFilters(clearedFilters);
 
@@ -108,6 +113,20 @@ export default function MapFilters({ filters }: MapFiltersProps) {
         <h2 className="text-2xl font-bold text-gray-900 mb-6">
           Buscar propiedades en el mapa
         </h2>
+
+        {/* Search Input */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-900 mb-2">
+            Buscar por palabra clave
+          </label>
+          <input
+            type="text"
+            value={localFilters.search}
+            onChange={(e) => handleFilterChange("search", e.target.value)}
+            placeholder="Ej: Casa en Luján de Cuyo, Mendoza..."
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-sm"
+          />
+        </div>
 
         {/* Grid de filtros */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">

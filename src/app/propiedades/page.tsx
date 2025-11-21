@@ -103,6 +103,7 @@ function buildQueryString(searchParams: SearchParams): string {
   params.append("page", page);
   params.append("limit", "18");
   params.append("sort", "-createdAt");
+  params.append("where[status][equals]", "activa");
 
   // Búsqueda por texto - buscar en title y todos los campos de ubicación con OR
   if (searchParams.search) {
